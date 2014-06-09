@@ -1,0 +1,42 @@
+application: nusxchange
+version: 1
+
+runtime: python27
+
+api_version: 1
+
+threadsafe: true
+
+
+
+handlers:
+
+
+- url: /stylesheets
+
+  static_dir: stylesheets
+
+
+
+- url: /images
+  static_dir: images
+
+
+# Twitter Bootstrap
+
+- url: /bootstrap
+
+  static_dir: bootstrap
+
+
+# Handler for front page
+
+- url: /.*
+  script: nusxchange.app
+
+
+libraries:
+
+- name: jinja2
+
+  version: latest
