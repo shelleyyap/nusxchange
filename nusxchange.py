@@ -18,6 +18,18 @@ class MainPage(webapp2.RequestHandler):
         template = jinja_environment.get_template('front.html')
         self.response.out.write(template.render())
 
-app = webapp2.WSGIApplication([('/', MainPage)],
+class About(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('about.html')
+        self.response.out.write(template.render())
+
+class Contact(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('contact.html')
+        self.response.out.write(template.render())
+
+app = webapp2.WSGIApplication([('/', MainPage),
+								('/about', About),
+								('/contact', Contact)],
                               debug=True)
 
