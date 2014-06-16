@@ -28,8 +28,14 @@ class Contact(webapp2.RequestHandler):
         template = jinja_environment.get_template('contact.html')
         self.response.out.write(template.render())
 
+class Countries(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('countries.html')
+        self.response.out.write(template.render())
+
 app = webapp2.WSGIApplication([('/', MainPage),
 								('/about', About),
-								('/contact', Contact)],
+								('/contact', Contact),
+                                ('/countries', Countries)],
                               debug=True)
 

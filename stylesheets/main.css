@@ -34,13 +34,21 @@ body {
   height: 200px;
 }
 
-.editimg2{
-  max-width: 100%;
-  vertical-align: center;
-}
-
 .editf2{
   font-size:20px;
+}
+
+.countriesimg{
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  height: 237px;
+}
+
+.countriesborder{
+  border:2px solid black;
+  height: 237px;
+  border-radius: 25px;
 }
 
 /* Customize the nav-justified links to be fill the entire space of the .navbar */
