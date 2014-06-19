@@ -1,97 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>NUSXchange - School Name</title>
+  <title>NUSXchange - School Name</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="../stylesheets/main.css" />
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="../stylesheets/main.css" />
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
+      <![endif]-->
+    </head>
 
-  <body>
+    <body>
 
-    <div class="container">
+      <div class="container">
 
-      <div class="masthead">
-        <img src="../images/logo.png" />
-        <ul class="nav nav-justified">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="countries">Countries</a></li>
-          <li><a href="#">Search</a></li>
-          <li><a href="https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/">Login</a></li>
-          <li><a href="/contact">Contact Us</a></li>
+        <div class="masthead">
+          <img src="../images/logo.png" />
+          <ul class="nav nav-justified">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="countries">Countries</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/">Login</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-md-4">
+            <img src="../images/exchange.png" /> 
+            <p>Image of School</p>
+            <div>
+              <p>Type of Exchange</p>
+              <p>Academic Calendar</p>
+              <p>RATINGS</p>
+              <p><a href="#" class="btn btn-default btn-success">Modules Offered</a></p>
+              <p><a href="#" class="btn btn-default btn-success">Module Mappings</a></p>
+            </div>
+
+          </div>
+          <div class="col-md-8">
+            <h2 align="justify">
+              <strong>Korea University</strong>
+            </h2>
+            <h2>Seoul, South Korea
+            </h2>
+            <p align="justify">Korea University is a nonsectarian, private research university located primarily in Seoul, South Korea, and one of the SKY universities, a historical acronym used in South Korea to refer to Seoul National University, Korea University, and Yonsei University.</p>
+
+            <p align="justify">Korea University (KU) launches its "Vision 2005" program, aimed at improving the standard of education and quality of student life. With 14 colleges spread over three campuses in two cities, Korea University is the largest private institution of higher education in the country. Its reputation for quality education is unmatched by any other institution in the nation. Almost all the courses are taught in the Korean Language.</p>
+
+          </div>
+        </div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#reviews" data-toggle="tab">Reviews</a></li>
+          <li><a href="#comments" data-toggle="tab">Comments</a></li>
         </ul>
-      </div>
 
+        <!-- Tab panes -->
+        <div id="my-tab-content" class="tab-content">
+          <div class="tab-pane active" id="reviews">Actual contents</div>
+          <div class="tab-pane" id="comments">
+            {% for comment in comments %}
+              {% if comment.author %}
+                <b>{{ comment.author.nickname() }}</b> wrote:
+              {% else %}
+                An anonymous person wrote:
+              {% endif %}
+              <blockquote>{{ comment.content|escape }}</blockquote>
+            {% endfor %}
 
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <img src="../images/exchange.png" /> 
-          <p>Image of School</p>
-          <div>
-            <p>Type of Exchange</p>
-            <p>Academic Calendar</p>
-            <p>RATINGS</p>
-            <p><a href="#" class="btn btn-default btn-success">Modules Offered</a></p>
-            <p><a href="#" class="btn btn-default btn-success">Module Mappings</a></p>
+            <form action="/university" method="post">
+              <input type="hidden" name="comments_name">
+              <div><textarea placeholder="Click to enter your comments" name="content" rows="3" cols="100"></textarea></div>
+              <div><input type="submit" value="Post Comment"></div>
+            </form>
+
+            <a href="{{ url}}">{{ url_linktext }}</a>
           </div>
 
         </div>
-        <div class="col-md-8">
-          <h2 align="justify">
-          <strong>Korea University</strong>
-          </h2>
-          <h2>Seoul, South Korea
-          </h2>
-          <p align="justify">Korea University is a nonsectarian, private research university located primarily in Seoul, South Korea, and one of the SKY universities, a historical acronym used in South Korea to refer to Seoul National University, Korea University, and Yonsei University.</p>
 
-          <p align="justify">Korea University (KU) launches its "Vision 2005" program, aimed at improving the standard of education and quality of student life. With 14 colleges spread over three campuses in two cities, Korea University is the largest private institution of higher education in the country. Its reputation for quality education is unmatched by any other institution in the nation. Almost all the courses are taught in the Korean Language.</p>
+        <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+          $('#tabs').tab();
+        });
+        </script>  
+        
+        <!-- Site footer -->
+        <div class="footer">
+          <p>&copy; Company 2013</p>
+        </div>
 
-       </div>
-      </div>
-
-      <!-- Nav tabs -->
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#" data-toggle="tab">Reviews</a></li>
-  <li><a href="#profile" data-toggle="tab">Comments</a></li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane active" id="home">Acutal contents</div>
-  <div class="tab-pane" id="profile">...</div>
-
-</div>
+      </div> <!-- /container -->
 
 
-      <!-- Site footer -->
-      <div class="footer">
-        <p>&copy; Company 2013</p>
->>>>>>> 86652666d31ba63b5b7f5deeafaaec9f67895a84
-      </div>
-
-    </div> <!-- /container -->
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-  </body>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="../bootstrap/js/bootstrap.js"></script>
+    </body>
 </html>
