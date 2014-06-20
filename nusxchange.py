@@ -44,59 +44,6 @@ class Comments(ndb.Model):
   def query_book(cls, ancestor_key):
     return cls.query(ancestor=ancestor_key).order(-cls.date)
 
-class School(ndb.Model):
-  """Models an SEP partner university with general information, ratings, reviews and comments."""
-  country = ndb.StringProperty()
-  state = ndb.StringProperty()
-  school_name = ndb.StringProperty()
-
-  exchange_type = ndb.StringProperty()
-  academic_calendar = ndb.StringProperty()
-  recommended_fac_maj = ndb.StringProperty()
-  language = ndb.StringProperty()
-  average_rating = ndb.FloatProperty()
-  expected_cost = ndb.IntegerProperty()
-
-  modules_offered = ndb.LinkProperty()
-  """module_mappings="""
-  about = ndb.StringProperty()
-
-"""
-  @classmethod
-  def query_book(cls, ancestor_key):
-    return cls.query(ancestor=ancestor_key).order(-cls.date)"""
-
-class Reviews(ndb.Model):
-  """Models a review with author, date, major, university, date of exchange, ratings, review"""
-  school = ndb.ReferenceProperty(School, collection_name='university_reviews')
-  """Author details"""
-  author = ndb.UserProperty()
-  date = ndb.DateProperty(auto_now_add=True)
-  semester = ndb.StringProperty()
-  major = ndb.StringProperty()
-  """Ratings"""
-  overall_rating = ndb.IntegerProperty()
-  cost_rating = ndb.IntegerProperty()
-  life_rating = ndb.IntegerProperty()
-  academics_rating = ndb.IntegerProperty()
-  """Expenses"""
-  total_expenditure = ndb.IntegerProperty()
-  accommodation = ndb.IntegerProperty()
-  food = ndb.IntegerProperty()
-  transport = ndb.IntegerProperty()
-  academic_needs = ndb.IntegerProperty()
-  others = ndb.IntegerProperty()
-  """Actual review"""
-  content = ndb.TextProperty()
-
-class Mapping(ndb.Model):
-  """Models approved module mapping for a review"""
-  review = ndb.ReferenceProperty(Reviews, collection_name='approved_mappings')
-  exchange_module = ndb.StringProperty()
-  credits = ndb.IntegerProperty()
-  nus_module = ndb.StringProperty()
-  nus_credits = ndb.IntegerProperty()
-
 class University(webapp2.RequestHandler):
     def show(self):
         comments_name = self.request.get('comments_name')
@@ -115,6 +62,7 @@ class University(webapp2.RequestHandler):
             'comments': comments,
             'url': url,
             'url_linktext': url_linktext,
+            'date': datetime.datetime.now()
         }
 
         template = jinja_environment.get_template('university.html')
