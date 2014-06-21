@@ -15,6 +15,7 @@
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="../stylesheets/main.css" />
   <link rel="stylesheet" href="../stylesheets/commentbox.css" />
+  <link rel="stylesheet" href="../stylesheets/reviewbox.css" />
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -75,7 +76,44 @@
 
         <!-- Tab panes -->
         <div id="my-tab-content" class="tab-content">
-          <div class="tab-pane active" id="reviews">Actual contents</div>
+          <div class="tab-pane active" id="reviews">
+              {% for review in reviews}                
+              <div class="review">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="reviewBox">
+                      <h6> {{review.author)()}} ({{review.author.major()}}) </h6> 
+                      <h6> {{review.university()}}, {{review.university.country()}} </h6>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="reviewLeft">
+                          <h6> Exchange in {{review.year()}}, Sem {{review.semester()}} </h6>
+                          <p>
+                            <ol>
+                              {{MODULE MAPPINGS???}}
+                              <li> GEM </li>
+                              <li> GEM </li>
+                              <li> GEM </li>
+                            </ol>
+                          </p>
+                          <p>RATINGS</p>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="reviewRight">
+                         <p> {{review.contents()}} </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% end for %}
+               <a class="btn btn-default" href="{{ url }}">Submit review</a>
+            </div>
+            
+                    
           <div class="tab-pane" id="comments">
             <div class="detailBox">
               <div class="actionBox">

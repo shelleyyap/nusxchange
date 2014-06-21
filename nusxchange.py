@@ -44,31 +44,9 @@ class Comments(ndb.Model):
   def query_book(cls, ancestor_key):
     return cls.query(ancestor=ancestor_key).order(-cls.date)
 
-class School(ndb.Model):
-  """Models an SEP partner university with general information, ratings, reviews and comments."""
-  country = ndb.StringProperty()
-  state = ndb.StringProperty()
-  school_name = ndb.StringProperty()
 
-  exchange_type = ndb.StringProperty()
-  academic_calendar = ndb.StringProperty()
-  recommended_fac_maj = ndb.StringProperty()
-  language = ndb.StringProperty()
-  average_rating = ndb.FloatProperty()
-  expected_cost = ndb.IntegerProperty()
-
-  modules_offered = ndb.LinkProperty()
-  """module_mappings="""
-  about = ndb.StringProperty()
-
-"""
-  @classmethod
-  def query_book(cls, ancestor_key):
-    return cls.query(ancestor=ancestor_key).order(-cls.date)"""
-
-class Reviews(ndb.Model):
+class Review(ndb.Model):
   """Models a review with author, date, major, university, date of exchange, ratings, review"""
-  school = ndb.ReferenceProperty(School, collection_name='university_reviews')
   """Author details"""
   author = ndb.UserProperty()
   date = ndb.DateProperty(auto_now_add=True)
@@ -89,13 +67,20 @@ class Reviews(ndb.Model):
   """Actual review"""
   content = ndb.TextProperty()
 
+  @classmethod
+  def query_review(cls, ancestor_key):
+    return cls.query(ancestor=ancestor_key)
+
 class Mapping(ndb.Model):
   """Models approved module mapping for a review"""
-  review = ndb.ReferenceProperty(Reviews, collection_name='approved_mappings')
   exchange_module = ndb.StringProperty()
   credits = ndb.IntegerProperty()
   nus_module = ndb.StringProperty()
   nus_credits = ndb.IntegerProperty()
+
+  @classmethod
+  def query_mapping(cls, ancestor_key):
+    return cls.query(ancestor=ancestor_key)
 
 class University(webapp2.RequestHandler):
     def show(self):
