@@ -49,7 +49,37 @@
             <div>
               <p>Type of Exchange</p>
               <p>Academic Calendar</p>
-              <p>RATINGS</p>
+              <p>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{Overall}}" aria-valuemin="0" aria-valuemax="100" style="width: {{ overall * 10 }}%" id="overall">
+                    <span>{{ overall }}</span>
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ Cost }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ cost * 10 }}%">
+                    <span class="sr-only">{{ cost }}</span>
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ life }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ life * 10 }}%">
+                    <span class="sr-only">{{ life }}</span>
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ academics }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ academics * 10 }}%">
+                    <span class="sr-only">{{ academics }}</span>
+                  </div>
+                </div>
+                <div>
+                          <h4> Expenditure </h4>
+                          <h5> Total expenditure: {{ total }} </h5>
+                          <h5> Accommodation: {{ accommodation }} </h5>
+                          <h5> Food: {{ food }} </h5>
+                          <h5> Transport: {{ transport }} </h5>
+                          <h5> Academic needs: {{ academic_needs }} </h5>
+                          <h5> Others: {{ others }} </h5>
+                        </div>
+              </p>
               <p><a href="#" class="btn btn-default btn-success">Modules Offered</a></p>
               <p><a href="#" class="btn btn-default btn-success">Module Mappings</a></p>
             </div>
@@ -77,67 +107,95 @@
         <!-- Tab panes -->
         <div id="my-tab-content" class="tab-content">
           <div class="tab-pane active" id="reviews">
-              {% for review in reviews}                
-              <div class="review">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="reviewBox">
-                      <h6> {{review.author)()}} ({{review.author.major()}}) </h6> 
-                      <h6> {{review.university()}}, {{review.university.country()}} </h6>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="reviewLeft">
-                          <h6> Exchange in {{review.year()}}, Sem {{review.semester()}} </h6>
-                          <p>
-                            <ol>
-                              {{MODULE MAPPINGS???}}
-                              <li> GEM </li>
-                              <li> GEM </li>
-                              <li> GEM </li>
-                            </ol>
-                          </p>
-                          <p>RATINGS</p>
-                        </div>
-                      </div>
-                      <div class="col-md-8">
-                        <div class="reviewRight">
-                         <p> {{review.contents()}} </p>
-                        </div>
-                      </div>
-                    </div>
+            {% for review in reviews}                
+            <div class="review">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="reviewBox">
+                    <h6> {{review.author}} ({{review.author.major}}) </h6> 
+                    <h6> {{review.university}}, {{review.university.country}} </h6>
                   </div>
-                </div>
-              </div>
-              {% end for %}
-               <a class="btn btn-default" href="{{ url }}">Submit review</a>
-            </div>
-            
-                    
-          <div class="tab-pane" id="comments">
-            <div class="detailBox">
-              <div class="actionBox">
-                <ul class="commentList">
-                  {% for comment in comments %}
-                  <li>
-                    <div class="commentText">
-                      {% if comment.author %}
-                        <b>{{ comment.author.nickname() }}</b> wrote:
-                      {% else %}
-                        <b>An anonymous person wrote:</b>
-                      {% endif %}
-                      <p>{{ comment.content|escape }}</p><span class="date sub-text">{{ date }}</span>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="reviewLeft">
+                        <h6> Exchange in {{review.year}}, Sem {{review.semester}} </h6>
+                        <p>
+                          <ol>
+                            {% for mod in modules%}
+                            <li> {{ mod.exchange_module }} </li>
+                          </ol>
+                        </p>
+
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{review.overall}}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.overall * 10 }}%" id="overall">
+                            <span>{{ review.overall }}</span>
+                          </div>
+                        </div>
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ review.cost }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.cost * 10 }}%">
+                            <span class="sr-only">{{ review.cost }}</span>
+                          </div>
+                        </div>
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ review.life }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.life * 10 }}%">
+                            <span class="sr-only">{{ review.life }}</span>
+                          </div>
+                        </div>
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ review.academics }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.academics * 10 }}%">
+                            <span class="sr-only">{{ review.academics }}</span>
+                          </div>  
+                        </div>
+                        <div>
+                          <h4> Expenditure </h4>
+                          <h5> Total expenditure: {{ review.total }} </h5>
+                          <h5> Accommodation: {{ review.accommodation }} </h5>
+                          <h5> Food: {{ review.food }} </h5>
+                          <h5> Transport: {{ review.transport }} </h5>
+                          <h5> Academic needs: {{ review.academic_needs }} </h5>
+                          <h5> Others: {{ review.others }} </h5>
+                        </div>
+                      </div>
                     </div>
-                  </li>
-                  {% endfor %}
-                </ul>
-              </div>
+
+                    <div class="col-md-8">
+                      <div class="reviewRight">
+                       <p> {{review.contents()}} </p>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+           {% end for %}
+           <a class="btn btn-default" href="{{ url }}">Submit review</a>
+         </div>
+
+
+         <div class="tab-pane" id="comments">
+          <div class="detailBox">
+            <div class="actionBox">
+              <ul class="commentList">
+                {% for comment in comments %}
+                <li>
+                  <div class="commentText">
+                    {% if comment.author %}
+                    <b>{{ comment.author.nickname() }}</b> wrote:
+                    {% else %}
+                    <b>An anonymous person wrote:</b>
+                    {% endif %}
+                    <p>{{ comment.content|escape }}</p><span class="date sub-text">{{ date }}</span>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
 
-            <form action="/university" method="post">
-              <input type="hidden" name="comments_name" class="form-control">
-              <div><textarea id="styled" placeholder="Click to enter your comments" name="content" rows="3"></textarea></div>
-              <div><button type="submit" class="btn btn-default">Post Comment</button>
+          <form action="/university" method="post">
+            <input type="hidden" name="comments_name" class="form-control">
+            <div><textarea id="styled" placeholder="Click to enter your comments" name="content" rows="3"></textarea></div>
+            <div><button type="submit" class="btn btn-default">Post Comment</button>
             </form>
 
             <a class="btn btn-default" href="{{ url }}">{{ url_linktext }}</a>
@@ -150,7 +208,7 @@
           $('#tabs').tab();
         });
         </script>  
-        
+
         <!-- Site footer -->
         <div class="footer">
           <p>&copy; Company 2013</p>
@@ -163,4 +221,4 @@
       <!-- Include all compiled plugins (below), or include individual files as needed -->
       <script src="../bootstrap/js/bootstrap.js"></script>
     </body>
-</html>
+    </html>
