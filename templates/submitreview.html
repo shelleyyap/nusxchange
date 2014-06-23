@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>NUSXchange - School Name</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="../stylesheets/main.css" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+      <![endif]-->
+    </head>
+
+    <body>
+
+      <div class="container">
+
+        <div class="masthead">
+          <img src="../images/logo.png" />
+          <ul class="nav nav-justified">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="countries">Countries</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/">Login</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+
+        <!-- Example row of columns -->
+        <div class="row">
+         <form action="/submitreview" method="post">
+          <div class="col-md-4" style="margin-top:20px">
+          <p>
+            Name: {{ author }}
+          </p>
+          <p>
+            Major: <input type="text" name="major" value="Major"/>
+          </p>
+          <p>
+            University:
+            <select name="school">
+              {% for school in schools %}
+              <option value="school"> {{ school.name }} </option>
+            </select>
+          </p>
+          <p> Ratings:
+            <table style="width:300px">
+              <tr>
+                <td> Overall: </td>
+                <td> 
+                  <input type="radio" name="overall" value="1">  1 
+                </td>  
+                <td>
+                  <input type="radio" name="overall" value="2">  2
+                </td> 
+                <td> 
+                  <input type="radio" name="overall" value="3">  3
+                </td>
+                <td>
+                  <input type="radio" name="overall" value="4">  4
+                </td> 
+                <td>
+                  <input type="radio" name="overall" value="5">  5
+                </td>
+              </tr>
+              <tr>
+                <td> Cost: </td>
+                <td> 
+                  <input type="radio" name="cost" value="1">  1 
+                </td>  
+                <td>
+                  <input type="radio" name="cost" value="2">  2
+                </td> 
+                <td> 
+                  <input type="radio" name="cost" value="3">  3
+                </td>
+                <td>
+                  <input type="radio" name="cost" value="4">  4
+                </td> 
+                <td>
+                  <input type="radio" name="cost" value="5">  5
+                </td>
+              </tr>
+              <tr>
+                <td> Student Life: </td>
+                <td> 
+                  <input type="radio" name="life" value="1">  1 
+                </td>  
+                <td>
+                  <input type="radio" name="life" value="2">  2
+                </td> 
+                <td> 
+                  <input type="radio" name="life" value="3">  3
+                </td>
+                <td>
+                  <input type="radio" name="life" value="4">  4
+                </td> 
+                <td>
+                  <input type="radio" name="life" value="5">  5
+                </td>
+              </tr>
+              <tr>
+                <td> Academics: </td>
+                <td> 
+                  <input type="radio" name="academics" value="1">  1 
+                </td>  
+                <td>
+                  <input type="radio" name="academics" value="2">  2
+                </td> 
+                <td> 
+                  <input type="radio" name="academics" value="3">  3
+                </td>
+                <td>
+                  <input type="radio" name="academics" value="4">  4
+                </td> 
+                <td>
+                  <input type="radio" name="academics" value="5">  5
+                </td>
+              </tr>
+            </table>  
+          </p>
+          <p> Expenditure: <br>
+            <table style="width=250px">
+              <tr> 
+                <td> Total: </td>
+                <td> S$ <input type="number" name="totalcost"/> </td>
+              </tr>
+              <tr>
+                <td> Accommodation: </td>
+                <td> S$ <input type="number" name="accomcost"/> </td>
+              </tr>
+              <tr>
+                <td> Food: </td>
+                <td> S$ <input type="number" name="foodcost"/> </td>
+              </tr>
+              <tr>
+                <td> Transport: </td>
+                <td> S$ <input type="number" name="transportcost"/> </td>
+              </tr>
+              <tr>
+                <td> Academic needs: </td>
+                <td> S$ <input type="number" name="acadcost"/> </td>
+              </tr>
+              <tr>
+                <td> Others: </td>
+                <td> S$ <input type="number" name="othercost"/> </td>
+              </tr>
+            </table>
+          </p>
+        </div>
+        <div class="col-md-8" style="margin-top: 20px">
+          <textarea name="reviewcontents" cols="60" rows="20">
+            Enter your review here
+          </textarea>
+        </div>
+
+
+        <input type="submit" name="submit" value="Submit" />
+      </form>
+
+
+    </div>
+
+
+    <!-- Site footer -->
+    <div class="footer">
+      <p>&copy; Company 2013</p>
+
+    </div>
+
+  </div> <!-- /container -->
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="../../dist/js/bootstrap.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
