@@ -184,7 +184,7 @@
                     {% else %}
                     <b>An anonymous person wrote:</b>
                     {% endif %}
-                    <p>{{ comment.content|escape }}</p><span class="date sub-text">{{ date }}</span>
+                    <p>{{ comment.content|escape }}</p><span class="date sub-text">{{ comment.date.date() }}</span>
                   </div>
                 </li>
                 {% endfor %}
