@@ -82,6 +82,21 @@ class Mapping(ndb.Model):
   def query_mapping(cls, ancestor_key):
     return cls.query(ancestor=ancestor_key)
 
+class GetSchool(webapp2.RequestHandler):
+    # Displays search result
+
+    def get(self):
+        australia = School(country='Australia', state='Australia', school_name='ANU')
+        australia.put()
+        target = self.request.get('school')
+        query = School.query(School.school_name.IN([target])).get()
+
+        template_values = {
+            'school': query,
+        }
+        template = jinja_environment.get_template('school.html')
+        self.response.out.write(template.render(template_values))
+        
 class University(webapp2.RequestHandler):
     def show(self):
         comments_name = self.request.get('comments_name')
