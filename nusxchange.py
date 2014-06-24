@@ -94,7 +94,7 @@ class GetSchool(webapp2.RequestHandler):
         template_values = {
             'school': query,
         }
-        template = jinja_environment.get_template('school.html')
+        template = jinja_environment.get_template('university.html')
         self.response.out.write(template.render(template_values))
         
 class University(webapp2.RequestHandler):
