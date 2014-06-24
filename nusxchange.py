@@ -44,6 +44,14 @@ class Comments(ndb.Model):
   def query_book(cls, ancestor_key):
     return cls.query(ancestor=ancestor_key).order(-cls.date)
 
+class School(ndb.Model):
+  """Models an SEP partner university with general information, ratings, reviews and comments."""
+  country = ndb.StringProperty()
+  state = ndb.StringProperty()
+  school_name = ndb.StringProperty()
+  school_name_short = ndb.StringProperty()
+  exchange_type = ndb.StringProperty()
+  academic_calendar = ndb.StringProperty()
 
 class Review(ndb.Model):
   """Models a review with author, date, major, university, date of exchange, ratings, review"""
@@ -84,6 +92,9 @@ class Mapping(ndb.Model):
 
 class GetSchool(webapp2.RequestHandler):
     def show(self):
+        australia = School(country='Australia', state='Australia', school_name='ANU')
+        australia.put()
+
         comments_name = self.request.get('comments_name')
         # There is no need to actually create the parent Book entity; we can
         # set it to be the parent of another entity without explicitly creating it
@@ -97,8 +108,6 @@ class GetSchool(webapp2.RequestHandler):
             url = 'https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/'
             url_linktext = 'Login'
 
-        australia = School(country='Australia', state='Australia', school_name='ANU')
-        australia.put()
         target = self.request.get('school')
         query = School.query(School.school_name.IN([target])).get()
         template_values = {
@@ -160,8 +169,29 @@ class University(webapp2.RequestHandler):
         if users.get_current_user():
             comments.author = users.get_current_user()
         comments.put()
+
+        """Review"""
+        reviews_name = self.request.get('reviews_name')
+        review = Review(parent=ndb.Key("Book", reviews_name or "*notitle*"))
+        review.author = '??'
+        review.major = self.request.get('major')
+        review.semester = self.request.get('sem')
+        review.school = self.request.get('school') 
+        review.overall_rating = self.request.get('overall')
+        review.cost_rating = self.request.get('cost')
+        review.life_rating = self.request.get('life')
+        review.academics_rating = self.request.get('academics')
+        review.total_expenditure = self.request.get('totalcost')
+        review.accommodation = self.request.get('accomcost')
+        review.food = self.request.get('foodcost')
+        review.transport = self.request.get('transportcost')
+        review.academic_needs = self.request.get('acadcost')
+        review.others = self.request.get('othercost')
+        review.content = self.request.get('reviewcontents')
+        review.put()
+
         self.show()
-        
+
 class ToSubmitReview(webapp2.RequestHandler):
   def get(self):
     schools = School.query().get()
@@ -171,27 +201,6 @@ class ToSubmitReview(webapp2.RequestHandler):
     }
     template = jinja_environment.get_template('submitreview.html')
     self.response.out.write(template.render(template_values))
-  def post(self):
-    review = Review()
-    review.author = '??'
-    review.major = self.request.get('major')
-    review.semester = self.request.get('sem')
-    review.school = self.request.get('school') 
-    review.overall_rating = self.request.get('overall')
-    review.cost_rating = self.request.get('cost')
-    review.life_rating = self.request.get('life')
-    review.academics_rating = self.request.get('academics')
-    review.total_expenditure = self.request.get('totalcost')
-    review.accommodation = self.request.get('accomcost')
-    review.food = self.request.get('foodcost')
-    review.transport = self.request.get('transportcost')
-    review.academic_needs = self.request.get('acadcost')
-    review.others = self.request.get('othercost')
-    review.content = self.request.get('reviewcontents')
-    review.put()
-
-    template = jinja_environment.get_template('university.html')
-    self.response.out.write(template.render())
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/about', About),
