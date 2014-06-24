@@ -83,19 +83,47 @@ class Mapping(ndb.Model):
     return cls.query(ancestor=ancestor_key)
 
 class GetSchool(webapp2.RequestHandler):
-    # Displays search result
+    def show(self):
+        comments_name = self.request.get('comments_name')
+        # There is no need to actually create the parent Book entity; we can
+        # set it to be the parent of another entity without explicitly creating it
+        ancestor_key = ndb.Key("Book", comments_name or "*notitle*")
+        comments = Comments.query_book(ancestor_key).fetch(20)
+        # Displays the page. Used by both get and post
+        if users.get_current_user():
+            url = 'https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/'
+            url_linktext = 'Logout'
+        else:
+            url = 'https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/'
+            url_linktext = 'Login'
 
-    def get(self):
         australia = School(country='Australia', state='Australia', school_name='ANU')
         australia.put()
         target = self.request.get('school')
         query = School.query(School.school_name.IN([target])).get()
-
         template_values = {
+            'comments': comments,
+            'url': url,
+            'url_linktext': url_linktext,
             'school': query,
         }
+
         template = jinja_environment.get_template('university.html')
         self.response.out.write(template.render(template_values))
+    def get(self):
+        self.show()
+    def post(self):
+        # Set parent key on each greeting to ensure that each
+        # guestbook's greetings are in the same entity group.
+        comments_name = self.request.get('comments_name')
+        # There is no need to actually create the parent Book entity; we can
+        # set it to be the parent of another entity without explicitly creating it
+        comments = Comments(parent=ndb.Key("Book", comments_name or "*notitle*"),
+                            content = self.request.get('content'))
+        if users.get_current_user():
+            comments.author = users.get_current_user()
+        comments.put()
+        self.show()
         
 class University(webapp2.RequestHandler):
     def show(self):
@@ -139,5 +167,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/about', About),
                                 ('/contact', Contact),
                                 ('/countries', Countries),
-                                ('/university', University)],
+                                ('/university', University),
+                                ('/getschool', GetSchool)],
                               debug=True)
