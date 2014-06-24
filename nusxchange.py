@@ -100,7 +100,6 @@ class University(webapp2.RequestHandler):
             'comments': comments,
             'url': url,
             'url_linktext': url_linktext,
-            'date': datetime.datetime.now()
         }
 
         template = jinja_environment.get_template('university.html')
