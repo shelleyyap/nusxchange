@@ -161,12 +161,43 @@ class University(webapp2.RequestHandler):
             comments.author = users.get_current_user()
         comments.put()
         self.show()
+        
+class ToSubmitReview(webapp2.RequestHandler):
+  def get(self):
+    schools = School.query().get()
+    template_values = {
+      'author': 'name here',
+      'schools': schools
+    }
+    template = jinja_environment.get_template('submitreview.html')
+    self.response.out.write(template.render(template_values))
+  def post(self):
+    review = Review()
+    review.author = '??'
+    review.major = self.request.get('major')
+    review.semester = self.request.get('sem')
+    review.school = self.request.get('school') 
+    review.overall_rating = self.request.get('overall')
+    review.cost_rating = self.request.get('cost')
+    review.life_rating = self.request.get('life')
+    review.academics_rating = self.request.get('academics')
+    review.total_expenditure = self.request.get('totalcost')
+    review.accommodation = self.request.get('accomcost')
+    review.food = self.request.get('foodcost')
+    review.transport = self.request.get('transportcost')
+    review.academic_needs = self.request.get('acadcost')
+    review.others = self.request.get('othercost')
+    review.content = self.request.get('reviewcontents')
+    review.put()
 
+    template = jinja_environment.get_template('university.html')
+    self.response.out.write(template.render())
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/about', About),
                                 ('/contact', Contact),
                                 ('/countries', Countries),
                                 ('/university', University),
-                                ('/getschool', GetSchool)],
+                                ('/getschool', GetSchool),
+                                ('/tosubmitreview', ToSubmitReview)],
                               debug=True)
