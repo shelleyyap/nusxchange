@@ -20,15 +20,13 @@ class MainPage(webapp2.RequestHandler):
           'text': 'Logout',
           'url': users.create_logout_url(self.request.host_url)
         }
-        template = jinja_environment.get_template('front.html')
-        self.response.out.write(template.render(template_values))
       else:
         template_values = {
           'text': 'Login',
           'url':'/_ah/login_required'
         }
-        template = jinja_environment.get_template('front.html')
-        self.response.out.write(template.render(template_values))
+      template = jinja_environment.get_template('front.html')
+      self.response.out.write(template.render(template_values))
 
 class About(webapp2.RequestHandler):
     def get(self):
@@ -37,15 +35,14 @@ class About(webapp2.RequestHandler):
           'text': 'Logout',
           'url': users.create_logout_url(self.request.host_url)
         }
-        template = jinja_environment.get_template('about.html')
-        self.response.out.write(template.render(template_values))
       else:
         template_values = {
           'text': 'Login',
           'url':'/_ah/login_required'
         }
-        template = jinja_environment.get_template('about.html')
-        self.response.out.write(template.render())
+
+      template = jinja_environment.get_template('about.html')
+      self.response.out.write(template.render(template_values))
 
 class Contact(webapp2.RequestHandler):
     def get(self):
@@ -54,20 +51,28 @@ class Contact(webapp2.RequestHandler):
           'text': 'Logout',
           'url': users.create_logout_url(self.request.host_url)
         }
-        template = jinja_environment.get_template('contact.html')
-        self.response.out.write(template.render(template_values))
       else:
         template_values = {
           'text': 'Login',
           'url':'/_ah/login_required'
         }
-        template = jinja_environment.get_template('contact.html')
-        self.response.out.write(template.render())
+      template = jinja_environment.get_template('contact.html')
+      self.response.out.write(template.render(template_values))
 
 class Countries(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template('countries.html')
-        self.response.out.write(template.render())
+      if users.get_current_user():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url(self.request.host_url)
+        }
+      else:
+        template_values = {
+          'text': 'Login',
+          'url':'/_ah/login_required'
+        }
+      template = jinja_environment.get_template('countries.html')
+      self.response.out.write(template.render(template_values))
 
 class Comments(ndb.Model):
   """Models an individual guestbook entry with author, content, and date."""
