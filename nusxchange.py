@@ -14,18 +14,53 @@ jinja_environment = jinja2.Environment(
 # This part for the front page
 class MainPage(webapp2.RequestHandler):
     # Handler for the front page.
-
     def get(self):
+      if users.get_current_user():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url(self.request.host_url)
+        }
         template = jinja_environment.get_template('front.html')
-        self.response.out.write(template.render())
+        self.response.out.write(template.render(template_values))
+      else:
+        template_values = {
+          'text': 'Login',
+          'url':'/_ah/login_required'
+        }
+        template = jinja_environment.get_template('front.html')
+        self.response.out.write(template.render(template_values))
 
 class About(webapp2.RequestHandler):
     def get(self):
+      if users.get_current_user():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url(self.request.host_url)
+        }
+        template = jinja_environment.get_template('about.html')
+        self.response.out.write(template.render(template_values))
+      else:
+        template_values = {
+          'text': 'Login',
+          'url':'/_ah/login_required'
+        }
         template = jinja_environment.get_template('about.html')
         self.response.out.write(template.render())
 
 class Contact(webapp2.RequestHandler):
     def get(self):
+      if users.get_current_user():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url(self.request.host_url)
+        }
+        template = jinja_environment.get_template('contact.html')
+        self.response.out.write(template.render(template_values))
+      else:
+        template_values = {
+          'text': 'Login',
+          'url':'/_ah/login_required'
+        }
         template = jinja_environment.get_template('contact.html')
         self.response.out.write(template.render())
 
@@ -220,4 +255,8 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/university', University),
                                 ('/getschool', GetSchool),
                                 ('/tosubmitreview', ToSubmitReview)],
+<<<<<<< HEAD
                               debug=True)
+=======
+                              debug=True)
+>>>>>>> origin/master
