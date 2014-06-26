@@ -136,10 +136,17 @@ class GetSchool(webapp2.RequestHandler):
         
 class University(webapp2.RequestHandler):
     def show(self):
+        australia = School(country='Australia', state='Australia', school_name='ANU')
+        australia.put()
+        aus = School(country='Aus', state='Aus', school_name='aus')
+        aus.put()
+        target = self.request.get('school')
+        query = School.query(School.school_name.IN([target])).get()
+
         comments_name = self.request.get('comments_name')
         # There is no need to actually create the parent Book entity; we can
         # set it to be the parent of another entity without explicitly creating it
-        ancestor_key = ndb.Key("Book", comments_name or "*notitle*")
+        ancestor_key = ndb.Key("School", comments_name or "*notitle*")
         comments = Comments.query_book(ancestor_key).fetch(20)
         # Displays the page. Used by both get and post
         if users.get_current_user():
@@ -148,10 +155,12 @@ class University(webapp2.RequestHandler):
         else:
             url = 'https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/'
             url_linktext = 'Login'
+
         template_values = {
             'comments': comments,
             'url': url,
             'url_linktext': url_linktext,
+            'school': query
         }
 
         template = jinja_environment.get_template('university.html')
@@ -161,14 +170,16 @@ class University(webapp2.RequestHandler):
     def post(self):
         # Set parent key on each greeting to ensure that each
         # guestbook's greetings are in the same entity group.
+        target = self.request.get('school')
         comments_name = self.request.get('comments_name')
         # There is no need to actually create the parent Book entity; we can
         # set it to be the parent of another entity without explicitly creating it
-        comments = Comments(parent=ndb.Key("Book", comments_name or "*notitle*"),
+        comments = Comments(parent=ndb.Key("School", comments_name or "*notitle*"),
                             content = self.request.get('content'))
         if users.get_current_user():
             comments.author = users.get_current_user()
         comments.put()
+        self.show()
 
         """Review"""
         reviews_name = self.request.get('reviews_name')
