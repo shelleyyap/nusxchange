@@ -193,9 +193,9 @@
           </div>
 
           <form action="/university" method="post">
-            <input type="hidden" name="comments_name" class="form-control">
+            <input type="hidden" name="comments_name" class="form-control" value="{{school.school_name}}">
             <div><textarea id="styled" placeholder="Click to enter your comments" name="content" rows="3"></textarea></div>
-            <div><button type="submit" class="btn btn-default">Post Comment</button>
+            <div><button type="submit" class="btn btn-default" name='{{school}}' value="{{school.school_name}}">Post Comment</button>
             </form>
 
             <a class="btn btn-default" href="{{ url }}">{{ url_linktext }}</a>
