@@ -14,6 +14,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="../stylesheets/main.css" />
+    <link rel="stylesheet" href="../stylesheets/countrieslink.css" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -45,7 +46,10 @@
           </div>
           <div class="col-lg-8 countriesborder editf2">
             <h2><strong>Australia</strong></h2>
-            <p><a href="/getschool?school=ANU">Australian National University</a></p>
+            <form action="/university?school=ANU" method="get">
+            <input type="hidden" name="comments_name" value="ANU">
+            <div><button type="submit" name="school" value="ANU" class="btn btn-default">ANU</button>
+          </form>
           </div>
       </div>
       <br>
@@ -55,7 +59,10 @@
           </div>
           <div class="col-lg-8 countriesborder editf2">
             <h2><strong>Canada</strong></h2>
-            <p><a href="#">School Name</a></p>
+            <form action="/university?school=aus" method="get">
+            <input type="hidden" name="comments_name" value="aus">
+            <div><button type="submit" name="school" value="aus" class="btn btn-default">aus</button>
+          </form>
           </div>
       </div>
       <br>
