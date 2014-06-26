@@ -192,7 +192,7 @@
             </div>
           </div>
 
-          <form action="/university" method="post">
+          <form action="/university?school={{school.school_name}}" method="post">
             <input type="hidden" name="comments_name" class="form-control" value="{{school.school_name}}">
             <div><textarea id="styled" placeholder="Click to enter your comments" name="content" rows="3"></textarea></div>
             <div><button type="submit" class="btn btn-default" name='{{school}}' value="{{school.school_name}}">Post Comment</button>
