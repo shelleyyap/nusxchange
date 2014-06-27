@@ -192,7 +192,7 @@ class ToSubmitReview(webapp2.RequestHandler):
           'text': 'Logout',
           'url': users.create_logout_url(self.request.host_url),
           'author': users.get_current_user(),
-          'num': 1
+          'query': target
       }
       template = jinja_environment.get_template('submitreview.html')
       self.response.out.write(template.render(template_values))
