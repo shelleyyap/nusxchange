@@ -35,7 +35,7 @@ body {
 }
 
 .editf2{
-  font-size:20px;
+  font-size:18px;
 }
 
 .countriesimg{
@@ -49,6 +49,10 @@ body {
   border:2px solid black;
   height: 237px;
   border-radius: 25px;
+}
+
+.btn-style{
+  width: 150px;
 }
 
 /* Customize the nav-justified links to be fill the entire space of the .navbar */
