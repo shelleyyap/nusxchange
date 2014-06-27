@@ -95,87 +95,33 @@ class School(ndb.Model):
 
 class Review(ndb.Model):
   """Models a review with author, date, major, university, date of exchange, ratings, review"""
-  """Author details"""
   author = ndb.UserProperty()
   date = ndb.DateProperty(auto_now_add=True)
   year = ndb.IntegerProperty()
+  faculty = ndb.StringProperty()
+  country = ndb.StringProperty()
   semester = ndb.StringProperty()
   major = ndb.StringProperty()
-  modules = ndb.StringProperty(repeated=True)
-  """Ratings"""
+
   overall_rating = ndb.IntegerProperty()
   cost_rating = ndb.IntegerProperty()
   life_rating = ndb.IntegerProperty()
   academics_rating = ndb.IntegerProperty()
-  """Expenses"""
+
   total_expenditure = ndb.IntegerProperty()
   accommodation = ndb.IntegerProperty()
   food = ndb.IntegerProperty()
   transport = ndb.IntegerProperty()
   academic_needs = ndb.IntegerProperty()
   others = ndb.IntegerProperty()
-  """Actual review"""
+
   content = ndb.TextProperty()
 
   @classmethod
   def query_review(cls, ancestor_key):
-    return cls.query(ancestor=ancestor_key)
+    return cls.query(ancestor=ancestor_key).order(-cls.date)
 
-class Mapping(ndb.Model):
-  """Models approved module mapping for a review"""
-  exchange_module = ndb.StringProperty()
-  credits = ndb.IntegerProperty()
-  nus_module = ndb.StringProperty()
-  nus_credits = ndb.IntegerProperty()
 
-  @classmethod
-  def query_mapping(cls, ancestor_key):
-    return cls.query(ancestor=ancestor_key)
-
-class GetSchool(webapp2.RequestHandler):
-    def show(self):
-        australia = School(country='Australia', state='Australia', school_name='ANU')
-        australia.put()
-
-        comments_name = self.request.get('comments_name')
-        # There is no need to actually create the parent Book entity; we can
-        # set it to be the parent of another entity without explicitly creating it
-        ancestor_key = ndb.Key("Book", comments_name or "*notitle*")
-        comments = Comments.query_book(ancestor_key).fetch(20)
-        # Displays the page. Used by both get and post
-        if users.get_current_user():
-            url = 'https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/'
-            url_linktext = 'Logout'
-        else:
-            url = 'https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/'
-            url_linktext = 'Login'
-
-        target = self.request.get('school')
-        query = School.query(School.school_name.IN([target])).get()
-        template_values = {
-            'comments': comments,
-            'url': url,
-            'url_linktext': url_linktext,
-            'school': query,
-        }
-
-        template = jinja_environment.get_template('university.html')
-        self.response.out.write(template.render(template_values))
-    def get(self):
-        self.show()
-    def post(self):
-        # Set parent key on each greeting to ensure that each
-        # guestbook's greetings are in the same entity group.
-        comments_name = self.request.get('comments_name')
-        # There is no need to actually create the parent Book entity; we can
-        # set it to be the parent of another entity without explicitly creating it
-        comments = Comments(parent=ndb.Key("Book", comments_name or "*notitle*"),
-                            content = self.request.get('content'))
-        if users.get_current_user():
-            comments.author = users.get_current_user()
-        comments.put()
-        self.show()
-        
 class University(webapp2.RequestHandler):
     def show(self):
         australia = School(country='Australia', state='Australia', school_name='ANU')
@@ -185,19 +131,19 @@ class University(webapp2.RequestHandler):
         target = self.request.get('school')
         query = School.query(School.school_name.IN([target])).get()
 
-        comments_name = self.request.get('comments_name')
         # There is no need to actually create the parent Book entity; we can
         # set it to be the parent of another entity without explicitly creating it
-        ancestor_key = ndb.Key("School", comments_name or "*notitle*")
-        comments = Comments.query_book(ancestor_key).fetch(20)
-        reviews= School.query(School.school_name == query).fetch()
+        ancestor_key = ndb.Key("School", target or "*notitle*")
+        comments = Comments.query_book(ancestor_key).fetch()
+        ancestor_key_review = ndb.Key("School", target or "*notitle*")
+        reviews = Review.query_review(ancestor_key_review).fetch()
 
         # Displays the page. Used by both get and post
         if users.get_current_user():
-            url = 'https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/'
+            url = users.create_logout_url(self.request.host_url)
             url_linktext = 'Logout'
         else:
-            url = 'https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/'
+            url = '/_ah/login_required'
             url_linktext = 'Login'
 
         template_values = {
@@ -205,7 +151,18 @@ class University(webapp2.RequestHandler):
             'url': url,
             'url_linktext': url_linktext,
             'school': query,
-            'reviews': reviews
+            'overall': 3, #temporary value
+            'cost': 3, #temporary value
+            'life': 3, #temporary value
+            'academics': 3, #temporary value
+            'total': 3, #temporary value
+            'accommodation': 3, #temporary value
+            'food': 3, #temporary value
+            'transport': 3, #temporary value
+            'academic_needs': 3, #temporary value
+            'others': 3, #temporary value
+            'reviews': reviews,
+            'use': users.get_current_user()
         }
 
         template = jinja_environment.get_template('university.html')
@@ -229,24 +186,36 @@ class University(webapp2.RequestHandler):
 
 class ToSubmitReview(webapp2.RequestHandler):
   def get(self):
-    schools = School.query().get()
-    template_values = {
-      'author': users.get_current_user(),
-      'schools': schools
-    }
-    template = jinja_environment.get_template('submitreview.html')
-    self.response.out.write(template.render(template_values))
+      target = self.request.get('school')
+      query = School.query(School.school_name.IN([target])).get()
+      if users.get_current_user():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url(self.request.host_url),
+          'author': users.get_current_user(),
+          'school' : query,
+          'num': 1
+        }
+      else:
+        template_values = {
+          'text': 'Login',
+          'url':'/_ah/login_required',
+          'query' : target
+        }
+      template = jinja_environment.get_template('submitreview.html')
+      self.response.out.write(template.render(template_values))
 
 class SubmittedReview(webapp2.RequestHandler):
-  def post(self):result 
+  def post(self):
     reviews_name = self.request.get('reviews_name')
-    curr_school = School.query(School.school_name == self.request.get('school')).get()
-    review = Review(parent=ndb.Key(curr_school, reviews_name or "*notitle*"))
+    review = Review(parent=ndb.Key("School", reviews_name or "*notitle*"))
+
     review.author = users.get_current_user()
     review.major = self.request.get('major')
-    review.school = self.request.get('school') 
+    review.faculty = self.request.get('faculty') 
     review.year = self.request('year')
-    review.semester = self.request.get('sem')
+    review.country = reviews_name
+    review.semester = self.request.get('semester')
     review.overall_rating = self.request.get('overall')
     review.cost_rating = self.request.get('cost')
     review.life_rating = self.request.get('life')
@@ -260,9 +229,7 @@ class SubmittedReview(webapp2.RequestHandler):
     review.content = self.request.get('reviewcontents')
     review.put()
 
-    result = School.query(School.school_name == review.school).get()
-    self.redirect("/university?school=" + result.school_name_short)
-
+    self.redirect("/university?school=" + reviews_name)
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
@@ -270,11 +237,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/contact', Contact),
                                 ('/countries', Countries),
                                 ('/university', University),
-                                ('/getschool', GetSchool),
                                 ('/tosubmitreview', ToSubmitReview),
                                 ('/submittedreview', SubmittedReview)],
-<<<<<<< HEAD
                               debug=True)
-=======
-                              debug=True)
->>>>>>> origin/master
