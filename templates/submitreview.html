@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>NUSXchange - School Name</title>
+  <title>NUSXchange - {{query}}</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -14,6 +14,7 @@
 
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="../stylesheets/main.css" />
+  <link rel="stylesheet" href="../stylesheets/commentbox.css" />
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -33,155 +34,172 @@
             <li><a href="/about">About</a></li>
             <li><a href="countries">Countries</a></li>
             <li><a href="#">Search</a></li>
-            <li><a href="https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/">Login</a></li>
+            <li><a href="{{url}}">{{text}}</a></li>
             <li><a href="/contact">Contact Us</a></li>
           </ul>
         </div>
 
 
         <!-- Example row of columns -->
-        <div class="row">
-         <form action="/submittedreview" method="post">
-          <input type="hidden" name="reviews_name">
-          <div class="col-md-4" style="margin-top:20px">
-          <p>
-            Name: {{ author }}
-          </p>
-          <p>
-            Major: <input type="text" name="major" placeholder="Major"/>
-          </p>
-          <p>
-            Year: <input type="number" name="year"/>
-          <p>
-            Semester: <select name="semester">
-            <option value=1> Semester 1 </option>
-            <option value=2> Semester 2 </option>
-            <option value=3> Semester 1 and 2 </option>
-            </select>
-          </p>
-          <p>
-            University:
-            <select name="school">
-              {% for school in schools %}
-              <option value="school"> {{ school.name }} </option>
-            </select>
-          </p>
-          <p> Ratings:
-            <table style="width:300px">
-              <tr>
-                <td> Overall: </td>
-                <td> 
-                  <input type="radio" name="overall" value="1">  1 
-                </td>  
-                <td>
-                  <input type="radio" name="overall" value="2">  2
-                </td> 
-                <td> 
-                  <input type="radio" name="overall" value="3">  3
-                </td>
-                <td>
-                  <input type="radio" name="overall" value="4">  4
-                </td> 
-                <td>
-                  <input type="radio" name="overall" value="5">  5
-                </td>
-              </tr>
-              <tr>
-                <td> Cost: </td>
-                <td> 
-                  <input type="radio" name="cost" value="1">  1 
-                </td>  
-                <td>
-                  <input type="radio" name="cost" value="2">  2
-                </td> 
-                <td> 
-                  <input type="radio" name="cost" value="3">  3
-                </td>
-                <td>
-                  <input type="radio" name="cost" value="4">  4
-                </td> 
-                <td>
-                  <input type="radio" name="cost" value="5">  5
-                </td>
-              </tr>
-              <tr>
-                <td> Student Life: </td>
-                <td> 
-                  <input type="radio" name="life" value="1">  1 
-                </td>  
-                <td>
-                  <input type="radio" name="life" value="2">  2
-                </td> 
-                <td> 
-                  <input type="radio" name="life" value="3">  3
-                </td>
-                <td>
-                  <input type="radio" name="life" value="4">  4
-                </td> 
-                <td>
-                  <input type="radio" name="life" value="5">  5
-                </td>
-              </tr>
-              <tr>
-                <td> Academics: </td>
-                <td> 
-                  <input type="radio" name="academics" value="1">  1 
-                </td>  
-                <td>
-                  <input type="radio" name="academics" value="2">  2
-                </td> 
-                <td> 
-                  <input type="radio" name="academics" value="3">  3
-                </td>
-                <td>
-                  <input type="radio" name="academics" value="4">  4
-                </td> 
-                <td>
-                  <input type="radio" name="academics" value="5">  5
-                </td>
-              </tr>
-            </table>  
-          </p>
-          <p> Expenditure: <br>
-            <table style="width=250px">
-              <tr> 
-                <td> Total: </td>
-                <td> S$ <input type="number" name="totalcost"/> </td>
-              </tr>
-              <tr>
-                <td> Accommodation: </td>
-                <td> S$ <input type="number" name="accomcost"/> </td>
-              </tr>
-              <tr>
-                <td> Food: </td>
-                <td> S$ <input type="number" name="foodcost"/> </td>
-              </tr>
-              <tr>
-                <td> Transport: </td>
-                <td> S$ <input type="number" name="transportcost"/> </td>
-              </tr>
-              <tr>
-                <td> Academic needs: </td>
-                <td> S$ <input type="number" name="acadcost"/> </td>
-              </tr>
-              <tr>
-                <td> Others: </td>
-                <td> S$ <input type="number" name="othercost"/> </td>
-              </tr>
-            </table>
-          </p>
-        </div>
-        <div class="col-md-8" style="margin-top: 20px">
-          <textarea name="reviewcontents" cols="60" rows="20" placeholder="Enter your review here">
-          </textarea>
-        </div>
-
-
-        <input type="submit" name="submit" value="Submit Review" />
-      </form>
-
-
-    </div>
+        <form action="/submittedreview?school={{query}}" method="post">
+          <div class="row">
+            <div class="col-md-12 editf2" style="margin-top:20px">
+              <table style="width=250px">
+                <tr> 
+                  <td> Name: </td>
+                  <td> {{ author }} </td>
+                </tr>
+                <tr>
+                  <td> Major: </td>
+                  <td> <input id="styled" type="text" name="major" placeholder="Major"/></td>
+                </tr>
+                <tr>
+                  <td> Year: </td>
+                  <td> <input id="styled" type="number" name="year"/></td>
+                </tr>
+                <tr>
+                  <td> Semester: </td>
+                  <td> 
+                    <select name="semester">
+                      <option value=0> Select Semester </option>
+                      <option value=1> Semester 1 </option>
+                      <option value=2> Semester 2 </option>
+                      <option value=3> Semester 1 and 2 </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td> NUS faculty: </td>
+                  <td> 
+                    <select name="faculty">
+                      <option value=0> Select Faculty </option>
+                      <option value=1> Faculty of Science </option>
+                      <option value=2> School of Computing </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-6 editf2">
+              <p> <strong>Ratings</strong></p>
+              <table style="width:300px">
+                <tr>
+                  <td> Overall: </td>
+                  <td> 
+                    <input type="radio" name="overall" value="1">  1 
+                  </td>  
+                  <td>
+                    <input type="radio" name="overall" value="2">  2
+                  </td> 
+                  <td> 
+                    <input type="radio" name="overall" value="3">  3
+                  </td>
+                  <td>
+                    <input type="radio" name="overall" value="4">  4
+                  </td> 
+                  <td>
+                    <input type="radio" name="overall" value="5">  5
+                  </td>
+                </tr>
+                <tr>
+                  <td> Cost: </td>
+                  <td> 
+                    <input type="radio" name="cost" value="1">  1 
+                  </td>  
+                  <td>
+                    <input type="radio" name="cost" value="2">  2
+                  </td> 
+                  <td> 
+                    <input type="radio" name="cost" value="3">  3
+                  </td>
+                  <td>
+                    <input type="radio" name="cost" value="4">  4
+                  </td> 
+                  <td>
+                    <input type="radio" name="cost" value="5">  5
+                  </td>
+                </tr>
+                <tr>
+                  <td> Student Life: </td>
+                  <td> 
+                    <input type="radio" name="life" value="1">  1 
+                  </td>  
+                  <td>
+                    <input type="radio" name="life" value="2">  2
+                  </td> 
+                  <td> 
+                    <input type="radio" name="life" value="3">  3
+                  </td>
+                  <td>
+                    <input type="radio" name="life" value="4">  4
+                  </td> 
+                  <td>
+                    <input type="radio" name="life" value="5">  5
+                  </td>
+                </tr>
+                <tr>
+                  <td> Academics: </td>
+                  <td> 
+                    <input type="radio" name="academics" value="1">  1 
+                  </td>  
+                  <td>
+                    <input type="radio" name="academics" value="2">  2
+                  </td> 
+                  <td> 
+                    <input type="radio" name="academics" value="3">  3
+                  </td>
+                  <td>
+                    <input type="radio" name="academics" value="4">  4
+                  </td> 
+                  <td>
+                    <input type="radio" name="academics" value="5">  5
+                  </td>
+                </tr>
+              </table>  
+            </div>
+            <div class="col-md-6 editf2">
+              <p> <strong>Expenditure</strong></p>
+              <table style="width=250px">
+                <tr> 
+                  <td> Total: </td>
+                  <td> S$ <input type="number" name="totalcost"/> </td>
+                </tr>
+                <tr>
+                  <td> Accommodation: </td>
+                  <td> S$ <input type="number" name="accomcost"/> </td>
+                </tr>
+                <tr>
+                  <td> Food: </td>
+                  <td> S$ <input type="number" name="foodcost"/> </td>
+                </tr>
+                <tr>
+                  <td> Transport: </td>
+                  <td> S$ <input type="number" name="transportcost"/> </td>
+                </tr>
+                <tr>
+                  <td> Academic needs: </td>
+                  <td> S$ <input type="number" name="acadcost"/> </td>
+                </tr>
+                <tr>
+                  <td> Others: </td>
+                  <td> S$ <input type="number" name="othercost"/> </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-12 editf2">
+              <p><strong>Enter your review here:</strong></p>
+              <input type="hidden" name="reviews_name" class="form-control" value="{{query}}">
+              <div><textarea id="styled" placeholder="Click to enter" name="reviewcontents" rows="10"></textarea></div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-default" name='school' value="{{query}}">Submit Review</button>
+        </form>
 
 
     <!-- Site footer -->
