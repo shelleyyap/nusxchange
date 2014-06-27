@@ -98,8 +98,10 @@ class Review(ndb.Model):
   """Author details"""
   author = ndb.UserProperty()
   date = ndb.DateProperty(auto_now_add=True)
+  year = ndb.IntegerProperty()
   semester = ndb.StringProperty()
   major = ndb.StringProperty()
+  modules = ndb.StringProperty(repeated=True)
   """Ratings"""
   overall_rating = ndb.IntegerProperty()
   cost_rating = ndb.IntegerProperty()
@@ -188,6 +190,8 @@ class University(webapp2.RequestHandler):
         # set it to be the parent of another entity without explicitly creating it
         ancestor_key = ndb.Key("School", comments_name or "*notitle*")
         comments = Comments.query_book(ancestor_key).fetch(20)
+        reviews= School.query(School.school_name == query).fetch()
+
         # Displays the page. Used by both get and post
         if users.get_current_user():
             url = 'https://ivle.nus.edu.sg/api/login/?apikey=7265pvtX25EZZQkAOOCx1&url=http://localhost:8080/'
@@ -200,7 +204,8 @@ class University(webapp2.RequestHandler):
             'comments': comments,
             'url': url,
             'url_linktext': url_linktext,
-            'school': query
+            'school': query,
+            'reviews': reviews
         }
 
         template = jinja_environment.get_template('university.html')
@@ -221,37 +226,44 @@ class University(webapp2.RequestHandler):
         comments.put()
         self.show()
 
-        """Review"""
-        reviews_name = self.request.get('reviews_name')
-        review = Review(parent=ndb.Key("Book", reviews_name or "*notitle*"))
-        review.author = '??'
-        review.major = self.request.get('major')
-        review.semester = self.request.get('sem')
-        review.school = self.request.get('school') 
-        review.overall_rating = self.request.get('overall')
-        review.cost_rating = self.request.get('cost')
-        review.life_rating = self.request.get('life')
-        review.academics_rating = self.request.get('academics')
-        review.total_expenditure = self.request.get('totalcost')
-        review.accommodation = self.request.get('accomcost')
-        review.food = self.request.get('foodcost')
-        review.transport = self.request.get('transportcost')
-        review.academic_needs = self.request.get('acadcost')
-        review.others = self.request.get('othercost')
-        review.content = self.request.get('reviewcontents')
-        review.put()
-
-        self.show()
 
 class ToSubmitReview(webapp2.RequestHandler):
   def get(self):
     schools = School.query().get()
     template_values = {
-      'author': 'name here',
+      'author': users.get_current_user(),
       'schools': schools
     }
     template = jinja_environment.get_template('submitreview.html')
     self.response.out.write(template.render(template_values))
+
+class SubmittedReview(webapp2.RequestHandler):
+  def post(self):result 
+    reviews_name = self.request.get('reviews_name')
+    curr_school = School.query(School.school_name == self.request.get('school')).get()
+    review = Review(parent=ndb.Key(curr_school, reviews_name or "*notitle*"))
+    review.author = users.get_current_user()
+    review.major = self.request.get('major')
+    review.school = self.request.get('school') 
+    review.year = self.request('year')
+    review.semester = self.request.get('sem')
+    review.overall_rating = self.request.get('overall')
+    review.cost_rating = self.request.get('cost')
+    review.life_rating = self.request.get('life')
+    review.academics_rating = self.request.get('academics')
+    review.total_expenditure = self.request.get('totalcost')
+    review.accommodation = self.request.get('accomcost')
+    review.food = self.request.get('foodcost')
+    review.transport = self.request.get('transportcost')
+    review.academic_needs = self.request.get('acadcost')
+    review.others = self.request.get('othercost')
+    review.content = self.request.get('reviewcontents')
+    review.put()
+
+    result = School.query(School.school_name == review.school).get()
+    self.redirect("/university?school=" + result.school_name_short)
+
+
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/about', About),
@@ -259,7 +271,8 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/countries', Countries),
                                 ('/university', University),
                                 ('/getschool', GetSchool),
-                                ('/tosubmitreview', ToSubmitReview)],
+                                ('/tosubmitreview', ToSubmitReview),
+                                ('/submittedreview', SubmittedReview)],
 <<<<<<< HEAD
                               debug=True)
 =======

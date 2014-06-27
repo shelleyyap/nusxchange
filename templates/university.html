@@ -51,22 +51,22 @@
               <p>Academic Calendar</p>
               <p>
                 <div class="progress">
-                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{Overall}}" aria-valuemin="0" aria-valuemax="100" style="width: {{ overall * 10 }}%" id="overall">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{Overall}}" aria-valuemin="0" aria-valuemax="100" style="width: {{ overall * 20 }}%" id="overall">
                     <span>{{ overall }}</span>
                   </div>
                 </div>
                 <div class="progress">
-                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ Cost }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ cost * 10 }}%">
+                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ Cost }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ cost * 20 }}%">
                     <span class="sr-only">{{ cost }}</span>
                   </div>
                 </div>
                 <div class="progress">
-                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ life }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ life * 10 }}%">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ life }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ life * 20 }}%">
                     <span class="sr-only">{{ life }}</span>
                   </div>
                 </div>
                 <div class="progress">
-                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ academics }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ academics * 10 }}%">
+                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ academics }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ academics * 20 }}%">
                     <span class="sr-only">{{ academics }}</span>
                   </div>
                 </div>
@@ -107,68 +107,81 @@
         <!-- Tab panes -->
         <div id="my-tab-content" class="tab-content">
           <div class="tab-pane active" id="reviews">
-            {% for review in reviews}                
-            <div class="review">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="reviewBox">
-                    <h6> {{review.author}} ({{review.author.major}}) </h6> 
-                    <h6> {{review.university}}, {{review.university.country}} </h6>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="reviewLeft">
-                        <h6> Exchange in {{review.year}}, Sem {{review.semester}} </h6>
-                        <p>
-                          <ol>
-                            {% for mod in modules%}
-                            <li> {{ mod.exchange_module }} </li>
-                          </ol>
-                        </p>
 
-                        <div class="progress">
-                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{review.overall}}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.overall * 10 }}%" id="overall">
-                            <span>{{ review.overall }}</span>
+            curr_school = {{ school }}            
+
+            {% if Review.query(ancestor=curr_school.key).get() == None %}
+              <div class="review">
+                <h4> There are currently no reviews. Be the first to contribute! </h4>
+              </div>
+
+            {% else %}
+
+              {% for review in reviews}                
+              <div class="review">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="reviewBox">
+                      <h6> {{review.author}} ({{review.author.major}}) </h6> 
+                      <h6> {{review.university}}, {{review.university.country}} </h6>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="reviewLeft">
+                          <h6> Exchange in {{review.year}}, Sem {{review.semester}} </h6 >
+                          <p>
+                            <ol>
+                              {% for mod in review.modules%}
+                              <li> {{ mod.exchange_module }} </li>
+                            </ol>
+                          </p>
+
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{review.overall}}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.overall * 20 }}%" id="overall">
+                              <span>{{ review.overall }}</span>
+                            </div>
                           </div>
-                        </div>
-                        <div class="progress">
-                          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ review.cost }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.cost * 10 }}%">
-                            <span class="sr-only">{{ review.cost }}</span>
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ review.cost }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.cost * 20 }}%">
+                              <span class="sr-only">{{ review.cost }}</span>
+                            </div>
                           </div>
-                        </div>
-                        <div class="progress">
-                          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ review.life }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.life * 10 }}%">
-                            <span class="sr-only">{{ review.life }}</span>
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ review.life }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.life * 20 }}%">
+                              <span class="sr-only">{{ review.life }}</span>
+                            </div>
                           </div>
-                        </div>
-                        <div class="progress">
-                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ review.academics }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.academics * 10 }}%">
-                            <span class="sr-only">{{ review.academics }}</span>
-                          </div>  
-                        </div>
-                        <div>
-                          <h4> Expenditure </h4>
-                          <h5> Total expenditure: {{ review.total }} </h5>
-                          <h5> Accommodation: {{ review.accommodation }} </h5>
-                          <h5> Food: {{ review.food }} </h5>
-                          <h5> Transport: {{ review.transport }} </h5>
-                          <h5> Academic needs: {{ review.academic_needs }} </h5>
-                          <h5> Others: {{ review.others }} </h5>
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ review.academics }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.academics * 20 }}%">
+                              <span class="sr-only">{{ review.academics }}</span>
+                            </div>  
+                          </div>
+                          <div>
+                            <h4> Expenditure </h4>
+                           <h5> Total expenditure: {{ review.total }} </h5>
+                            <h5> Accommodation: {{ review.accommodation }} </h5>
+                            <h5> Food: {{ review.food }} </h5>
+                            <h5> Transport: {{ review.transport }} </h5>
+                            <h5> Academic needs: {{ review.academic_needs }} </h5>
+                            <h5> Others: {{ review.others }} </h5>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div class="col-md-8">
-                      <div class="reviewRight">
-                       <p> {{review.contents()}} </p>
+                      <div class="col-md-8">
+                        <div class="reviewRight">
+                         <p> {{review.contents()}} </p>
+                       </div>
                      </div>
                    </div>
                  </div>
                </div>
              </div>
-           </div>
-           {% end for %}
-           <a class="btn btn-default" href="{{ url }}">Submit review</a>
+             {% end for %}
+
+             {% endif %}
+
+           <a class="btn btn-default" href="/tosubmitreview">Submit review</a>
          </div>
 
 
@@ -211,7 +224,7 @@
 
         <!-- Site footer -->
         <div class="footer">
-          <p>&copy; Company 2013</p>
+          <p>&copy; NUS Orbital 2014</p>
         </div>
 
       </div> <!-- /container -->
