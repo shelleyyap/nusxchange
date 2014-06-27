@@ -188,20 +188,12 @@ class ToSubmitReview(webapp2.RequestHandler):
   def get(self):
       target = self.request.get('school')
       query = School.query(School.school_name.IN([target])).get()
-      if users.get_current_user():
-        template_values = {
+      template_values = {
           'text': 'Logout',
           'url': users.create_logout_url(self.request.host_url),
           'author': users.get_current_user(),
-          'school' : query,
           'num': 1
-        }
-      else:
-        template_values = {
-          'text': 'Login',
-          'url':'/_ah/login_required',
-          'query' : target
-        }
+      }
       template = jinja_environment.get_template('submitreview.html')
       self.response.out.write(template.render(template_values))
 
