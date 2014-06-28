@@ -22,7 +22,7 @@ handlers:
   static_dir: images
 
 - url: /_ah/login_required
-  script: do_openid_login.app
+  script: login.app
 
 # Twitter Bootstrap
 
