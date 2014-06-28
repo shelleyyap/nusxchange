@@ -92,6 +92,23 @@ class School(ndb.Model):
   school_name_short = ndb.StringProperty()
   exchange_type = ndb.StringProperty()
   academic_calendar = ndb.StringProperty()
+  recommended_fac = ndb.StringProperty()
+  mod_offered = ndb.StringProperty() # a url
+
+  overall_rating = ndb.IntegerProperty()
+  cost_rating = ndb.IntegerProperty()
+  life_rating = ndb.IntegerProperty()
+  academics_rating = ndb.IntegerProperty()
+
+  total_expenditure = ndb.IntegerProperty()
+  accomcost = ndb.IntegerProperty()
+  foodcost = ndb.IntegerProperty()
+  transportcost = ndb.IntegerProperty()
+  academic_needs = ndb.IntegerProperty()
+  othercost = ndb.IntegerProperty()
+
+  content = ndb.TextProperty()
+
 
 class Review(ndb.Model):
   """Models a review with author, date, major, university, date of exchange, ratings, review"""
@@ -127,7 +144,7 @@ class University(webapp2.RequestHandler):
         australia.put()
         aus = School(country='Aus', state='Aus', school_name='aus')
         aus.put()
-        a = School(country='A', state='A', school_name='A')
+        a = School(country='A', state='A', school_name='A', overall_rating=3)
         a.put()
         target = self.request.get('school')
         query = School.query(School.school_name.IN([target])).get()
@@ -141,10 +158,10 @@ class University(webapp2.RequestHandler):
 
         # Displays the page. Used by both get and post
         if users.get_current_user():
-            url = users.create_logout_url('/university?school=target')
+            url = users.create_logout_url('/university?school=' + target)
             url_linktext = 'Logout'
         else:
-            url = '/_ah/login_required?continue_url=/university?school=target'
+            url = '/_ah/login_required?continue_url=/university?school=' + target
             url_linktext = 'Login'
 
         template_values = {
