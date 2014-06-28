@@ -33,12 +33,12 @@ class About(webapp2.RequestHandler):
       if users.get_current_user():
         template_values = {
           'text': 'Logout',
-          'url': users.create_logout_url(self.request.host_url)
+          'url': users.create_logout_url('about')
         }
       else:
         template_values = {
           'text': 'Login',
-          'url':'/_ah/login_required'
+          'url':'/_ah/login_required?continue_url=about'
         }
 
       template = jinja_environment.get_template('about.html')
@@ -49,12 +49,12 @@ class Contact(webapp2.RequestHandler):
       if users.get_current_user():
         template_values = {
           'text': 'Logout',
-          'url': users.create_logout_url(self.request.host_url)
+          'url': users.create_logout_url('/contact')
         }
       else:
         template_values = {
           'text': 'Login',
-          'url':'/_ah/login_required'
+          'url':'/_ah/login_required?continue_url=contact'
         }
       template = jinja_environment.get_template('contact.html')
       self.response.out.write(template.render(template_values))
@@ -64,12 +64,12 @@ class Countries(webapp2.RequestHandler):
       if users.get_current_user():
         template_values = {
           'text': 'Logout',
-          'url': users.create_logout_url(self.request.host_url)
+          'url': users.create_logout_url('/countries')
         }
       else:
         template_values = {
           'text': 'Login',
-          'url':'/_ah/login_required'
+          'url':'/_ah/login_required?continue_url=/countries'
         }
       template = jinja_environment.get_template('countries.html')
       self.response.out.write(template.render(template_values))
@@ -127,6 +127,8 @@ class University(webapp2.RequestHandler):
         australia.put()
         aus = School(country='Aus', state='Aus', school_name='aus')
         aus.put()
+        a = School(country='A', state='A', school_name='A')
+        a.put()
         target = self.request.get('school')
         query = School.query(School.school_name.IN([target])).get()
 
@@ -139,10 +141,10 @@ class University(webapp2.RequestHandler):
 
         # Displays the page. Used by both get and post
         if users.get_current_user():
-            url = users.create_logout_url(self.request.host_url)
+            url = users.create_logout_url('/university?school=target')
             url_linktext = 'Logout'
         else:
-            url = '/_ah/login_required'
+            url = '/_ah/login_required?continue_url=/university?school=target'
             url_linktext = 'Login'
 
         template_values = {
@@ -189,7 +191,7 @@ class ToSubmitReview(webapp2.RequestHandler):
       query = School.query(School.school_name.IN([target])).get()
       template_values = {
           'text': 'Logout',
-          'url': users.create_logout_url(self.request.host_url),
+          'url': users.create_logout_url('/university?school=target'),
           'author': users.get_current_user(),
           'query': target
       }
