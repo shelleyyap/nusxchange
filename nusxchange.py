@@ -97,9 +97,8 @@ class Review(ndb.Model):
   """Models a review with author, date, major, university, date of exchange, ratings, review"""
   author = ndb.UserProperty()
   date = ndb.DateProperty(auto_now_add=True)
-  year = ndb.IntegerProperty()
+  year = ndb.GenericProperty()
   faculty = ndb.StringProperty()
-  country = ndb.StringProperty()
   semester = ndb.StringProperty()
   major = ndb.StringProperty()
 
@@ -108,12 +107,12 @@ class Review(ndb.Model):
   life_rating = ndb.IntegerProperty()
   academics_rating = ndb.IntegerProperty()
 
-  total_expenditure = ndb.IntegerProperty()
-  accommodation = ndb.IntegerProperty()
-  food = ndb.IntegerProperty()
-  transport = ndb.IntegerProperty()
-  academic_needs = ndb.IntegerProperty()
-  others = ndb.IntegerProperty()
+  total_expenditure = ndb.GenericProperty()
+  accommodation = ndb.GenericProperty()
+  food = ndb.GenericProperty()
+  transport = ndb.GenericProperty()
+  academic_needs = ndb.GenericProperty()
+  others = ndb.GenericProperty()
 
   content = ndb.TextProperty()
 
@@ -162,7 +161,7 @@ class University(webapp2.RequestHandler):
             'academic_needs': 3, #temporary value
             'others': 3, #temporary value
             'reviews': reviews,
-            'use': users.get_current_user()
+            'use': users.get_current_user(),
         }
 
         template = jinja_environment.get_template('university.html')
@@ -205,13 +204,14 @@ class SubmittedReview(webapp2.RequestHandler):
     review.author = users.get_current_user()
     review.major = self.request.get('major')
     review.faculty = self.request.get('faculty') 
-    review.year = self.request('year')
-    review.country = reviews_name
+    review.year = self.request.get('year')
     review.semester = self.request.get('semester')
-    review.overall_rating = self.request.get('overall')
-    review.cost_rating = self.request.get('cost')
-    review.life_rating = self.request.get('life')
-    review.academics_rating = self.request.get('academics')
+
+    review.overall_rating = int(self.request.get('overall'))
+    review.cost_rating = int(self.request.get('cost'))
+    review.life_rating = int(self.request.get('life'))
+    review.academics_rating = int(self.request.get('academics'))
+
     review.total_expenditure = self.request.get('totalcost')
     review.accommodation = self.request.get('accomcost')
     review.food = self.request.get('foodcost')
