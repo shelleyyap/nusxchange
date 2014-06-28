@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>NUSXchange - {{ school.school_name }}</title>
+  <title>NUSXchange - {{ school.school_name_short }}</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -46,8 +46,11 @@
           <div class="col-md-4">
             <div>
               <hr>
-              <p><strong>Type of Exchange: </strong>Type here<br>
-              <strong>Academic Calendar: </strong> Semester 1 or 2 or both here</p>
+              <p>
+                <strong>Type of Exchange: </strong>{{school.exchange_type}}<br>
+                <strong>Academic Calendar: </strong> {{school.academic_calendar}}<br>
+                <strong>Recommended Faculty: </strong> {{school.recommended_fac}}
+              </p>
               <hr>
               <p><strong>Ratings</strong><br>
                 Overall: 
@@ -86,20 +89,20 @@
                 Others: ${{ others }} <br>
               </p>
               <hr>
-              <p><a href="#" class="btn btn-default btn-success btn-style">Modules Offered</a></p>
+              <p><a href="{{mod_offered}}" class="btn btn-default btn-success btn-style">Modules Offered</a></p>
               <p><a href="#" class="btn btn-default btn-success btn-style">Module Mappings</a></p>
             </div>
           </div>
           <div class="col-md-8" style="margin-top:20px">
             <img src="../images/exchange.png" align="right"/> 
             <h2 align="justify">
-              <strong>Korea University</strong>
+              <strong>{{school.school_name}}</strong>
             </h2>
-            <h3>Seoul, South Korea</h3>
+            <h3>{{school.state}}, {{school.country}}</h3>
             <hr>
-            <p class="editf2" align="justify">Korea University is a nonsectarian, private research university located primarily in Seoul, South Korea, and one of the SKY universities, a historical acronym used in South Korea to refer to Seoul National University, Korea University, and Yonsei University.</p>
-
-            <p class="editf2" align="justify">Korea University (KU) launches its "Vision 2005" program, aimed at improving the standard of education and quality of student life. With 14 colleges spread over three campuses in two cities, Korea University is the largest private institution of higher education in the country. Its reputation for quality education is unmatched by any other institution in the nation. Almost all the courses are taught in the Korean Language.</p>
+            <p class="editf2" align="justify">
+              {{school.content}}
+            </p>
 
           </div>
         </div>
@@ -187,7 +190,7 @@
                 <button type="submit" class="btn btn-default marg" name='school' value="{{school.school_name}}">Submit Review</button>
               </form>
             {% else %}
-              <h4>You do not have permission to post a review. <a class="btn btn-default" href="{{ url }}">{{ url_linktext }}</a> to post.</h4>
+              <h4>You do not have permission to post a review. <a class="btn btn-default" href="{{ url }}?continue_url=/university?school={{school.school_name}}">{{ url_linktext }}</a> to post.</h4>
             {% endif %}
 
           </div>
@@ -220,7 +223,7 @@
               <button type="submit" class="btn btn-default" name='school' value="{{school.school_name}}">Post Comment</button>
             </form>
             {% else %}
-              <h4><strong>You do not have permission to comment. <a class="btn btn-default" href="{{ url }}">{{ url_linktext }}</a> to comment.</strong></h4>
+              <h4><strong>You do not have permission to comment. <a class="btn btn-default" href="{{ url }}?continue_url=/university?school={{school.school_name}}">{{ url_linktext }}</a> to comment.</strong></h4>
             {% endif %}
 
           </div>
