@@ -173,7 +173,7 @@
                           <strong>Review</strong><br>
                           <p> {{review.content}} </p>
                           <form action="/deletereview" method="get">
-                            <input type="hidden" name="school" value="{{school.school_name}}">
+                            <input type="hidden" name="school" value="{{school.school_name_short}}">
                             <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
                             <input type="submit" value="Delete Review">
                             
@@ -192,11 +192,11 @@
               </div>
             {% endif %}
             {% if use %}
-              <form action="/tosubmitreview?school={{school.school_name}}" method="get">
+              <form action="/tosubmitreview?school={{school.school_name_short}}" method="get">
                 <button type="submit" class="btn btn-default marg" name='school' value="{{school.school_name_short}}">Submit Review</button>
               </form>
             {% else %}
-              <h4>You do not have permission to post a review. <a class="btn btn-default" href="{{ url }}?continue_url=/university?school={{school.school_name}}">{{ url_linktext }}</a> to post.</h4>
+              <h4>You do not have permission to post a review. <a class="btn btn-default" href="{{ url }}?continue_url=/university?school={{school.school_name_short}}">{{ url_linktext }}</a> to post.</h4>
             {% endif %}
 
           </div>
@@ -223,13 +223,13 @@
             </div>
 
             {% if use %}
-            <form action="/university?school={{school.school_name}}" method="post">
-              <input type="hidden" name="comments_name" class="form-control" value="{{school.school_name}}">
+            <form action="/university?school={{school.school_name_short}}" method="post">
+              <input type="hidden" name="comments_name" class="form-control" value="{{school.school_name_short}}">
               <div><textarea id="styled" placeholder="Click to enter your comments" name="content" rows="3"></textarea></div>
-              <button type="submit" class="btn btn-default" name='school' value="{{school.school_name}}">Post Comment</button>
+              <button type="submit" class="btn btn-default" name='school' value="{{school.school_name_short}}">Post Comment</button>
             </form>
             {% else %}
-              <h4><strong>You do not have permission to comment. <a class="btn btn-default" href="{{ url }}?continue_url=/university?school={{school.school_name}}">{{ url_linktext }}</a> to comment.</strong></h4>
+              <h4><strong>You do not have permission to comment. <a class="btn btn-default" href="{{ url }}?continue_url=/university?school={{school.school_name_short}}">{{ url_linktext }}</a> to comment.</strong></h4>
             {% endif %}
 
           </div>

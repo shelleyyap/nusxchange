@@ -186,6 +186,7 @@ class University(webapp2.RequestHandler):
             'others': 3, #temporary value
             'reviews': reviews,
             'use': users.get_current_user(),
+            'mod_offered': query.mod_offered
         }
 
         template = jinja_environment.get_template('university.html')
@@ -264,29 +265,27 @@ class DeleteReview(webapp2.RequestHandler):
 
     self.redirect("/university?school=" + review_school)
 
-class TestCountries(webapp2.RequestHandler):
+class Countries(webapp2.RequestHandler):
     def get(self):
+        #ndb.delete_multi(School.query().fetch(keys_only=True))
 
-      #ndb.delete_multi(School.query().fetch(keys_only=True))
+        if users.get_current_user():
+            template_values = {
+                'text': 'Logout',
+                'url': users.create_logout_url('/countries'),
+                'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
+                'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "Hong Kong").fetch()}
+            }
+        else:
+            template_values = {
+            'text': 'Login',
+            'url':'/_ah/login_required?continue_url=/countries',
+            'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
+            'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "Hong Kong").fetch()}
+            }
 
-      if users.get_current_user():
-        template_values = {
-          'text': 'Logout',
-          'url': users.create_logout_url('/countries'),
-          'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
-          'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "Hong Kong").fetch()}
-          #'schools': {'australia':School.query(country=='Australia').fetch(),'canada': School.query(country=='Canada').fetch(), 'china': School.query(country=='China').fetch(), 'germany':School.query(country=='Germany').fetch(), 'hongkong': School.query(country=='Hong Kong').fetch()}
-        }
-      else:
-        template_values = {
-          'text': 'Login',
-          'url':'/_ah/login_required?continue_url=/countries',
-          'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
-          #'schools': {'australia':School.query(country=='Australia').fetch(),'canada': School.query(country=='Canada').fetch(), 'china': School.query(country=='China').fetch(), 'germany':School.query(country=='Germany').fetch(), 'hongkong': School.query(country=='Hong Kong').fetch()}
-        }
-
-      template = jinja_environment.get_template('testcountries.html')
-      self.response.out.write(template.render(template_values))
+        template = jinja_environment.get_template('testcountries.html')
+        self.response.out.write(template.render(template_values))
 
 class AddUniversity(webapp2.RequestHandler):
     def get(self):
@@ -328,7 +327,7 @@ class AddedUniversity(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/about', About),
                                 ('/contact', Contact),
-                                ('/countries', TestCountries),
+                                ('/countries', Countries),
                                 ('/university', University),
                                 ('/tosubmitreview', ToSubmitReview),
                                 ('/submittedreview', SubmittedReview),
