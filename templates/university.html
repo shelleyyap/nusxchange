@@ -68,13 +68,13 @@
                 Life:
                 <div class="progress">
                   <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ life }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ life * 20 }}%" id="overall">
-                    <span class="sr-only">{{ life }}</span>
+                    <span>{{ life }}</span>
                   </div>
                 </div>
                 Academics:
                 <div class="progress">
                   <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ academics }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ academics * 20 }}%" id="overall">
-                    <span class="sr-only">{{ academics }}</span>
+                    <span>{{ academics }}</span>
                   </div>
                 </div>
               </p>
@@ -140,19 +140,19 @@
                           Cost:
                           <div class="progress">
                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ review.cost_rating }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.cost_rating * 20 }}%">
-                              <span class="sr-only">{{ review.cost_rating }}</span>
+                              <span>{{ review.cost_rating }}</span>
                             </div>
                           </div>
                           Life:
                           <div class="progress">
                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ review.life_rating }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.life_rating * 20 }}%">
-                              <span class="sr-only">{{ review.life_rating }}</span>
+                              <span>{{ review.life_rating }}</span>
                             </div>
                           </div>
                           Academics:
                           <div class="progress">
                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ review.academics_rating }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ review.academics_rating * 20 }}%">
-                              <span class="sr-only">{{ review.academics_rating }}</span>
+                              <span>{{ review.academics_rating }}</span>
                             </div>  
                           </div>
                           <div>
@@ -170,8 +170,14 @@
                       </div>
                       <div class="col-md-8">
                         <div class="reviewRight">
-                          <strong>Testimonial</strong><br>
+                          <strong>Review</strong><br>
                           <p> {{review.content}} </p>
+                          <form action="/deletereview" method="get">
+                            <input type="hidden" name="school" value="{{school.school_name}}">
+                            <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
+                            <input type="submit" value="Delete Review">
+                            
+                          </form>
                        </div>
                      </div>
                     </div>
@@ -187,7 +193,7 @@
             {% endif %}
             {% if use %}
               <form action="/tosubmitreview?school={{school.school_name}}" method="get">
-                <button type="submit" class="btn btn-default marg" name='school' value="{{school.school_name}}">Submit Review</button>
+                <button type="submit" class="btn btn-default marg" name='school' value="{{school.school_name_short}}">Submit Review</button>
               </form>
             {% else %}
               <h4>You do not have permission to post a review. <a class="btn btn-default" href="{{ url }}?continue_url=/university?school={{school.school_name}}">{{ url_linktext }}</a> to post.</h4>

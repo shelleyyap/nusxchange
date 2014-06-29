@@ -59,7 +59,7 @@ class Contact(webapp2.RequestHandler):
       template = jinja_environment.get_template('contact.html')
       self.response.out.write(template.render(template_values))
 
-class Countries(webapp2.RequestHandler):
+'''class Countries(webapp2.RequestHandler):
     def get(self):
       if users.get_current_user():
         template_values = {
@@ -72,7 +72,7 @@ class Countries(webapp2.RequestHandler):
           'url':'/_ah/login_required?continue_url=/countries'
         }
       template = jinja_environment.get_template('countries.html')
-      self.response.out.write(template.render(template_values))
+      self.response.out.write(template.render(template_values))'''
 
 class Comments(ndb.Model):
   """Models an individual guestbook entry with author, content, and date."""
@@ -108,6 +108,11 @@ class School(ndb.Model):
   othercost = ndb.IntegerProperty()
 
   content = ndb.TextProperty()
+  #picture = ndb.StringProperty()
+
+  @classmethod
+  def query_country(cls, ancestor_key):
+    return cls.query(ancestor=ancestor_key).order(-cls.date)
 
 
 class Review(ndb.Model):
@@ -140,14 +145,14 @@ class Review(ndb.Model):
 
 class University(webapp2.RequestHandler):
     def show(self):
-        australia = School(country='Australia', state='Australia', school_name='ANU')
+        '''australia = School(country='Australia', state='Canberra', school_name='ANU')
         australia.put()
         aus = School(country='Aus', state='Aus', school_name='aus')
         aus.put()
         a = School(country='A', state='A', school_name='A', overall_rating=3)
-        a.put()
+        a.put()'''
         target = self.request.get('school')
-        query = School.query(School.school_name.IN([target])).get()
+        query = School.query(School.school_name_short.IN([target])).get()
 
         # There is no need to actually create the parent Book entity; we can
         # set it to be the parent of another entity without explicitly creating it
@@ -205,7 +210,7 @@ class University(webapp2.RequestHandler):
 class ToSubmitReview(webapp2.RequestHandler):
   def get(self):
       target = self.request.get('school')
-      query = School.query(School.school_name.IN([target])).get()
+      query = School.query(School.school_name_short.IN([target])).get()
       template_values = {
           'text': 'Logout',
           'url': users.create_logout_url('/university?school=target'),
@@ -242,12 +247,92 @@ class SubmittedReview(webapp2.RequestHandler):
 
     self.redirect("/university?school=" + reviews_name)
 
+class DeleteReview(webapp2.RequestHandler):
+  def get(self):
+    
+    review_school = self.request.get('school')
+
+    #self.response.write('<html><body>You wrote:<pre>')
+    #self.response.write(cgi.escape(self.request.get('school')))
+    #self.response.write('</pre></body></html>')
+
+    review_id = self.request.get('reviewid')
+    review_key = ndb.Key(urlsafe=review_id)
+    review_key.delete()
+
+    
+
+    self.redirect("/university?school=" + review_school)
+
+class TestCountries(webapp2.RequestHandler):
+    def get(self):
+
+      #ndb.delete_multi(School.query().fetch(keys_only=True))
+
+      if users.get_current_user():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url('/countries'),
+          'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
+          'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "Hong Kong").fetch()}
+          #'schools': {'australia':School.query(country=='Australia').fetch(),'canada': School.query(country=='Canada').fetch(), 'china': School.query(country=='China').fetch(), 'germany':School.query(country=='Germany').fetch(), 'hongkong': School.query(country=='Hong Kong').fetch()}
+        }
+      else:
+        template_values = {
+          'text': 'Login',
+          'url':'/_ah/login_required?continue_url=/countries',
+          'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
+          #'schools': {'australia':School.query(country=='Australia').fetch(),'canada': School.query(country=='Canada').fetch(), 'china': School.query(country=='China').fetch(), 'germany':School.query(country=='Germany').fetch(), 'hongkong': School.query(country=='Hong Kong').fetch()}
+        }
+
+      template = jinja_environment.get_template('testcountries.html')
+      self.response.out.write(template.render(template_values))
+
+class AddUniversity(webapp2.RequestHandler):
+    def get(self):
+      countries_list={'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"}
+      if users.get_current_user():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url('/countries'),
+        }
+      else:
+        template_values = {
+          'text': 'Login',
+          'url':'/_ah/login_required?continue_url=/countries'
+        }
+      template = jinja_environment.get_template('adduniversity.html')
+      self.response.out.write(template.render(template_values))
+
+class AddedUniversity(webapp2.RequestHandler):
+  def post(self):
+    #self.response.write('<html><body>You wrote:<pre>')
+    #self.response.write(cgi.escape(self.request.get('name')))
+    #self.response.write('</pre></body></html>')
+
+    sch = School()
+    sch.school_name=self.request.get('name')
+    sch.school_name_short=self.request.get('short_name')
+    sch.country=self.request.get('country')
+    sch.state=self.request.get('state')
+    sch.exchange_type=self.request.get('exchange_type')
+    sch.academic_calendar=self.request.get('calendar')
+    sch.recommended_fac=self.request.get('faculty')
+    sch.mod_offered=self.request.get('modules')
+    #sch.picture=self.request.get('img')
+    sch.content=self.request.get('abtschool')    
+    sch.put()
+    self.redirect("/university?school=" + sch.school_name_short)
+
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/about', About),
                                 ('/contact', Contact),
-                                ('/countries', Countries),
+                                ('/countries', TestCountries),
                                 ('/university', University),
                                 ('/tosubmitreview', ToSubmitReview),
-                                ('/submittedreview', SubmittedReview)],
+                                ('/submittedreview', SubmittedReview),
+                                ('/deletereview', DeleteReview),
+                                ('/adduniversity', AddUniversity),
+                                ('/addeduniversity', AddedUniversity)],
                               debug=True)

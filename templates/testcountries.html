@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>NUSXchange - Countries</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="../stylesheets/main.css" />
+    <link rel="stylesheet" href="../stylesheets/countrieslink.css" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="masthead">
+        <img src="../images/logo.png" />
+        <ul class="nav nav-justified">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li class="active"><a href="/countries">Countries</a></li>
+          <li><a href="#">Search</a></li>
+          <li><a href="{{url}}">{{text}}</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <br>
+      <!-- Example row of columns -->
+
+      {% for country in countries %}
+      <div class="row">
+          <div class="col-lg-4">
+            <img src="../images/{{countries[country]}}.png" class="countriesimg">
+          </div>
+          <div class="col-lg-8 countriesborder editf2">
+            <h2><strong>{{ countries[country] }}</strong></h2>
+            
+
+            {% for school in schools[country] %}
+            <form action="/university?school={{school.school_name_short}}" method="get">
+              <button type="submit" name="school" value="{{school.school_name_short}}" class="btn btn-default">{{school.school_name}}</button>
+            </form>
+            {% endfor %} 
+          </div>
+      </div>
+      <br>
+      {% endfor %}
+    
+
+      <!-- Site footer -->
+      <div class="footer">
+        <p>&copy; NUS Orbital 2014 - NUSXchange</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+</html>
