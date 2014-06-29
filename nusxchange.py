@@ -268,6 +268,8 @@ class DeleteReview(webapp2.RequestHandler):
 class Countries(webapp2.RequestHandler):
     def get(self):
         #ndb.delete_multi(School.query().fetch(keys_only=True))
+        #ndb.delete_multi(Review.query().fetch(keys_only=True))
+        #ndb.delete_multi(Comments.query().fetch(keys_only=True))
 
         if users.get_current_user():
             template_values = {

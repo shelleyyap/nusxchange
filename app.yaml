@@ -26,6 +26,22 @@ handlers:
 
 # Twitter Bootstrap
 
+- url: /bootstrap/fonts/(.*\.ttf)
+  static_files: bootstrap/fonts/\1
+  upload: bootstrap/fonts/(.*\.ttf)
+  mime_type: application/x-font-ttf
+
+- url: /bootstrap/fonts/(.*\.eot)
+  static_files: bootstrap/fonts/\1
+  upload: bootstrap/fonts/(.*\.eot)
+  mime_type: application/vnd.ms-fontobject
+
+- url: /bootstrap/fonts/(.*\.woff)
+  static_files: bootstrap/fonts/\1
+  upload: bootstrap/fonts/(.*\.woff)
+  mime_type: application/x-font-woff
+
+
 - url: /bootstrap
 
   static_dir: bootstrap
