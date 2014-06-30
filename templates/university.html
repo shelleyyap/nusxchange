@@ -196,7 +196,7 @@
                 <button type="submit" class="btn btn-default marg" name='school' value="{{school.school_name_short}}">Submit Review</button>
               </form>
             {% else %}
-              <h4>You do not have permission to post a review. <a class="btn btn-default" href="{{ url }}?continue_url=/university?school={{school.school_name_short}}">{{ url_linktext }}</a> to post.</h4>
+              <h4>You do not have permission to post a review. <a class="btn btn-default" href="{{ url }}">{{ url_linktext }}</a> to post.</h4>
             {% endif %}
 
           </div>
@@ -229,7 +229,7 @@
               <button type="submit" class="btn btn-default" name='school' value="{{school.school_name_short}}">Post Comment</button>
             </form>
             {% else %}
-              <h4><strong>You do not have permission to comment. <a class="btn btn-default" href="{{ url }}?continue_url=/university?school={{school.school_name_short}}">{{ url_linktext }}</a> to comment.</strong></h4>
+              <h4><strong>You do not have permission to comment. <a class="btn btn-default" href="{{ url }}">{{ url_linktext }}</a> to comment.</strong></h4>
             {% endif %}
 
           </div>
