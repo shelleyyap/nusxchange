@@ -14,7 +14,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="../stylesheets/main.css" />
-    <link rel="stylesheet" href="../stylesheets/countrieslink.css" />
+  <link rel="stylesheet" href="../stylesheets/commentbox.css" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -41,6 +41,7 @@
       <br>
       <!-- Example row of columns -->
       <form action="/submittedreview" method="post">
+          <input type="hidden" name="reviews_name" class="form-control" value="{{query}}">
           <div class="row">
             <div class="col-md-12 editf2" style="margin-top:20px">
               <table style="width=250px">
@@ -193,7 +194,6 @@
           <div class="row">
             <div class="col-md-12 editf2">
               <p><strong>Enter your review here:</strong></p>
-              <input type="hidden" name="reviews_name" class="form-control" value="{{query}}">
               <div><textarea id="styled" placeholder="Click to enter" name="reviewcontents" rows="10"></textarea></div>
             </div>
           </div>
