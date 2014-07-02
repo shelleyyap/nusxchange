@@ -21,6 +21,41 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script>
+      $(document).ready(function(){
+        /*$("#btn1").click(function(){
+          $("select").append("<option value=0> Physics </option>");*/
+         /* $("#maj").replaceWith("<select name="major" required>
+                         <option value=0> Select Major </option><option value="Physics"> Physics </option>
+                      </select>"); */
+          $("select#fac").change(function() {
+            /*if $("select#fac option:selected").text() == "Faculty of Science") {
+              $("select#maj").append("<option value=0> Physics </option>");
+            } else {
+              $("select#maj").append("<option value=0> Computer science </option>");
+            }*/
+            if ($("select#fac option:selected").val() == "FoS") {
+              $("select#maj option").remove();
+              $("select#maj").append("<option value=0> Select Major </option>");
+              $("select#maj").append("<option value=1> Physics </option>");
+              $("select#maj").append("<option value=2> Chemistry </option>");
+            } else if ($("select#fac option:selected").val() == "SoC") {
+              $("select#maj option").remove();
+              $("select#maj").append("<option value=0> Select Major </option>");
+              $("select#maj").append("<option value=1> Computer Science </option>");
+              $("select#maj").append("<option value=2> Information Systems </option>");
+            } else {
+              $("select#maj option").remove();
+              $("select#maj").append("<option value=0> Select Major </option>");
+            }
+            
+          })
+      });
+      </script>
+
   </head>
 
   <body>
@@ -39,6 +74,10 @@
         </ul>
       </div>
       <br>
+
+      
+      <button id="btn1">Append text</button>
+      <button id="btn2">Append list items</button>
       <!-- Example row of columns -->
       <form action="/submittedreview" method="post">
           <input type="hidden" name="reviews_name" class="form-control" value="{{query}}">
@@ -50,17 +89,31 @@
                   <td> {{ author }} </td>
                 </tr>
                 <tr>
+                  <td> NUS faculty: </td>
+                  <td>       
+                    <select name="faculty" class="fac" id="fac" required>
+                      <option value=0> Select Faculty </option>
+                      <option value="FoS"> Faculty of Science </option>
+                      <option value="SoC"> School of Computing </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
                   <td> Major: </td>
-                  <td> <input id="styled" type="text" name="major" placeholder="Major"/></td>
+                  <td>
+                    <select name="major" id="maj" required>
+                      <option value=0> Select Major </option>
+                    </select>
+                  </td>
                 </tr>
                 <tr>
                   <td> Year: </td>
-                  <td> <input id="styled" type="number" name="year"/></td>
+                  <td> <input id="styled" type="number" name="year" min="2000" max="2050"required/></td>
                 </tr>
                 <tr>
                   <td> Semester: </td>
                   <td>
-                    <select name="semester">
+                    <select name="semester" required>
                       <option value=0> Select Semester </option>
                       <option value="1"> Semester 1 </option>
                       <option value="2"> Semester 2 </option>
@@ -68,16 +121,7 @@
                     </select>
                   </td>
                 </tr>
-                <tr>
-                  <td> NUS faculty: </td>
-                  <td>
-                    <select name="faculty">
-                      <option value=0> Select Faculty </option>
-                      <option value=1> Faculty of Science </option>
-                      <option value=2> School of Computing </option>
-                    </select>
-                  </td>
-                </tr>
+                
               </table>
             </div>
           </div>
@@ -89,73 +133,73 @@
                 <tr>
                   <td> Overall: </td>
                   <td>
-                    <input type="radio" name="overall" value="1"> 1
+                    <input type="radio" name="overall" required value="1"> 1
                   </td>
                   <td>
-                    <input type="radio" name="overall" value="2"> 2
+                    <input type="radio" name="overall" required value="2"> 2
                   </td>
                   <td>
-                    <input type="radio" name="overall" value="3"> 3
+                    <input type="radio" name="overall" required value="3"> 3
                   </td>
                   <td>
-                    <input type="radio" name="overall" value="4"> 4
+                    <input type="radio" name="overall" required value="4"> 4
                   </td>
                   <td>
-                    <input type="radio" name="overall" value="5"> 5
+                    <input type="radio" name="overall" required value="5"> 5
                   </td>
                 </tr>
                 <tr>
                   <td> Cost: </td>
                   <td>
-                    <input type="radio" name="cost" value="1"> 1
+                    <input type="radio" name="cost" required value="1"> 1
                   </td>
                   <td>
-                    <input type="radio" name="cost" value="2"> 2
+                    <input type="radio" name="cost" required value="2"> 2
                   </td>
                   <td>
-                    <input type="radio" name="cost" value="3"> 3
+                    <input type="radio" name="cost" required value="3"> 3
                   </td>
                   <td>
-                    <input type="radio" name="cost" value="4"> 4
+                    <input type="radio" name="cost" required value="4"> 4
                   </td>
                   <td>
-                    <input type="radio" name="cost" value="5"> 5
+                    <input type="radio" name="cost" required value="5"> 5
                   </td>
                 </tr>
                 <tr>
                   <td> Student Life: </td>
                   <td>
-                    <input type="radio" name="life" value="1"> 1
+                    <input type="radio" name="life" required value="1"> 1
                   </td>
                   <td>
-                    <input type="radio" name="life" value="2"> 2
+                    <input type="radio" name="life" required value="2"> 2
                   </td>
                   <td>
-                    <input type="radio" name="life" value="3"> 3
+                    <input type="radio" name="life" required value="3"> 3
                   </td>
                   <td>
-                    <input type="radio" name="life" value="4"> 4
+                    <input type="radio" name="life" required value="4"> 4
                   </td>
                   <td>
-                    <input type="radio" name="life" value="5"> 5
+                    <input type="radio" name="life" required value="5"> 5
                   </td>
                 </tr>
                 <tr>
                   <td> Academics: </td>
                   <td>
-                    <input type="radio" name="academics" value="1"> 1
+                    <input type="radio" name="academics" required value="1"> 1
                   </td>
                   <td>
-                    <input type="radio" name="academics" value="2"> 2
+                    <input type="radio" name="academics" required value="2"> 2
                   </td>
                   <td>
-                    <input type="radio" name="academics" value="3"> 3
+                    <input type="radio" name="academics" required value="3"> 3
                   </td>
                   <td>
-                    <input type="radio" name="academics" value="4"> 4
+                    <input type="radio" name="academics" required value="4"> 4
                   </td>
                   <td>
-                    <input type="radio" name="academics" value="5"> 5
+                    <input type="radio" name="academics" required value="5"> 5
                   </td>
                 </tr>
               </table>
@@ -165,27 +209,27 @@
               <table style="width=250px">
                 <tr>
                   <td> Total: </td>
-                  <td> S$ <input type="number" name="totalcost"/> </td>
+                  <td> S$ <input type="number" name="totalcost" min="0" required/> </td>
                 </tr>
                 <tr>
                   <td> Accommodation: </td>
-                  <td> S$ <input type="number" name="accomcost"/> </td>
+                  <td> S$ <input type="number" name="accomcost" min="0" required/> </td>
                 </tr>
                 <tr>
                   <td> Food: </td>
-                  <td> S$ <input type="number" name="foodcost"/> </td>
+                  <td> S$ <input type="number" name="foodcost" min="0" required/> </td>
                 </tr>
                 <tr>
                   <td> Transport: </td>
-                  <td> S$ <input type="number" name="transportcost"/> </td>
+                  <td> S$ <input type="number" name="transportcost" min="0" required/> </td>
                 </tr>
                 <tr>
                   <td> Academic needs: </td>
-                  <td> S$ <input type="number" name="acadcost"/> </td>
+                  <td> S$ <input type="number" name="acadcost" min="0" required/> </td>
                 </tr>
                 <tr>
                   <td> Others: </td>
-                  <td> S$ <input type="number" name="othercost"/> </td>
+                  <td> S$ <input type="number" name="othercost" min="0" required/> </td>
                 </tr>
               </table>
             </div>
@@ -194,7 +238,7 @@
           <div class="row">
             <div class="col-md-12 editf2">
               <p><strong>Enter your review here:</strong></p>
-              <div><textarea id="styled" placeholder="Click to enter" name="reviewcontents" rows="10"></textarea></div>
+              <div><textarea id="styled" placeholder="Click to enter" name="reviewcontents" rows="10" required></textarea></div>
             </div>
           </div>
           <button type="submit" class="btn btn-default" name='school' value="{{query}}">Submit Review</button>
@@ -207,9 +251,9 @@
 
     </div> <!-- /container -->
 
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    
   </body>
 </html>
