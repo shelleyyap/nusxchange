@@ -54,7 +54,7 @@
                   <td> NUS faculty: </td>
                   <td>       
                     <select name="faculty" class="fac" id="fac" required>
-                      <option value=0> Select Faculty </option>
+                      <option value=> Select Faculty </option>
                       <option value="FoS"> Faculty of Science </option>
                       <option value="SoC"> School of Computing </option>
                     </select>
@@ -64,7 +64,35 @@
                   <td> Major: </td>
                   <td>
                     <select name="major" id="maj" required>
-                      <option value=0> Select Major </option>
+                      <option value=> Select Major </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Special Programmes: </td>
+                  <td>
+                    <select name="specprog" id="specprog" required>
+                      <option value=> Select Special Programme Type </option>
+                      <option value='NIL'> NIL </option>
+                      <option value='DDP'> Double Degree Programme </option>
+                      <option value='2nd Major'> Double Major Programme </option>
+                      <option value='Minor'> Minor Programmes </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Faculty of Second Degree/Second Major/Minor: </td>
+                  <td>       
+                    <select name="faculty2" id="fac2" required>
+                      <option value=> Select Faculty </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Major/Minor: </td>
+                  <td>
+                    <select name="major2" id="maj2" required>
+                      <option value=> Select Major </option>
                     </select>
                   </td>
                 </tr>
@@ -76,7 +104,7 @@
                   <td> Semester: </td>
                   <td>
                     <select name="semester" required>
-                      <option value=0> Select Semester </option>
+                      <option value=> Select Semester </option>
                       <option value="1"> Semester 1 </option>
                       <option value="2"> Semester 2 </option>
                       <option value="1 and 2"> Semester 1 and 2 </option>
