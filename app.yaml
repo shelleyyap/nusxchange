@@ -46,7 +46,8 @@ handlers:
 
   static_dir: bootstrap
 
-
+- url: /js
+  static_dir: js
 # Handler for front page
 
 - url: /.*

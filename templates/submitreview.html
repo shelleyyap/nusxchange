@@ -14,48 +14,13 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="../stylesheets/main.css" />
-  <link rel="stylesheet" href="../stylesheets/commentbox.css" />
+    <link rel="stylesheet" href="../stylesheets/commentbox.css" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script>
-      $(document).ready(function(){
-        /*$("#btn1").click(function(){
-          $("select").append("<option value=0> Physics </option>");*/
-         /* $("#maj").replaceWith("<select name="major" required>
-                         <option value=0> Select Major </option><option value="Physics"> Physics </option>
-                      </select>"); */
-          $("select#fac").change(function() {
-            /*if $("select#fac option:selected").text() == "Faculty of Science") {
-              $("select#maj").append("<option value=0> Physics </option>");
-            } else {
-              $("select#maj").append("<option value=0> Computer science </option>");
-            }*/
-            if ($("select#fac option:selected").val() == "FoS") {
-              $("select#maj option").remove();
-              $("select#maj").append("<option value=0> Select Major </option>");
-              $("select#maj").append("<option value=1> Physics </option>");
-              $("select#maj").append("<option value=2> Chemistry </option>");
-            } else if ($("select#fac option:selected").val() == "SoC") {
-              $("select#maj option").remove();
-              $("select#maj").append("<option value=0> Select Major </option>");
-              $("select#maj").append("<option value=1> Computer Science </option>");
-              $("select#maj").append("<option value=2> Information Systems </option>");
-            } else {
-              $("select#maj option").remove();
-              $("select#maj").append("<option value=0> Select Major </option>");
-            }
-            
-          })
-      });
-      </script>
-
   </head>
 
   <body>
@@ -75,9 +40,6 @@
       </div>
       <br>
 
-      
-      <button id="btn1">Append text</button>
-      <button id="btn2">Append list items</button>
       <!-- Example row of columns -->
       <form action="/submittedreview" method="post">
           <input type="hidden" name="reviews_name" class="form-control" value="{{query}}">
@@ -254,6 +216,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    
+
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/reviewscript.js"></script>
   </body>
 </html>
