@@ -49,7 +49,8 @@
               <p>
                 <strong>Type of Exchange: </strong>{{school.exchange_type}}<br>
                 <strong>Academic Calendar: </strong> {{school.academic_calendar}}<br>
-                <strong>Recommended Faculty: </strong> {{school.recommended_fac}}
+                <strong>Recommended Faculty: </strong> {% for fac in school.recommended_fac %} 
+                {{fac}} {% endfor %}
               </p>
               <hr>
               <p><strong>Ratings</strong><br>

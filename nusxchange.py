@@ -92,7 +92,7 @@ class School(ndb.Model):
   school_name_short = ndb.StringProperty()
   exchange_type = ndb.StringProperty()
   academic_calendar = ndb.StringProperty()
-  recommended_fac = ndb.StringProperty()
+  recommended_fac = ndb.StringProperty(repeated=True)
   mod_offered = ndb.StringProperty() # a url
 
   overall_rating = ndb.IntegerProperty()
@@ -318,7 +318,7 @@ class AddedUniversity(webapp2.RequestHandler):
     sch.state=self.request.get('state')
     sch.exchange_type=self.request.get('exchange_type')
     sch.academic_calendar=self.request.get('calendar')
-    sch.recommended_fac=self.request.get('faculty')
+    sch.recommended_fac=self.request.get_all('faculty')
     sch.mod_offered=self.request.get('modules')
     #sch.picture=self.request.get('img')
     sch.content=self.request.get('abtschool')    
