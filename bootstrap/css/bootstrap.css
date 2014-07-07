@@ -2037,6 +2037,51 @@ fieldset[disabled] .btn {
           box-shadow: none;
 }
 
+.btn-cr{
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn-cross{
+  text-shadow:1px -1px 3px rgba(59,185,255,1);
+  font-weight:bold;
+  color:#141414;
+  letter-spacing:1pt;
+  word-spacing:2pt;
+  font-size:18px;
+  text-align:right;
+  font-family:arial, helvetica, sans-serif;
+  line-height:0;
+  background-color: #ffffff;
+}
+
+.btn-cross:hover,
+.btn-cross:focus,
+.btn-cross:active,
+.btn-cross.active,
+.open .dropdown-toggle.btn-cross {
+  text-shadow:1px -1px 3px rgba(255,41,8,1);
+  font-weight:bold;
+  color:#141414;
+  letter-spacing:1pt;
+  word-spacing:2pt;
+  font-size:18px;
+  text-align:right;
+  font-family:arial, helvetica, sans-serif;
+  line-height:0;
+  background-color: #ffffff;
+}
+
+
 .btn-default {
   color: #333333;
   background-color: #ffffff;

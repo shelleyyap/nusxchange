@@ -178,12 +178,13 @@
                         <div class="reviewRight">
                           <strong>Review</strong><br>
                           <p> {{review.content}} </p>
-                          <form action="/deletereview" method="get">
-                            <input type="hidden" name="school" value="{{school.school_name_short}}">
-                            <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
-                            <input type="submit" value="Delete Review">
-                            
-                          </form>
+                          {% if admin %}
+                            <form action="/deletereview" method="get">
+                              <input type="hidden" name="school" value="{{school.school_name_short}}">
+                              <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
+                              <input class="btn btn-default" type="submit" value="Delete Review">
+                            </form>
+                          {% endif %}
                        </div>
                      </div>
                     </div>
@@ -215,10 +216,13 @@
                   {% for comment in comments %}
                   <li>
                     <div class="commentText">
+                    {% if admin %}
+                    <a class="btn-cr btn-cross" href="/deletecomment?school={{school.school_name_short}}&commentid={{comment.key.urlsafe()}}">x</a>
+                    {% endif %}
                       {% if comment.author %}
-                        <b>{{ comment.author.nickname() }}</b> wrote:
+                      <b>{{ comment.author.nickname() }}</b> wrote:
                       {% else %}
-                        <b>An anonymous person wrote:</b>
+                      <b>An anonymous person wrote:</b>
                       {% endif %}
                       <p>{{ comment.content|escape }}</p><span class="date sub-text">{{ comment.date.date().strftime('%d-%m-%Y') }} {{comment.date.time().strftime('%H:%M:%S')}}</span>
                     </div>
