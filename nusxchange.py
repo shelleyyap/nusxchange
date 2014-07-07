@@ -15,49 +15,59 @@ jinja_environment = jinja2.Environment(
 class MainPage(webapp2.RequestHandler):
     # Handler for the front page.
     def get(self):
-      if users.get_current_user():
-        if users.is_current_user_admin():
-          template_values = {
-            'text': 'Logout',
-            'url': users.create_logout_url(self.request.host_url)
-          }
-          template = jinja_environment.get_template('frontadmin.html')
-          self.response.out.write(template.render(template_values))
-        else: 
-          template_values = {
-            'text': 'Logout',
-            'url': users.create_logout_url(self.request.host_url)
-          }
-          template = jinja_environment.get_template('front.html')
-          self.response.out.write(template.render(template_values))
-
+      if users.is_current_user_admin():
+        template_values = {
+          'text': 'Logout',
+          'url' : users.create_logout_url(self.request.host_url)
+        }
+        template = jinja_environment.get_template('frontadmin.html')
+        self.response.out.write(template.render(template_values))
+      elif users.get_current_user():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url(self.request.host_url)
+        }
+        template = jinja_environment.get_template('frontuser.html')
+        self.response.out.write(template.render(template_values))
       else:
         template_values = {
-          'text': 'Login',
-          'url':'/login?continue_url=/'
+          'text': 'NUS Login',
+          'url':'/_ah/login_required',
+          'admintext': 'Admin Login',
+          'adminurl': '/_ah/login_required?continue_url=/login'
         }
         template = jinja_environment.get_template('front.html')
         self.response.out.write(template.render(template_values))
 
 class Login(webapp2.RequestHandler):
   def get(self):
-      template_values = {
-        'continue_url': self.request.get('continue_url')
-      }
-      template = jinja_environment.get_template('loginpage.html')
-      self.response.out.write(template.render(template_values))
-      
+      if users.is_current_user_admin():
+        template_values = {
+          'text': 'Logout',
+          'url' : users.create_logout_url(self.request.host_url)
+        }
+        template = jinja_environment.get_template('frontadmin.html')
+        self.response.out.write(template.render(template_values))
+      else:
+        template_values = {
+          'redirectlink': users.create_logout_url(self.request.host_url)
+        }
+        template = jinja_environment.get_template('loginerror.html')
+        self.response.out.write(template.render(template_values))
+
+
+
 class About(webapp2.RequestHandler):
     def get(self):
       if users.get_current_user():
         template_values = {
           'text': 'Logout',
-          'url': users.create_logout_url('about')
+          'url': users.create_logout_url('/about')
         }
       else:
         template_values = {
           'text': 'Login',
-          'url':'/login?continue_url=about'
+          'url':'/_ah/login_required?continue_url=/about'
         }
 
       template = jinja_environment.get_template('about.html')
@@ -73,7 +83,7 @@ class Contact(webapp2.RequestHandler):
       else:
         template_values = {
           'text': 'Login',
-          'url':'/login?continue_url=contact'
+          'url':'/_ah/login_required?continue_url=contact'
         }
       template = jinja_environment.get_template('contact.html')
       self.response.out.write(template.render(template_values))
@@ -88,7 +98,7 @@ class Contact(webapp2.RequestHandler):
       else:
         template_values = {
           'text': 'Login',
-          'url':'/login?continue_url=/countries'
+          'url':'/_ah/login_required?continue_url=/countries'
         }
       template = jinja_environment.get_template('countries.html')
       self.response.out.write(template.render(template_values))'''
@@ -185,7 +195,7 @@ class University(webapp2.RequestHandler):
             url = users.create_logout_url('/university?school=' + target)
             url_linktext = 'Logout'
         else:
-            url = '/login?continue_url=/university?school=' + target
+            url = '/_ah/login_required?continue_url=/university?school=' + target
             url_linktext = 'Login'
 
         template_values = {
@@ -205,7 +215,8 @@ class University(webapp2.RequestHandler):
             'others': 3, #temporary value
             'reviews': reviews,
             'use': users.get_current_user(),
-            'mod_offered': query.mod_offered
+            'mod_offered': query.mod_offered,
+            'admin': users.is_current_user_admin()
         }
 
         template = jinja_environment.get_template('university.html')
@@ -280,9 +291,22 @@ class DeleteReview(webapp2.RequestHandler):
     review_key = ndb.Key(urlsafe=review_id)
     review_key.delete()
 
-    
-
     self.redirect("/university?school=" + review_school)
+
+class DeleteComment(webapp2.RequestHandler):
+  def get(self):
+    
+    comment_school = self.request.get('school')
+
+    #self.response.write('<html><body>You wrote:<pre>')
+    #self.response.write(cgi.escape(self.request.get('school')))
+    #self.response.write('</pre></body></html>')
+
+    comment_id = self.request.get('commentid')
+    comment_key = ndb.Key(urlsafe=comment_id)
+    comment_key.delete()
+
+    self.redirect("/university?school=" + comment_school)
 
 class Countries(webapp2.RequestHandler):
     def get(self):
@@ -300,7 +324,7 @@ class Countries(webapp2.RequestHandler):
         else:
             template_values = {
             'text': 'Login',
-            'url':'/login?continue_url=/countries',
+            'url':'/_ah/login_required?continue_url=/countries',
             'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
             'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "Hong Kong").fetch()}
             }
@@ -319,7 +343,7 @@ class AddUniversity(webapp2.RequestHandler):
       else:
         template_values = {
           'text': 'Login',
-          'url':'/login?continue_url=/countries'
+          'url':'/_ah/login_required?continue_url=/countries'
         }
       template = jinja_environment.get_template('adduniversity.html')
       self.response.out.write(template.render(template_values))
@@ -354,6 +378,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/tosubmitreview', ToSubmitReview),
                                 ('/submittedreview', SubmittedReview),
                                 ('/deletereview', DeleteReview),
+                                ('/deletecomment', DeleteComment),
                                 ('/adduniversity', AddUniversity),
                                 ('/addeduniversity', AddedUniversity)],
                               debug=True)
