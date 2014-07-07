@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>NUSXchange - Module Mappings</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="../stylesheets/main.css" />
+    <link rel="stylesheet" href="../stylesheets/countrieslink.css" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="masthead">
+        <img src="../images/logo.png" />
+        <ul class="nav nav-justified">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li class="active"><a href="/countries">Countries</a></li>
+          <li><a href="#">Search</a></li>
+          <li><a href="{{url}}">{{text}}</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <br>
+      <!-- Example row of columns -->
+      <h2> {{ school.school_name }} </h2>
+      <hr>
+      <table style="width:100%">
+        <tr>
+          <td> <strong> SEP Module </strong> </td>
+          <td> <strong>SEP Credits </strong> </td>
+          <td> <strong>NUS Module </strong></td>
+          <td> <strong>NUS Modular Credits </strong></td>
+        </tr>
+
+        {% for mod in modules %}
+          <tr>
+            <td> {{ mod.sep_mod }} </td>
+            <td> {{ mod.sep_mc }} </td>
+            <td> {{ mod.nus_mod }} </td>
+            <td> {{ mod.nus_mc }} </td>
+          </tr>
+        {% endfor %}
+
+      </table>
+      
+
+      <!-- Site footer -->
+      <div class="footer">
+        <p>&copy; NUS Orbital 2014 - NUSXchange</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+</html>

@@ -91,7 +91,12 @@
               </p>
               <hr>
               <p><a href="{{mod_offered}}" class="btn btn-default btn-success btn-style">Modules Offered</a></p>
-              <p><a href="#" class="btn btn-default btn-success btn-style">Module Mappings</a></p>
+              <p>
+                <form action="/modulemappings?school={{school.school_name_short}}" method="get">
+                  <button type="submit" name="school" value="{{school.school_name_short}}" class="btn btn-default">Module Mappings</button>
+                </form>
+              </p>
+
             </div>
           </div>
           <div class="col-md-8" style="margin-top:20px">

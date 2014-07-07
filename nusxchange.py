@@ -103,6 +103,12 @@ class Comments(ndb.Model):
   def query_book(cls, ancestor_key):
     return cls.query(ancestor=ancestor_key).order(-cls.date)
 
+class Mapping(ndb.Model):
+  sep_mod = ndb.StringProperty()
+  sep_mc = ndb.IntegerProperty()
+  nus_mod = ndb.StringProperty()
+  nus_mc = ndb.IntegerProperty()
+
 class School(ndb.Model):
   """Models an SEP partner university with general information, ratings, reviews and comments."""
   country = ndb.StringProperty()
@@ -113,6 +119,7 @@ class School(ndb.Model):
   academic_calendar = ndb.StringProperty()
   recommended_fac = ndb.StringProperty(repeated=True)
   mod_offered = ndb.StringProperty() # a url
+  mod_mappings = ndb.StructuredProperty(Mapping, repeated=True)
 
   overall_rating = ndb.IntegerProperty()
   cost_rating = ndb.IntegerProperty()
@@ -244,6 +251,7 @@ class SubmittedReview(webapp2.RequestHandler):
   def post(self):
     reviews_name = self.request.get('reviews_name')
     review = Review(parent=ndb.Key("School", reviews_name or "*notitle*"))
+    query = School.query(School.school_name_short.IN([reviews_name])).get()
 
     review.author = users.get_current_user()
     review.major = self.request.get('major')
@@ -263,6 +271,69 @@ class SubmittedReview(webapp2.RequestHandler):
     review.academic_needs = self.request.get('acadcost')
     review.others = self.request.get('othercost')
     review.content = self.request.get('reviewcontents')
+
+    mod1 = Mapping()
+    mod1.sep_mod = self.request.get('mod1')
+    mod1.sep_mc = int(self.request.get('cred1'))
+    mod1.nus_mod = self.request.get('nmod1')
+    mod1.nus_mc = int(self.request.get('mc1'))
+
+    mod2 = Mapping()
+    mod2.sep_mod = self.request.get('mod2')
+    mod2.sep_mc = int(self.request.get('cred2'))
+    mod2.nus_mod = self.request.get('nmod2')
+    mod2.nus_mc = int(self.request.get('mc2'))
+
+    mod3 = Mapping()
+    mod3.sep_mod = self.request.get('mod3')
+    mod3.sep_mc = int(self.request.get('cred3'))
+    mod3.nus_mod = self.request.get('nmod3')
+    mod3.nus_mc = int(self.request.get('mc3'))
+
+    mod4 = Mapping()
+    mod4.sep_mod = self.request.get('mod4')
+    mod4.sep_mc = int(self.request.get('cred4'))
+    mod4.nus_mod = self.request.get('nmod4')
+    mod4.nus_mc = int(self.request.get('mc4'))
+
+    mod5 = Mapping()
+    mod5.sep_mod = self.request.get('mod5')
+    mod5.sep_mc = int(self.request.get('cred5'))
+    mod5.nus_mod = self.request.get('nmod5')
+    mod5.nus_mc = int(self.request.get('mc5'))
+
+    mod6 = Mapping()
+    mod6.sep_mod = self.request.get('mod6')
+    mod6.sep_mc = int(self.request.get('cred6'))
+    mod6.nus_mod = self.request.get('nmod6')
+    mod6.nus_mc = int(self.request.get('mc6'))
+
+    mod7 = Mapping()
+    mod7.sep_mod = self.request.get('mod7')
+    mod7.sep_mc = int(self.request.get('cred7'))
+    mod7.nus_mod = self.request.get('nmod7')
+    mod7.nus_mc = int(self.request.get('mc7'))
+
+    mod8 = Mapping()
+    mod8.sep_mod = self.request.get('mod8')
+    mod8.sep_mc = int(self.request.get('cred8'))
+    mod8.nus_mod = self.request.get('nmod8')
+    mod8.nus_mc = int(self.request.get('mc8'))
+
+    mod9 = Mapping()
+    mod9.sep_mod = self.request.get('mod9')
+    mod9.sep_mc = int(self.request.get('cred9'))
+    mod9.nus_mod = self.request.get('nmod9')
+    mod9.nus_mc = int(self.request.get('mc9'))
+
+    mod10 = Mapping()
+    mod10.sep_mod = self.request.get('mod10')
+    mod10.sep_mc = int(self.request.get('cred10'))
+    mod10.nus_mod = self.request.get('nmod10')
+    mod10.nus_mc = int(self.request.get('mc10'))
+
+    query.mod_mappings = [mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10]
+    query.put()
     review.put()
 
     self.redirect("/university?school=" + reviews_name)
@@ -344,6 +415,28 @@ class AddedUniversity(webapp2.RequestHandler):
     sch.put()
     self.redirect("/university?school=" + sch.school_name_short)
 
+class ModuleMappings(webapp2.RequestHandler):
+  def get(self):
+    target = self.request.get('school')
+    query = School.query(School.school_name_short.IN([target])).get()
+     
+    if users.get_current_user():
+      template_values = {
+        'text': 'Logout',
+        'url': users.create_logout_url('/modulemappings'),
+        'school': query,
+        'modules': query.mod_mappings
+        }
+    else:
+      template_values = {
+        'text': 'Login',
+        'url':'/login?continue_url=/modulemappings',
+        'school': query,
+        'modules': query.mod_mappings
+        }
+
+    template = jinja_environment.get_template('modmappings.html')
+    self.response.out.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/login', Login),
@@ -355,5 +448,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/submittedreview', SubmittedReview),
                                 ('/deletereview', DeleteReview),
                                 ('/adduniversity', AddUniversity),
-                                ('/addeduniversity', AddedUniversity)],
+                                ('/addeduniversity', AddedUniversity),
+                                ('/modulemappings', ModuleMappings)],
                               debug=True)
