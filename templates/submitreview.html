@@ -41,7 +41,7 @@
       <br>
 
       <!-- Example row of columns -->
-      <form action="/submittedreview" method="post">
+      <form action="/submittedreview" method="post" id="reviewform">
           <input type="hidden" name="reviews_name" class="form-control" value="{{query}}">
           <div class="row">
             <div class="col-md-12 editf2" style="margin-top:20px">
@@ -234,61 +234,61 @@
                   <td> NUS Module MCs </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod1"> </td>
+                  <td> <input type="text" name="mod1" id="mod1"> </td>
                   <td> <input type="number" min="0" name="cred1"> </td>
                   <td> <input type="text" name="nmod1"> </td>
                   <td> <input type="number" min="0" name="mc1"> </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod2"> </td>
+                  <td> <input type="text" name="mod2" id="mod2"> </td>
                   <td> <input type="number" min="0" name="cred2"> </td>
                   <td> <input type="text" name="nmod2"> </td>
                   <td> <input type="number" min="0" name="mc2"> </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod3"> </td>
+                  <td> <input type="text" name="mod3" id="mod3"> </td>
                   <td> <input type="number" min="0" name="cred3"> </td>
                   <td> <input type="text" name="nmod3"> </td>
                   <td> <input type="number" min="0" name="mc3"> </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod4"> </td>
+                  <td> <input type="text" name="mod4" id="mod4"> </td>
                   <td> <input type="number" min="0" name="cred4"> </td>
                   <td> <input type="text" name="nmod4"> </td>
                   <td> <input type="number" min="0" name="mc4"> </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod5"> </td>
+                  <td> <input type="text" name="mod5" id="mod5"> </td>
                   <td> <input type="number" min="0" name="cred5"> </td>
                   <td> <input type="text" name="nmod5"> </td>
                   <td> <input type="number" min="0" name="mc5"> </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod6"> </td>
+                  <td> <input type="text" name="mod6" id="mod6"> </td>
                   <td> <input type="number" min="0" name="cred6"> </td>
                   <td> <input type="text" name="nmod6"> </td>
                   <td> <input type="number" min="0" name="mc6"> </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod7"> </td>
+                  <td> <input type="text" name="mod7" id="mod7"> </td>
                   <td> <input type="number" min="0" name="cred7"> </td>
                   <td> <input type="text" name="nmod7"> </td>
                   <td> <input type="number" min="0" name="mc7"> </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod8"> </td>
+                  <td> <input type="text" name="mod8" id="mod8"> </td>
                   <td> <input type="number" min="0" name="cred8"> </td>
                   <td> <input type="text" name="nmod8"> </td>
                   <td> <input type="number" min="0" name="mc8"> </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod9"> </td>
+                  <td> <input type="text" name="mod9" id="mod9"> </td>
                   <td> <input type="number" min="0" name="cred9"> </td>
                   <td> <input type="text" name="nmod9"> </td>
                   <td> <input type="number" min="0" name="mc9"> </td>
                 </tr>
                 <tr>
-                  <td> <input type="text" name="mod10"> </td>
+                  <td> <input type="text" name="mod10" id="mod10"> </td>
                   <td> <input type="number" min="0" name="cred10"> </td>
                   <td> <input type="text" name="nmod10"> </td>
                   <td> <input type="number" min="0" name="mc10"> </td>
@@ -313,11 +313,16 @@
 
     </div> <!-- /container -->
 
+    
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.js"></script>
     <script type="text/javascript" src="../js/reviewscript.js"></script>
   </body>
 </html>

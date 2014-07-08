@@ -97,4 +97,219 @@ $(document).ready(function(){
         }
             
     })
+    
+    $("#reviewform").validate({
+        rules: {
+            cred1: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod1").val()!="";
+                    }
+                }
+            },
+            nmod1: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod1").val()!="";
+                    }
+                } 
+            },
+            mc1: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod1").val()!="";
+                    }
+                }
+            },
+            cred2: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod2").val()!="";
+                    }
+                }
+            },
+            nmod2: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod2").val()!="";
+                    }
+                } 
+            },
+            mc2: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod2").val()!="";
+                    }
+                }
+            },
+            cred3: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod3").val()!="";
+                    }
+                }
+            },
+            nmod3: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod3").val()!="";
+                    }
+                } 
+            },
+            mc3: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod3").val()!="";
+                    }
+                }
+            },
+            cred4: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod4").val()!="";
+                    }
+                }
+            },
+            nmod4: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod4").val()!="";
+                    }
+                } 
+            },
+            mc4: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod4").val()!="";
+                    }
+                }
+            },
+            cred5: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod5").val()!="";
+                    }
+                }
+            },
+            nmod5: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod5").val()!="";
+                    }
+                } 
+            },
+            mc5: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod5").val()!="";
+                    }
+                }
+            },
+            cred6: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod6").val()!="";
+                    }
+                }
+            },
+            nmod6: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod6").val()!="";
+                    }
+                } 
+            },
+            mc6: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod6").val()!="";
+                    }
+                }
+            },
+            cred7: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod7").val()!="";
+                    }
+                }
+            },
+            nmod7: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod7").val()!="";
+                    }
+                } 
+            },
+            mc7: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod7").val()!="";
+                    }
+                }
+            },
+            cred8: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod8").val()!="";
+                    }
+                }
+            },
+            nmod8: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod8").val()!="";
+                    }
+                } 
+            },
+            mc8: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod8").val()!="";
+                    }
+                }
+            },
+            cred9: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod9").val()!="";
+                    }
+                }
+            },
+            nmod9: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod9").val()!="";
+                    }
+                } 
+            },
+            mc9: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod9").val()!="";
+                    }
+                }
+            },
+            cred10: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod10").val()!="";
+                    }
+                }
+            },
+            nmod10: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod10").val()!="";
+                    }
+                } 
+            },
+            mc10: {
+                required: {
+                    depends: function(element) {
+                        return $("#mod10").val()!="";
+                    }
+                }
+            }
+        }
+    });
 });
