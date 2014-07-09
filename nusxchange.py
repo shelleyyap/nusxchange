@@ -495,8 +495,8 @@ class Search(webapp2.RequestHandler):
           'text': 'Login',
           'url':'/_ah/login_required?continue_url=/countries'
         }
-    template = jinja_environment.get_template('search.html')
-    self.response.out.write(template.render(template_values))
+      template = jinja_environment.get_template('search.html')
+      self.response.out.write(template.render(template_values))
     
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/login', Login),
