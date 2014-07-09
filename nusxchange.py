@@ -483,6 +483,21 @@ class ModuleMappings(webapp2.RequestHandler):
     template = jinja_environment.get_template('modmappings.html')
     self.response.out.write(template.render(template_values))
 
+class Search(webapp2.RequestHandler):
+  def get(self):
+      if users.get_current_user():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url('/countries'),
+        }
+      else:
+        template_values = {
+          'text': 'Login',
+          'url':'/_ah/login_required?continue_url=/countries'
+        }
+    template = jinja_environment.get_template('search.html')
+    self.response.out.write(template.render(template_values))
+    
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/login', Login),
                                 ('/about', About),
@@ -495,5 +510,5 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/deletecomment', DeleteComment),
                                 ('/adduniversity', AddUniversity),
                                 ('/addeduniversity', AddedUniversity),
-                                ('/modulemappings', ModuleMappings)],
+                                ('/search', Search)],
                               debug=True)
