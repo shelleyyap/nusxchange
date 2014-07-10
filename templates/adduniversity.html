@@ -46,16 +46,16 @@
               <table style="width=250px">
                 <tr>
                   <td> University: </td>
-                  <td> <input id="styled" type="text" name="name" placeholder="University name"/> </td>
+                  <td> <input id="styled" type="text" name="name" placeholder="University name" required/> </td>
                 </tr>
                 <tr>
                   <td> University Name (Short): </td>
-                  <td> <input id="styled" type="text" name="short_name" placeholder="Short name"/> </td>
+                  <td> <input id="styled" type="text" name="short_name" placeholder="Short name" required/> </td>
                 </tr>
                 <tr>
                   <td> Country: </td>
-                  <td><select name="country">
-                      <option value=0> Select Country </option>
+                  <td><select name="country" required>
+                      <option value=> Select Country </option>
                       <option value="Australia"> Australia </option>
                       <option value="Canada"> Canada </option>
                       <option value="China"> China </option>
@@ -65,7 +65,7 @@
                 </tr>
                 <tr>
                   <td> State: </td> <!--ideally gives choices based on country option !-->
-                  <td> <input id="styled" type="text" name="state"/></td>
+                  <td> <input id="styled" type="text" name="state" required/></td>
                 </tr>
                 <tr>
                   <td> Exchange Type: </td> 
@@ -73,7 +73,7 @@
                 </tr>
                 <tr>
                   <td> Academic Calendar: </td> <!--should change to Sem 1:? Sem 2: ?, must change school model !-->
-                  <td> <input id="styled" type="text" name="calendar"/></td>
+                  <td> <input id="styled" type="text" name="calendar" required/></td>
                 </tr>
                 <tr>
                   <td> Recommended Faculty: </td> 
@@ -86,10 +86,10 @@
                 </tr>
                 <tr>
                   <td> Image of university: </td>
-                  <td> <input type="file" name="img"/></td>
+                  <td> <input type="file" name="img" accept="image/*" required /></td>
                 <tr>
                   <td>About:</td>
-                  <td><div><textarea id="styled" placeholder="Click to enter introduction to the school" name="abtschool" cols="50" rows="10"></textarea></div></td>
+                  <td><div><textarea id="styled" placeholder="Click to enter introduction to the school" name="abtschool" cols="50" rows="10" required></textarea></div></td>
                 </tr>
                 <tr><td><input type="submit" value="Add University"></td></tr>
               </table>

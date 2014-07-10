@@ -134,10 +134,10 @@ class School(ndb.Model):
   mod_offered = ndb.StringProperty() # a url
   mod_mappings = ndb.StructuredProperty(Mapping, repeated=True)
 
-  overall_rating = ndb.IntegerProperty()
-  cost_rating = ndb.IntegerProperty()
-  life_rating = ndb.IntegerProperty()
-  academics_rating = ndb.IntegerProperty()
+  overall_rating = ndb.FloatProperty()
+  cost_rating = ndb.FloatProperty()
+  life_rating = ndb.FloatProperty()
+  academics_rating = ndb.FloatProperty()
 
   total_expenditure = ndb.IntegerProperty()
   accomcost = ndb.IntegerProperty()
@@ -148,6 +148,7 @@ class School(ndb.Model):
 
   content = ndb.TextProperty()
   picture = ndb.BlobKeyProperty()
+  num_reviews = ndb.IntegerProperty()
 
   @classmethod
   def query_country(cls, ancestor_key):
@@ -168,12 +169,12 @@ class Review(ndb.Model):
   life_rating = ndb.IntegerProperty()
   academics_rating = ndb.IntegerProperty()
 
-  total_expenditure = ndb.GenericProperty()
-  accommodation = ndb.GenericProperty()
-  food = ndb.GenericProperty()
-  transport = ndb.GenericProperty()
-  academic_needs = ndb.GenericProperty()
-  others = ndb.GenericProperty()
+  total_expenditure = ndb.IntegerProperty()
+  accommodation = ndb.IntegerProperty()
+  food = ndb.IntegerProperty()
+  transport = ndb.IntegerProperty()
+  academic_needs = ndb.IntegerProperty()
+  others = ndb.IntegerProperty()
 
   content = ndb.TextProperty()
 
@@ -215,16 +216,16 @@ class University(webapp2.RequestHandler):
             'url_linktext': url_linktext,
             'school': query,
             'pic': img_url,
-            'overall': 3, #temporary value
-            'cost': 3, #temporary value
-            'life': 3, #temporary value
-            'academics': 3, #temporary value
-            'total': 3, #temporary value
-            'accommodation': 3, #temporary value
-            'food': 3, #temporary value
-            'transport': 3, #temporary value
-            'academic_needs': 3, #temporary value
-            'others': 3, #temporary value
+            'overall': round(query.overall_rating,1), #temporary value
+            'cost': round(query.cost_rating,1), #temporary value
+            'life': round(query.life_rating,1), #temporary value
+            'academics': round(query.academics_rating,1), #temporary value
+            'total': query.total_expenditure, #temporary value
+            'accommodation': query.accomcost, #temporary value
+            'food': query.foodcost, #temporary value
+            'transport': query.transportcost, #temporary value
+            'academic_needs': query.academic_needs, #temporary value
+            'others': query.othercost, #temporary value
             'reviews': reviews,
             'use': users.get_current_user(),
             'mod_offered': query.mod_offered,
@@ -275,20 +276,31 @@ class SubmittedReview(webapp2.RequestHandler):
     review.year = self.request.get('year')
     review.semester = self.request.get('semester')
 
+    num = query.num_reviews
     review.overall_rating = int(self.request.get('overall'))
+    query.overall_rating = (query.overall_rating * num + review.overall_rating)/(num + 1.0)
     review.cost_rating = int(self.request.get('cost'))
+    query.cost_rating = (query.cost_rating * num + review.cost_rating)/(num + 1.0)
     review.life_rating = int(self.request.get('life'))
+    query.life_rating = (query.life_rating * num + review.life_rating)/(num + 1.0)
     review.academics_rating = int(self.request.get('academics'))
-
-    review.total_expenditure = self.request.get('totalcost')
-    review.accommodation = self.request.get('accomcost')
-    review.food = self.request.get('foodcost')
-    review.transport = self.request.get('transportcost')
-    review.academic_needs = self.request.get('acadcost')
-    review.others = self.request.get('othercost')
+    query.academics_rating = (query.academics_rating * num + review.academics_rating)/(num + 1.0)
+    review.total_expenditure = int(self.request.get('totalcost'))
+    query.total_expenditure = (query.total_expenditure * num + review.total_expenditure)/(num + 1)
+    review.accommodation = int(self.request.get('accomcost'))
+    query.accomcost = (query.accomcost * num + review.accommodation)/(num + 1)
+    review.food = int(self.request.get('foodcost'))
+    query.foodcost = (query.foodcost * num + review.food)/(num + 1)
+    review.transport = int(self.request.get('transportcost'))
+    query.transportcost = (query.transportcost * num + review.transport)/(num + 1)
+    review.academic_needs = int(self.request.get('acadcost'))
+    query.academic_needs = (query.academic_needs * num + review.academic_needs)/(num + 1)
+    review.others = int(self.request.get('othercost'))
+    query.othercost = (query.othercost * num + review.others)/(num + 1)
     review.content = self.request.get('reviewcontents')
 
-    
+    query.num_reviews = query.num_reviews + 1
+
     if self.request.get('mod1') != '':
       mod1 = Mapping()
       mod1.sep_mod = self.request.get('mod1')
@@ -471,7 +483,18 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
     sch.recommended_fac=self.request.get_all('faculty')
     sch.mod_offered=self.request.get('modules')
     sch.picture=blob_info.key()
-    sch.content=self.request.get('abtschool')    
+    sch.content=self.request.get('abtschool')  
+    sch.overall_rating=0.0
+    sch.cost_rating=0.0
+    sch.life_rating=0.0
+    sch.academics_rating=0.0
+    sch.total_expenditure=0
+    sch.accomcost=0
+    sch.foodcost=0
+    sch.transportcost=0
+    sch.academic_needs=0
+    sch.othercost=0
+    sch.num_reviews=0  
     sch.put()
     self.redirect("/university?school=" + sch.school_name_short)
 
