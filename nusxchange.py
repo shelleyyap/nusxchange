@@ -548,5 +548,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/deletecomment', DeleteComment),
                                 ('/adduniversity', AddUniversity),
                                 ('/addeduniversity', AddedUniversity),
-                                ('/search', Search)],
+                                ('/search', Search),
+                                ('/modulemappings', ModuleMappings)],
                               debug=True)
