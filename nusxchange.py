@@ -7,6 +7,9 @@ import datetime
 
 from google.appengine.ext import ndb
 from google.appengine.api import users
+from google.appengine.ext import blobstore
+from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.api import images
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates"))
@@ -144,7 +147,7 @@ class School(ndb.Model):
   othercost = ndb.IntegerProperty()
 
   content = ndb.TextProperty()
-  #picture = ndb.StringProperty()
+  picture = ndb.BlobKeyProperty()
 
   @classmethod
   def query_country(cls, ancestor_key):
@@ -205,11 +208,13 @@ class University(webapp2.RequestHandler):
             url = '/_ah/login_required?continue_url=/university?school=' + target
             url_linktext = 'Login'
 
+        img_url = images.get_serving_url(query.picture)
         template_values = {
             'comments': comments,
             'url': url,
             'url_linktext': url_linktext,
             'school': query,
+            'pic': img_url,
             'overall': 3, #temporary value
             'cost': 3, #temporary value
             'life': 3, #temporary value
@@ -424,6 +429,12 @@ class Countries(webapp2.RequestHandler):
         template = jinja_environment.get_template('testcountries.html')
         self.response.out.write(template.render(template_values))
 
+#class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
+ # def get(self, resource):
+  #  resource = str(urllib.unquote(resource))
+   # blob_info = blobstore.BlobInfo.get(resource)
+    #self.sed_blob(blob_info)
+
 class AddUniversity(webapp2.RequestHandler):
     def get(self):
       countries_list={'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"}
@@ -431,21 +442,25 @@ class AddUniversity(webapp2.RequestHandler):
         template_values = {
           'text': 'Logout',
           'url': users.create_logout_url('/countries'),
+          'upload_url': blobstore.create_upload_url('/addeduniversity')
         }
       else:
         template_values = {
           'text': 'Login',
-          'url':'/_ah/login_required?continue_url=/countries'
+          'url':'/_ah/login_required?continue_url=/countries',
+          'upload_url': blobstore.create_upload_url('/addeduniversity')
         }
       template = jinja_environment.get_template('adduniversity.html')
       self.response.out.write(template.render(template_values))
 
-class AddedUniversity(webapp2.RequestHandler):
+class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
   def post(self):
     #self.response.write('<html><body>You wrote:<pre>')
     #self.response.write(cgi.escape(self.request.get('name')))
     #self.response.write('</pre></body></html>')
-
+    upload_img = self.get_uploads('img')
+    blob_info = upload_img[0]
+    
     sch = School()
     sch.school_name=self.request.get('name')
     sch.school_name_short=self.request.get('short_name')
@@ -455,7 +470,7 @@ class AddedUniversity(webapp2.RequestHandler):
     sch.academic_calendar=self.request.get('calendar')
     sch.recommended_fac=self.request.get_all('faculty')
     sch.mod_offered=self.request.get('modules')
-    #sch.picture=self.request.get('img')
+    sch.picture=blob_info.key()
     sch.content=self.request.get('abtschool')    
     sch.put()
     self.redirect("/university?school=" + sch.school_name_short)
