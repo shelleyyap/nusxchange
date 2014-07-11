@@ -93,7 +93,7 @@
               <p><a href="{{mod_offered}}" class="btn btn-default btn-success btn-style">Modules Offered</a></p>
               <p>
                 <form action="/modulemappings?school={{school.school_name_short}}" method="get">
-                  <button type="submit" name="school" value="{{school.school_name_short}}" class="btn btn-default">Module Mappings</button>
+                  <button type="submit" name="school" value="{{school.school_name_short}}" class="btn btn-default btn-success btn-style">Module Mappings</button>
                 </form>
               </p>
 
@@ -224,7 +224,9 @@
                       {% else %}
                       <b>An anonymous person wrote:</b>
                       {% endif %}
-                      <p>{{ comment.content|escape }}</p><span class="date sub-text">{{ comment.date.date().strftime('%d-%m-%Y') }} {{comment.date.time().strftime('%H:%M:%S')}}</span>
+                        <div class="container">
+                          <p>{{ comment.content }}</p>
+                        </div><span class="date sub-text">{{ comment.date.date().strftime('%d-%m-%Y') }} {{comment.date.time().strftime('%H:%M:%S')}}</span>
                     </div>
                   </li>
                   {% endfor %}
@@ -235,7 +237,11 @@
             {% if use %}
             <form action="/university?school={{school.school_name_short}}" method="post">
               <input type="hidden" name="comments_name" class="form-control" value="{{school.school_name_short}}">
-              <div><textarea id="styled" placeholder="Click to enter your comments" name="content" rows="3"></textarea></div>
+              <div>
+                <textarea required onKeyDown="limitText(this.form.content,this.form.countdown,500);" onKeyUp="limitText(this.form.content,this.form.countdown,500);" id="styled" placeholder="Click to enter your comments" name="content" rows="3" maxlength="500"></textarea><br>
+                <font size="2">(Maximum characters: 500)<br>
+                You have <input readonly class="countdown" type="text" name="countdown" size="3" value="500"> characters left.</font>
+              </div>
               <button type="submit" class="btn btn-default" name='school' value="{{school.school_name_short}}">Post Comment</button>
             </form>
             {% else %}
@@ -263,5 +269,14 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <!-- Include all compiled plugins (below), or include individual files as needed -->
       <script src="../bootstrap/js/bootstrap.js"></script>
+      <script language="javascript" type="text/javascript">
+        function limitText(limitField, limitCount, limitNum) {
+          if (limitField.value.length > limitNum) {
+            limitField.value = limitField.value.substring(0, limitNum);
+          } else {
+            limitCount.value = limitNum - limitField.value.length;
+          }
+        }
+      </script>
     </body>
     </html>
