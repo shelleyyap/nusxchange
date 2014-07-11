@@ -48,6 +48,7 @@ textarea#styled{
 }
 .commentList li > div {
     display:table-cell;
+    word-wrap: break-word;
 }
 .commentText p {
     margin:0;
