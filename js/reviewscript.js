@@ -98,6 +98,57 @@ $(document).ready(function(){
             
     })
     
+
+    $("#accomcost").change(function() {
+        var accom = parseInt($("#accomcost").val(),10);
+        var food = parseInt($("#foodcost").val(),10);
+        var trans = parseInt($("#transportcost").val(), 10);
+        var acad = parseInt($("#acadcost").val(),10);
+        var others = parseInt($("#othercost").val(),10);
+        var total = accom + food + trans + acad + others;
+        $("span#totalcost").html(total);
+    })
+    
+    $("#foodcost").change(function() {
+        var accom = parseInt($("#accomcost").val(),10);
+        var food = parseInt($("#foodcost").val(),10);
+        var trans = parseInt($("#transportcost").val(), 10);
+        var acad = parseInt($("#acadcost").val(),10);
+        var others = parseInt($("#othercost").val(),10);
+        var total = accom + food + trans + acad + others;
+        $("span#totalcost").html(total);    
+    })
+
+    $("#transportcost").change(function() {
+        var accom = parseInt($("#accomcost").val(),10);
+        var food = parseInt($("#foodcost").val(),10);
+        var trans = parseInt($("#transportcost").val(), 10);
+        var acad = parseInt($("#acadcost").val(),10);
+        var others = parseInt($("#othercost").val(),10);
+        var total = accom + food + trans + acad + others;
+        $("span#totalcost").html(total);
+    })
+    
+    $("#acadcost").change(function() {
+        var accom = parseInt($("#accomcost").val(),10);
+        var food = parseInt($("#foodcost").val(),10);
+        var trans = parseInt($("#transportcost").val(), 10);
+        var acad = parseInt($("#acadcost").val(),10);
+        var others = parseInt($("#othercost").val(),10);
+        var total = accom + food + trans + acad + others;
+        $("span#totalcost").html(total);    
+    })
+    
+    $("#othercost").change(function() {
+        var accom = parseInt($("#accomcost").val(),10);
+        var food = parseInt($("#foodcost").val(),10);
+        var trans = parseInt($("#transportcost").val(), 10);
+        var acad = parseInt($("#acadcost").val(),10);
+        var others = parseInt($("#othercost").val(),10);
+        var total = accom + food + trans + acad + others;
+        $("span#totalcost").html(total);
+    })
+
     $("#reviewform").validate({
         rules: {
             cred1: {

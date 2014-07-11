@@ -285,8 +285,6 @@ class SubmittedReview(webapp2.RequestHandler):
     query.life_rating = (query.life_rating * num + review.life_rating)/(num + 1.0)
     review.academics_rating = int(self.request.get('academics'))
     query.academics_rating = (query.academics_rating * num + review.academics_rating)/(num + 1.0)
-    review.total_expenditure = int(self.request.get('totalcost'))
-    query.total_expenditure = (query.total_expenditure * num + review.total_expenditure)/(num + 1)
     review.accommodation = int(self.request.get('accomcost'))
     query.accomcost = (query.accomcost * num + review.accommodation)/(num + 1)
     review.food = int(self.request.get('foodcost'))
@@ -297,6 +295,8 @@ class SubmittedReview(webapp2.RequestHandler):
     query.academic_needs = (query.academic_needs * num + review.academic_needs)/(num + 1)
     review.others = int(self.request.get('othercost'))
     query.othercost = (query.othercost * num + review.others)/(num + 1)
+    review.total_expenditure = review.accommodation + review.food + review.transport + review.academic_needs + review.others
+    query.total_expenditure = (query.total_expenditure * num + review.total_expenditure)/(num + 1)
     review.content = self.request.get('reviewcontents')
 
     query.num_reviews = query.num_reviews + 1
