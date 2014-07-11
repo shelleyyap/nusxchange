@@ -40,7 +40,8 @@
       </div>
       <br>
       <!-- Example row of columns -->
-      <form action="{{upload_url}}" method="post" enctype="multipart/form-data">
+      <form action="{{upload_url}}" method="post" enctype="multipart/form-data" id="univform">
+          <div id="errorContainer"></div>
           <div class="row">
             <div class="col-md-12 editf2" style="margin-top:20px">
               <table style="width=250px">
@@ -109,5 +110,9 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.js"></script>
+    <!--<script type="text/javascript" src="../js/universityscript.js"></script> !-->
   </body>
 </html>
