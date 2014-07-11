@@ -8,7 +8,7 @@
 5. admin version of module mapping page
 6. allow user to edit own review
 7. allow admin to edit university info, delete university
-8. Fix comments: Currently accepts empty comments, character limit?
+8. Fix comments: Currently accepts empty comments, character limit? (both done)
 9. Fix reviews: 'input should be properly sanitised so as to prevent XSS attacks (see piazza)'
 
 ##### Possible features to work on
