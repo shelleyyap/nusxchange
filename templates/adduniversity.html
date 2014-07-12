@@ -21,6 +21,7 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
+
   </head>
 
   <body>
@@ -40,64 +41,85 @@
       </div>
       <br>
       <!-- Example row of columns -->
-      <form action="{{upload_url}}" method="post" enctype="multipart/form-data" id="univform">
-          <div id="errorContainer"></div>
-          <div class="row">
-            <div class="col-md-12 editf2" style="margin-top:20px">
-              <table style="width=250px">
-                <tr>
-                  <td> University: </td>
-                  <td> <input id="styled" type="text" name="name" placeholder="University name" required/> </td>
-                </tr>
-                <tr>
-                  <td> University Name (Short): </td>
-                  <td> <input id="styled" type="text" name="short_name" placeholder="Short name" required/> </td>
-                </tr>
-                <tr>
-                  <td> Country: </td>
-                  <td><select name="country" required>
-                      <option value=> Select Country </option>
-                      <option value="Australia"> Australia </option>
-                      <option value="Canada"> Canada </option>
-                      <option value="China"> China </option>
-                      <option value="Germany"> Germany </option>
-                      <option value="Hong Kong"> Hong Kong </option>
-                    </select></td>
-                </tr>
-                <tr>
-                  <td> State: </td> <!--ideally gives choices based on country option !-->
-                  <td> <input id="styled" type="text" name="state" required/></td>
-                </tr>
-                <tr>
-                  <td> Exchange Type: </td> 
-                  <td> <input id="styled" type="text" name="exchange_type" placeholder="If applicable"/></td>
-                </tr>
-                <tr>
-                  <td> Academic Calendar: </td> <!--should change to Sem 1:? Sem 2: ?, must change school model !-->
-                  <td> <input id="styled" type="text" name="calendar" required/></td>
-                </tr>
-                <tr>
-                  <td> Recommended Faculty: </td> 
-                  <td><input type="checkbox" name="faculty" value="FoS"> Faculty of Science<br>
-                      <input type="checkbox" name="faculty" value="SoC"> School of Computing</td>
-                </tr>
-                <tr>
-                  <td> Modules offered: </td> <!--url of university modules page !-->
-                  <td> <input id="styled" type="url" name="modules" required/></td>
-                </tr>
-                <tr>
-                  <td> Image of university: </td>
-                  <td> <input type="file" name="img" accept="image/*" required /></td>
-                <tr>
-                  <td>About:</td>
-                  <td><div><textarea id="styled" placeholder="Click to enter introduction to the school" name="abtschool" cols="50" rows="10" required></textarea></div></td>
-                </tr>
-                <tr><td><input type="submit" value="Add University"></td></tr>
-              </table>
+      <div id="errorContainer"></div>
+
+      <form class="form-horizontal" role="form" action="{{upload_url}}" method="post" enctype="multipart/form-data" id="univform">
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="name">University:</label> 
+          <div class="col-sm-9">
+            <input type="text" name="name" placeholder="University name" class="form-control" id="name" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="short_name">University Name (Short): </label>
+          <div class="col-sm-9">
+            <input id="styled" type="text" name="short_name" placeholder="Short name" class="form-control" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="country">Country: </label>
+          <div class="col-sm-9">
+            <select name="country" class="form-control" required>
+              <option value=> Select Country </option>
+              <option value="Australia"> Australia </option>
+              <option value="Canada"> Canada </option>
+              <option value="China"> China </option>
+              <option value="Germany"> Germany </option>
+              <option value="Hong Kong"> Hong Kong </option>              
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="state">State: </label>
+          <div class="col-sm-9">
+            <input type="text" name="state" class="form-control" required/>
+          </div>
+        </div>
+        <div class="form-group">  
+          <label class="col-sm-3 control-label" for="exchange_type">Exchange Type: </label> 
+          <div class="col-sm-9">
+            <input type="text" name="exchange_type" class="form-control" placeholder="If applicable"/>
+          </div>
+        </div>
+        <div class="form-group">            
+          <label class="col-sm-3 control-label" for="calendar">Academic Calendar: </label>
+          <div class="col-sm-9">
+            <input type="text" name="calendar" class="form-control" required/>
+          </div>
+        </div>
+        <div class="form-group">  
+          <label class="col-sm-3 control-label" for="faculty">Recommended Faculty: </label>
+          <div class="col-sm-9">
+            <div class="checkbox">
+              <input type="checkbox" name="faculty" value="FoS"> Faculty of   Science<br>
+              <input type="checkbox" name="faculty" value="SoC"> School of Computing 
             </div>
           </div>
-          
-        </form>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="modules">Modules offered:</label> <!--url of university modules page !-->
+          <div class="col-sm-9">
+            <input id="styled" type="url" name="modules" class="form-control" required/>
+          </div>
+        </div>
+        <div class="form-group">       
+          <label class="col-sm-3 control-label" for="img"> Image of university: </label>
+          <div class="col-sm-9">
+            <input type="file" name="img" accept="image/*" required />
+          </div>
+        </div>
+        <div class="form-group">  
+          <label class="col-sm-3 control-label" for="abtschool">About:</label>
+          <div class="col-sm-9">
+            <textarea placeholder="Click to enter introduction to the school" name="abtschool" cols="50" rows="9" class="form-control" required></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <input type="submit" value="Add University">
+          </div>
+        </div>
+      </form>
 
       <!-- Site footer -->
       <div class="footer">
@@ -110,9 +132,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.js"></script>
-    <!--<script type="text/javascript" src="../js/universityscript.js"></script> !-->
+
+    <script type="text/javascript" src="../js/universityscript.js"></script>
   </body>
 </html>

@@ -29,42 +29,43 @@ $(document).ready(function() {
             }
         },
         messages: {
-        	name: {
-        		required: "Please enter name of university."
-        	},
-        	short_name: {
-        		required: "Please enter short name of university. This must be unique."
-        	},
-        	country: {
-        		required: "Please enter country of university."
-        	},
-        	state: {
-        		required: "Please enter state."
-        	},
-        	calendar: {
-        		required: "Please enter academic calendar."
-        	},
-        	modules: {
-        		required: "Please enter url of university page of offered modules.",
-        		url: "Please enter valid URL for modules offered."
-        	},
-        	img: {
-        		required: "Please upload image of university."
-        	},
-        	abtschool: {
-        		required: "Please enter an introduction to the school."
-        	}
+            modules: {
+                url: "Please enter a valid URL. e.g. http://www.google.com"
+            },
+            img: {
+                accept: "Please upload an image."
+            }
+
         },
-        errorPlacement: function(error, element) {
+        /*invalidHandler: function(event, validator) {
+            var errors = validator.numberOfInvalids();
+            if (errors) {
+                $("div#errorContainer").html("Please complete all fields");
+                $("div#errorContainer").show();
+            } else {
+                $("div#errorContainer").hide();
+            }
+        },*/
+        
+        /*showErrors: function(errorMap, errorList) {
+            $("#errorContainer").html("All fields must be completed before you submit the form");
+        },*/
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        }, 
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).closest('.form-group').removeClass('has-error');
+        }
+        /*errorPlacement: function(error, element) {
         	error.appendTo($("#errorContainer"));
         },
-        errorElement: "li"/*
+        errorElement: "li"*//*
         errorLabelContainer: $("#errorContainer"),
         wrapper:"li"*/
-        /*ighlight: function(element, errorClass) {
-        	$(element).fadeOut(function() {
-        		$(element).fadeIn();
+        /*highlight: function(element, errorClass) {
+        	$(element).addClass(errorClass);
         	});
         }*/
+
     });
 });
