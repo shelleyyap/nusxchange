@@ -9,8 +9,9 @@
 6. allow user to edit own review (YYY will work on it)
 7. allow admin to edit university info, delete university (YYY will work on it)
 8. ~~Fix comments: Currently accepts empty comments, character limit?~~ (both done)
-9. Fix reviews: 'input should be properly sanitised so as to prevent XSS attacks (see piazza)' (KY will work on it)
+9. Fix reviews: ~~'input should be properly sanitised so as to prevent XSS attacks (see piazza)'~~, WYSIWYG editor (KY will work on it)
 10. Clean up review formatting, e.g. display double majors, date etc.
+11. unregistered user can still add a review but they will encountered an error (try accessing http://www.nusxchange.appspot.com/tosubmitreview?school=MgU without signing in)
 
 ##### Possible features to work on
 1. Allow anonymous posting of reviews and comments
@@ -20,3 +21,4 @@
 5. Web crawler to add universities
 6. Search reviews by majors
 7. Allow replies for comments
+8. More accessible submit review button? (must scroll all the way down, troublesome if there are many reviews)

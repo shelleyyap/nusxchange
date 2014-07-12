@@ -1,15 +1,21 @@
+import sys
+sys.path.insert(0, 'libs')
 import urllib
 import cgi
 import webapp2
 import jinja2
 import os
 import datetime
+import re
 
 from google.appengine.ext import ndb
 from google.appengine.api import users
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import images
+from bs4 import BeautifulSoup, Comment
+from urlparse import urljoin
+
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates"))
@@ -266,6 +272,30 @@ class ToSubmitReview(webapp2.RequestHandler):
 
 class SubmittedReview(webapp2.RequestHandler):
   def post(self):
+    def sanitizeHtml(value, base_url=None):
+      rjs = r'[\s]*(&#x.{1,7})?'.join(list('javascript:'))
+      rvb = r'[\s]*(&#x.{1,7})?'.join(list('vbscript:'))
+      re_scripts = re.compile('(%s)|(%s)' % (rjs, rvb), re.IGNORECASE)
+      validTags = 'p i strong b u a h1 h2 h3 pre br img'.split()
+      validAttrs = 'href src width height'.split()
+      urlAttrs = 'href src'.split() # Attributes which should have a URL
+      soup = BeautifulSoup(value)
+      for comment in soup.findAll(text=lambda text: isinstance(text, Comment)):
+        # Get rid of comments
+        comment.extract()
+      for tag in soup.findAll(True):
+        if tag.name not in validTags:
+          tag.hidden = True
+        attrs = tag.attrs
+        tag.attrs = []
+        for attr, val in attrs:
+          if attr in validAttrs:
+            val = re_scripts.sub('', val) # Remove scripts (vbs & js)
+            if attr in urlAttrs:
+              val = urljoin(base_url, val) # Calculate the absolute url
+            tag.attrs.append((attr, val))
+      return soup.renderContents().decode('utf8')
+
     reviews_name = self.request.get('reviews_name')
     review = Review(parent=ndb.Key("School", reviews_name or "*notitle*"))
     query = School.query(School.school_name_short.IN([reviews_name])).get()
@@ -297,7 +327,7 @@ class SubmittedReview(webapp2.RequestHandler):
     query.othercost = (query.othercost * num + review.others)/(num + 1)
     review.total_expenditure = review.accommodation + review.food + review.transport + review.academic_needs + review.others
     query.total_expenditure = (query.total_expenditure * num + review.total_expenditure)/(num + 1)
-    review.content = self.request.get('reviewcontents')
+    review.content = sanitizeHtml(self.request.get('reviewcontents'))
 
     query.num_reviews = query.num_reviews + 1
 
@@ -535,6 +565,18 @@ class Search(webapp2.RequestHandler):
         }
       template = jinja_environment.get_template('search.html')
       self.response.out.write(template.render(template_values))
+
+  #def post(self):
+   #   countries = self.request.get("country")
+    #  cost = self.request.get("cost")
+     # course = self.request.get("course")
+
+      #qry = School.query()
+      #if countries:
+       # qry = School.query(School.country.IN([countries])).fetch()
+        
+      #if cost:
+
     
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/login', Login),
