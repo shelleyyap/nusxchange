@@ -8,7 +8,7 @@
 5. admin version of module mapping page (KY will work on it)
 6. allow user to edit own review (YYY will work on it)
 7. allow admin to edit university info, delete university (YYY will work on it)
-~~8. Fix comments: Currently accepts empty comments, character limit?~~ (both done)
+8. ~~Fix comments: Currently accepts empty comments, character limit?~~ (both done)
 9. Fix reviews: 'input should be properly sanitised so as to prevent XSS attacks (see piazza)' (KY will work on it)
 10. Clean up review formatting, e.g. display double majors, date etc.
 
