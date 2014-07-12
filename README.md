@@ -22,3 +22,7 @@
 6. Search reviews by majors
 7. Allow replies for comments
 8. More accessible submit review button? (must scroll all the way down, troublesome if there are many reviews)
+
+##### References
+1. Including third-party python libraries in GAE (BeautifulSoup): http://stackoverflow.com/questions/14850853/how-to-include-third-party-python-libraries-in-google-app-engine
+2. Sanitising user input: http://stackoverflow.com/questions/16861/sanitising-user-input-using-python
