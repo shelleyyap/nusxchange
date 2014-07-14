@@ -6,7 +6,7 @@
 3. get name from openid
 4. remove duplicates for module mapping (low priority)
 5. admin version of module mapping page (KY will work on it)
-6. allow user to edit own review (YYY will work on it)
+6. allow user to edit own review (YYY will work on it) (half done, not done with module mappings as it requires preventing adding same module mappings. Jquery part not fixed either)
 7. allow admin to edit university info, delete university (YYY will work on it)
 8. ~~Fix comments: Currently accepts empty comments, character limit?~~ (both done)
 9. Fix reviews: ~~'input should be properly sanitised so as to prevent XSS attacks (see piazza)'~~, WYSIWYG editor (KY will work on it)
