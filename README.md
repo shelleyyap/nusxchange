@@ -5,7 +5,7 @@
 2. search function
 3. get name from openid
 4. remove duplicates for module mapping (low priority)
-5. ~~admin version of module mapping page (KY will work on it)~~
+5. admin version of module mapping page (KY will work on it):~~delete function~~, add module mapping function?
 6. allow user to edit own review (YYY will work on it) (half done, not done with module mappings as it requires preventing adding same module mappings. Jquery part not fixed either)
 7. ~~allow admin to edit university info, delete university~~ (both done)
 8. ~~Fix comments: Currently accepts empty comments, character limit?~~ (both done)
@@ -31,3 +31,4 @@
 
 ##### Notes
 1. Delete module mapping does not work immediately, leads to blank page, but is deleted when you check again, similar to AddUniversity
+2. Changed implementation of module mappings, now each module mapping has a unique id (ie no 2 module mappings within a school have the same id)
