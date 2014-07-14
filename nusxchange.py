@@ -457,6 +457,7 @@ class Countries(webapp2.RequestHandler):
             template_values = {
                 'text': 'Logout',
                 'url': users.create_logout_url('/countries'),
+                'admin': users.is_current_user_admin(),
                 'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
                 'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "Hong Kong").fetch()}
             }
@@ -464,6 +465,7 @@ class Countries(webapp2.RequestHandler):
             template_values = {
             'text': 'Login',
             'url':'/_ah/login_required?continue_url=/countries',
+            'admin': users.is_current_user_admin(),
             'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
             'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "Hong Kong").fetch()}
             }
