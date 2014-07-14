@@ -185,7 +185,7 @@
                                   <form action="/deletereview" method="get">
                                     <input type="hidden" name="school" value="{{school.school_name_short}}">
                                     <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
-                                    <input class="btn btn-default" type="submit" value="Delete Review">
+                                    <input class="btn btn-default" id="del" type="submit" value="Delete Review">
                                   </form>
                                 </td>
                                 <td>
@@ -204,7 +204,7 @@
                                   <form action="/deletereview" method="get">
                                     <input type="hidden" name="school" value="{{school.school_name_short}}">
                                     <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
-                                    <input class="btn btn-default" type="submit" value="Delete Review">
+                                    <input class="btn btn-default" id="del" type="submit" value="Delete Review">
                                   </form>
                                 </td>
                                 <td>
@@ -249,7 +249,9 @@
                   <li>
                     <div class="commentText">
                     {% if admin %}
-                    <a class="btn-cr btn-cross" href="/deletecomment?school={{school.school_name_short}}&commentid={{comment.key.urlsafe()}}">x</a>
+                    <a class="btn-cr btn-cross" id="del" href="/deletecomment?school={{school.school_name_short}}&commentid={{comment.key.urlsafe()}}">x</a>
+                    {% elif comment.author == use %}
+                    <a class="btn-cr btn-cross" id="del" href="/deletecomment?school={{school.school_name_short}}&commentid={{comment.key.urlsafe()}}">x</a>
                     {% endif %}
                       {% if comment.author %}
                       <b>{{ comment.author.nickname() }}</b> wrote:
