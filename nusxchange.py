@@ -752,6 +752,16 @@ class EditUni(webapp2.RequestHandler):
       query.put()
       self.redirect("/countries")
     
+class DeleteUni(webapp2.RequestHandler):
+  def get(self):
+    
+    school = self.request.get('school')
+
+    uniid = self.request.get('uniid')
+    unikey = ndb.Key(urlsafe=uniid)
+    unikey.delete()
+    self.redirect("/countries")
+    
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/login', Login),
                                 ('/about', About),
@@ -768,5 +778,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/modulemappings', ModuleMappings),
                                 ('/check_name', CheckName),
                                 ('/editreview', EditReview),
-                                ('/edituni', EditUni)],
+                                ('/edituni', EditUni),
+                                ('/deleteuni', DeleteUni)],
                               debug=True)
