@@ -621,7 +621,7 @@ class ModuleMappings(webapp2.RequestHandler):
     if users.get_current_user():
       template_values = {
         'text': 'Logout',
-        'url': users.create_logout_url('/modulemappings'),
+        'url': users.create_logout_url('/modulemappings?school='+target),
         'school': query,
         'modules': query.mod_mappings,
         'admin': users.is_current_user_admin()
@@ -629,7 +629,7 @@ class ModuleMappings(webapp2.RequestHandler):
     else:
       template_values = {
         'text': 'Login',
-        'url':'/login?continue_url=/modulemappings',
+        'url':'/_ah/login_required?continue_url=/modulemappings?school='+target,
         'school': query,
         'modules': query.mod_mappings,
         'admin': users.is_current_user_admin()
