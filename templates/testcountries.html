@@ -55,7 +55,7 @@
               <tr>
                 {% if admin %}
                   <td>
-                    <a class="btn-cr btn-cross" href="/deleteuni?school={{school.school_name_short}}&uniid={{school.key.urlsafe()}}">x</a>
+                    <a id="del" class="btn-cr btn-cross" href="/deleteuni?school={{school.school_name_short}}&uniid={{school.key.urlsafe()}}">x</a>
                   </td>
                 {% endif%}
                 <td>
@@ -90,5 +90,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="../js/deletealert.js"></script>
   </body>
 </html>
