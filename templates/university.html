@@ -179,27 +179,43 @@
                           <strong>Review</strong><br>
                           <p> {{review.content}} </p>
                           {% if admin %}
-                            <form action="/deletereview" method="get">
-                              <input type="hidden" name="school" value="{{school.school_name_short}}">
-                              <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
-                              <input class="btn btn-default" type="submit" value="Delete Review">
-                            </form>
-                            <form action="/editreview" method="get">
-                              <input type="hidden" name="school" value="{{school.school_name_short}}">
-                              <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
-                              <input class="btn btn-default" type="submit" value="Edit Review">
-                            </form>
+                            <table>
+                              <tr>
+                                <td>
+                                  <form action="/deletereview" method="get">
+                                    <input type="hidden" name="school" value="{{school.school_name_short}}">
+                                    <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
+                                    <input class="btn btn-default" type="submit" value="Delete Review">
+                                  </form>
+                                </td>
+                                <td>
+                                  <form action="/editreview" method="get">
+                                    <input type="hidden" name="school" value="{{school.school_name_short}}">
+                                    <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
+                                    <input class="btn btn-default" type="submit" value="Edit Review">
+                                  </form>
+                                </td>
+                              </tr>
+                            </table>
                           {% elif review.author == use %}
-                            <form action="/deletereview" method="get">
-                              <input type="hidden" name="school" value="{{school.school_name_short}}">
-                              <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
-                              <input class="btn btn-default" type="submit" value="Delete Review">
-                            </form>
-                            <form action="/editreview" method="get">
-                              <input type="hidden" name="school" value="{{school.school_name_short}}">
-                              <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
-                              <input class="btn btn-default" type="submit" value="Edit Review">
-                            </form>
+                            <table>
+                              <tr>
+                                <td>
+                                  <form action="/deletereview" method="get">
+                                    <input type="hidden" name="school" value="{{school.school_name_short}}">
+                                    <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
+                                    <input class="btn btn-default" type="submit" value="Delete Review">
+                                  </form>
+                                </td>
+                                <td>
+                                  <form action="/editreview" method="get">
+                                    <input type="hidden" name="school" value="{{school.school_name_short}}">
+                                    <input type="hidden" name="reviewid" value = "{{review.key.urlsafe()}}">
+                                    <input class="btn btn-default" type="submit" value="Edit Review">
+                                  </form>
+                                </td>
+                              </tr>
+                            </table>
                           {% endif %}
                        </div>
                      </div>
