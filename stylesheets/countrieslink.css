@@ -1,4 +1,4 @@
-.btn {
+.btn1 {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
@@ -18,17 +18,17 @@
           user-select: none;
 }
 
-.btn-default {
+.btn-default1 {
   color: #0000EE;
   background-color: #ffffff;
   font-size: 24px;
 }
 
-.btn-default:hover,
-.btn-default:focus,
-.btn-default:active,
-.btn-default.active,
-.open .dropdown-toggle.btn-default {
+.btn-default1:hover,
+.btn-default1:focus,
+.btn-default1:active,
+.btn-default1.active,
+.open .dropdown-toggle.btn-default1 {
   text-decoration: underline;
   color: #0000EE;
   background-color: #ffffff;
