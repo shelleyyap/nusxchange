@@ -1,7 +1,7 @@
 # NUSXchange README
 ### For developer's purposes
 ##### Log of uncompleted features / details
-1. Add University validation cleanup (~~currently using html validation, allows non-image file uploads[fixed]~~; ~~currently also allows duplicate short_name[KY will work on it]) ~~
+1. Add University validation cleanup (~~currently using html validation, allows non-image file uploads[fixed]~~; ~~currently also allows duplicate short_name~~[KY will work on it]) 
 2. search function
 3. get name from openid
 4. remove duplicates for module mapping (low priority)
