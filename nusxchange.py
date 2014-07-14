@@ -421,15 +421,49 @@ class DeleteReview(webapp2.RequestHandler):
   def get(self):
     
     review_school = self.request.get('school')
-
-    #self.response.write('<html><body>You wrote:<pre>')
-    #self.response.write(cgi.escape(self.request.get('school')))
-    #self.response.write('</pre></body></html>')
+    query = School.query(School.school_name_short.IN([review_school])).get()
+    num = query.num_reviews
 
     review_id = self.request.get('reviewid')
     review_key = ndb.Key(urlsafe=review_id)
-    review_key.delete()
+    review = review_key.get()
 
+    if ((num - 1) == 0):
+      query.overall_rating=0
+      query.cost_rating=0
+      query.life_rating=0
+      query.academics_rating=0
+      query.accomcost=0
+      query.foodcost=0
+      query.transportcost=0
+      query.academic_needs=0
+      query.othercost=0
+      query.total_expenditure = 0
+    else:
+      overall = review.overall_rating
+      query.overall_rating = (query.overall_rating * (num) - overall)/(num - 1)
+      cost = review.cost_rating
+      query.cost_rating = ((query.cost_rating) * (num) - cost)/(num - 1)
+      life = review.life_rating
+      query.life_rating = ((query.life_rating) * (num) - life)/(num - 1)
+      academics = review.academics_rating
+      query.academics_rating = ((query.academics_rating) * (num) - academics)/(num - 1)
+
+      accom = review.accommodation
+      query.accomcost = (query.accomcost * num - accom)/(num - 1)
+      food = review.food 
+      query.foodcost = (query.foodcost * num - food)/(num - 1)
+      transport = review.transport
+      query.transportcost = (query.transportcost * num - transport)/(num - 1)
+      academic_needs = review.academic_needs
+      query.academic_needs = (query.academic_needs * num - academic_needs)/(num - 1)
+      others = review.others
+      query.othercost = (query.othercost * num - others)/(num - 1)
+      query.total_expenditure = (query.total_expenditure * num - accom - food - transport - academic_needs - others)/(num - 1)
+
+    query.num_reviews = query.num_reviews - 1
+    query.put()
+    review_key.delete()
     self.redirect("/university?school=" + review_school)
 
 class DeleteComment(webapp2.RequestHandler):
