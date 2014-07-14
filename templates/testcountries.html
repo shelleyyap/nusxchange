@@ -51,9 +51,20 @@
             
 
             {% for school in schools[country] %}
-            <form action="/university?school={{school.school_name_short}}" method="get">
-              <button type="submit" name="school" value="{{school.school_name_short}}" class="btn btn-default">{{school.school_name}}</button>
-            </form>
+            <table>
+              <tr>
+                <td>
+                  <form action="/university?school={{school.school_name_short}}" method="get">
+                    <button type="submit" name="school" value="{{school.school_name_short}}" class="btn1 btn-default1">{{school.school_name}}</button>
+                  </form>
+                </td>
+                <td>
+                  <form action="/edituni" method="get">
+                    <button type="submit" name="school" value="{{school.school_name_short}}" class="btn btn-default">Edit University</button>
+                  </form>
+                </td>
+              </tr>
+            </table>
             {% endfor %} 
           </div>
       </div>
