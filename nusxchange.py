@@ -622,6 +622,84 @@ class CheckName(webapp2.RequestHandler):
     else:
       self.response.write("true")
 
+class EditReview(webapp2.RequestHandler):
+  def get(self):
+    
+    review_school = self.request.get('school')
+
+    review_id = self.request.get('reviewid')
+    review_key = ndb.Key(urlsafe=review_id)
+    review = review_key.get()
+
+    if users.get_current_user():
+      template_values = {
+        'text': 'Logout',
+        'url': users.create_logout_url('/countries'),
+        'query': review_school,
+        'reviewid': review_id,
+        'review': review
+      }
+    else:
+      template_values = {
+        'text': 'Login',
+        'url':'/_ah/login_required?continue_url=/countries',
+        'query': review_school,
+        'reviewid': review_id,
+        'review':review
+      }
+    template = jinja_environment.get_template('editreview.html')
+    self.response.out.write(template.render(template_values))
+  def post(self):
+    
+    review_school = self.request.get('school')
+    query = School.query(School.school_name_short.IN([review_school])).get()
+    num = query.num_reviews
+
+    review_id = self.request.get('reviewid')
+    review_key = ndb.Key(urlsafe=review_id)
+    review = review_key.get()
+    review.major = self.request.get('major')
+    review.faculty = self.request.get('faculty') 
+    review.year = self.request.get('year')
+    review.semester = self.request.get('semester')
+
+    overall = review.overall_rating
+    review.overall_rating = int(self.request.get('overall'))
+    query.overall_rating = (query.overall_rating * (num) - overall + review.overall_rating)/(num)
+    cost = review.cost_rating
+    review.cost_rating = int(self.request.get('cost'))
+    query.cost_rating = ((query.cost_rating) * (num) - cost + review.cost_rating)/(num)
+    life = review.life_rating
+    review.life_rating = int(self.request.get('life'))
+    query.life_rating = ((query.life_rating) * (num) - life + review.life_rating)/(num)
+    academics = review.academics_rating
+    review.academics_rating = int(self.request.get('academics'))
+    query.academics_rating = ((query.academics_rating) * (num) - academics + review.academics_rating)/(num)
+
+    accom = review.accommodation
+    review.accommodation = int(self.request.get('accomcost'))
+    query.accomcost = (query.accomcost * num - accom + review.accommodation)/(num)
+    food = review.food 
+    review.food = int(self.request.get('foodcost'))
+    query.foodcost = (query.foodcost * num - food + review.food)/(num)
+    transport = review.transport
+    review.transport = int(self.request.get('transportcost'))
+    query.transportcost = (query.transportcost * num - transport + review.transport)/(num)
+    academic_needs = review.academic_needs
+    review.academic_needs = int(self.request.get('acadcost'))
+    query.academic_needs = (query.academic_needs * num - academic_needs + review.academic_needs)/(num)
+    others = review.others
+    review.others = int(self.request.get('othercost'))
+    query.othercost = (query.othercost * num - others + review.others)/(num)
+    review.total_expenditure = review.accommodation + review.food + review.transport + review.academic_needs + review.others
+    query.total_expenditure = (query.total_expenditure * num - accom - food - transport - academic_needs - others + review.total_expenditure)/(num)
+    review.content = self.request.get('reviewcontents')
+
+    query.put()
+    review.put()
+
+    self.redirect("/university?school=" + review_school)
+    
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/login', Login),
                                 ('/about', About),
@@ -636,5 +714,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/addeduniversity', AddedUniversity),
                                 ('/search', Search),
                                 ('/modulemappings', ModuleMappings),
-                                ('/check_name', CheckName)],
+                                ('/check_name', CheckName),
+                                ('/editreview', EditReview)],
                               debug=True)
