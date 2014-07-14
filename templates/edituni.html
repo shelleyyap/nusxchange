@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>NUSXchange - Admin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="../stylesheets/main.css" />
+    <link rel="stylesheet" href="../stylesheets/countrieslink.css" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="masthead">
+        <img src="../images/logo.png" />
+        <ul class="nav nav-justified">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li class="active"><a href="/countries">Countries</a></li>
+          <li><a href="#">Search</a></li>
+          <li><a href="{{url}}">{{text}}</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <br>
+      <!-- Example row of columns -->
+      <div id="errorContainer"></div>
+
+      <form class="form-horizontal" role="form" action="/edituni" method="post" enctype="multipart/form-data" id="univform">
+        <input type="hidden" name="school" value="{{school.school_name_short}}">
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="name">University:</label> 
+          <div class="col-sm-9">
+            <input type="text" name="name" placeholder="University name" class="form-control" id="name" value="{{school.school_name}}" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="short_name">University Name (Short): </label>
+          <div class="col-sm-9">
+            <input id="short_name" readonly type="text" name="short_name" placeholder="Short name" class="form-control" value="{{school.school_name_short}}" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="country">Country: </label>
+          <div class="col-sm-9">
+            <select name="country" class="form-control" required>
+              <option value=> Select Country </option>
+              {% if school.country == "Australia" %}
+                <option selected value="Australia"> Australia </option>
+                <option value="Canada"> Canada </option>
+                <option value="China"> China </option>
+                <option value="Germany"> Germany </option>
+                <option value="Hong Kong"> Hong Kong </option>       
+              {% elif school.country == "Canada" %}
+                <option value="Australia"> Australia </option>
+                <option selected value="Canada"> Canada </option>
+                <option value="China"> China </option>
+                <option value="Germany"> Germany </option>
+                <option value="Hong Kong"> Hong Kong </option>   
+              {% elif school.country == "China" %}
+                <option value="Australia"> Australia </option>
+                <option value="Canada"> Canada </option>
+                <option selected value="China"> China </option>
+                <option value="Germany"> Germany </option>
+                <option value="Hong Kong"> Hong Kong </option>   
+              {% elif school.country == "Germany" %}
+                <option value="Australia"> Australia </option>
+                <option value="Canada"> Canada </option>
+                <option value="China"> China </option>
+                <option selected value="Germany"> Germany </option>
+                <option value="Hong Kong"> Hong Kong </option>   
+              {% elif school.country == "Hong Kong" %}
+                <option value="Australia"> Australia </option>
+                <option value="Canada"> Canada </option>
+                <option value="China"> China </option>
+                <option value="Germany"> Germany </option>
+                <option selected value="Hong Kong"> Hong Kong </option>   
+              {% endif %}       
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="state">State: </label>
+          <div class="col-sm-9">
+            <input type="text" name="state" class="form-control" value="{{school.state}}" required/>
+          </div>
+        </div>
+        <div class="form-group">  
+          <label class="col-sm-3 control-label" for="exchange_type">Exchange Type: </label> 
+          <div class="col-sm-9">
+            <input type="text" name="exchange_type" class="form-control" value="{{school.exchange_type}}" placeholder="If applicable"/>
+          </div>
+        </div>
+        <div class="form-group">            
+          <label class="col-sm-3 control-label" for="calendar">Academic Calendar: </label>
+          <div class="col-sm-9">
+            <input type="text" name="calendar" class="form-control" value="{{school.academic_calendar}}" required/>
+          </div>
+        </div>
+        <div class="form-group">  
+          <label class="col-sm-3 control-label" for="faculty">Recommended Faculty: </label>
+          <div class="col-sm-9">
+            <div class="checkbox">
+              <input type="checkbox" name="faculty" value="FoS"> Faculty of   Science<br>
+              <input type="checkbox" name="faculty" value="SoC"> School of Computing 
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="modules">Modules offered:</label> <!--url of university modules page !-->
+          <div class="col-sm-9">
+            <input id="styled" type="url" name="modules" class="form-control" value="{{school.mod_offered}}" required/>
+          </div>
+        </div>
+        <div class="form-group">  
+          <label class="col-sm-3 control-label" for="abtschool">About:</label>
+          <div class="col-sm-9">
+            <textarea placeholder="Click to enter introduction to the school" name="abtschool" cols="50" rows="9" class="form-control" required>{{school.content}}</textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <input type="submit" class="btn btn-default" value="Submit">
+          </div>
+        </div>
+      </form>
+
+      <!-- Site footer -->
+      <div class="footer">
+        <p>&copy; NUS Orbital 2014 - NUSXchange</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.js"></script>
+
+    <script type="text/javascript" src="../js/edituniscript.js"></script>
+  </body>
+</html>
