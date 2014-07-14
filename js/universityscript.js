@@ -5,7 +5,17 @@ $(document).ready(function() {
         		required: true
         	},
         	short_name: {
-        		required: true
+        		required: true,
+                remote: {
+                    url: "/check_name",//?short_name=" + $("#short_name").val(),
+                    async: "false",
+                    type: "post",
+                    data: {
+                        short_name: function() {
+                            return $("#short_name").val();
+                        }
+                    }
+                }
         	},
         	country: {
         		required: true
@@ -26,6 +36,9 @@ $(document).ready(function() {
             },
             abtschool: {
             	required: true
+            },
+            faculty: {
+                required: true
             }
         },
         messages: {
@@ -34,6 +47,9 @@ $(document).ready(function() {
             },
             img: {
                 accept: "Please upload an image."
+            },
+            short_name: {
+                remote: "This name is taken. Please choose another."
             }
 
         },
@@ -55,10 +71,14 @@ $(document).ready(function() {
         }, 
         unhighlight: function(element, errorClass, validClass) {
             $(element).closest('.form-group').removeClass('has-error');
-        }
-        /*errorPlacement: function(error, element) {
-        	error.appendTo($("#errorContainer"));
         },
+        errorPlacement: function(error, element) {
+        	if (element.attr("name")=="faculty") {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }/*,
         errorElement: "li"*//*
         errorLabelContainer: $("#errorContainer"),
         wrapper:"li"*/
