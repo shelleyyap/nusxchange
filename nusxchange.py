@@ -127,6 +127,7 @@ class Mapping(ndb.Model):
   sep_mc = ndb.IntegerProperty()
   nus_mod = ndb.StringProperty()
   nus_mc = ndb.IntegerProperty()
+  map_id = ndb.IntegerProperty()
 
 class School(ndb.Model):
   """Models an SEP partner university with general information, ratings, reviews and comments."""
@@ -155,6 +156,7 @@ class School(ndb.Model):
   content = ndb.TextProperty()
   picture = ndb.BlobKeyProperty()
   num_reviews = ndb.IntegerProperty()
+  mappings_count = ndb.IntegerProperty()
 
   @classmethod
   def query_country(cls, ancestor_key):
@@ -330,6 +332,7 @@ class SubmittedReview(webapp2.RequestHandler):
     review.content = sanitizeHtml(self.request.get('reviewcontents'))
 
     query.num_reviews = query.num_reviews + 1
+    count = query.mappings_count
 
     if self.request.get('mod1') != '':
       mod1 = Mapping()
@@ -337,6 +340,8 @@ class SubmittedReview(webapp2.RequestHandler):
       mod1.sep_mc = int(self.request.get('cred1'))
       mod1.nus_mod = self.request.get('nmod1')
       mod1.nus_mc = int(self.request.get('mc1'))
+      mod1.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod1)
 
     if self.request.get('mod2') != '':
@@ -345,6 +350,8 @@ class SubmittedReview(webapp2.RequestHandler):
       mod2.sep_mc = int(self.request.get('cred2'))
       mod2.nus_mod = self.request.get('nmod2')
       mod2.nus_mc = int(self.request.get('mc2'))
+      mod2.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod2)
 
     if self.request.get('mod3') != '':
@@ -353,6 +360,8 @@ class SubmittedReview(webapp2.RequestHandler):
       mod3.sep_mc = int(self.request.get('cred3'))
       mod3.nus_mod = self.request.get('nmod3')
       mod3.nus_mc = int(self.request.get('mc3'))
+      mod3.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod3)
 
     if self.request.get('mod4') != '':
@@ -361,6 +370,8 @@ class SubmittedReview(webapp2.RequestHandler):
       mod4.sep_mc = int(self.request.get('cred4'))
       mod4.nus_mod = self.request.get('nmod4')
       mod4.nus_mc = int(self.request.get('mc4'))
+      mod4.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod4)
 
     if self.request.get('mod5') != '':
@@ -369,6 +380,8 @@ class SubmittedReview(webapp2.RequestHandler):
       mod5.sep_mc = int(self.request.get('cred5'))
       mod5.nus_mod = self.request.get('nmod5')
       mod5.nus_mc = int(self.request.get('mc5'))
+      mod5.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod5)
 
     if self.request.get('mod6') != '':
@@ -377,6 +390,8 @@ class SubmittedReview(webapp2.RequestHandler):
       mod6.sep_mc = int(self.request.get('cred6'))
       mod6.nus_mod = self.request.get('nmod6')
       mod6.nus_mc = int(self.request.get('mc6'))
+      mod6.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod6)
 
     if self.request.get('mod7') != '':
@@ -385,6 +400,8 @@ class SubmittedReview(webapp2.RequestHandler):
       mod7.sep_mc = int(self.request.get('cred7'))
       mod7.nus_mod = self.request.get('nmod7')
       mod7.nus_mc = int(self.request.get('mc7'))
+      mod7.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod7)
 
     if self.request.get('mod8') != '':
@@ -393,6 +410,8 @@ class SubmittedReview(webapp2.RequestHandler):
       mod8.sep_mc = int(self.request.get('cred8'))
       mod8.nus_mod = self.request.get('nmod8')
       mod8.nus_mc = int(self.request.get('mc8'))
+      mod8.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod8)
 
     if self.request.get('mod9') != '':
@@ -401,6 +420,8 @@ class SubmittedReview(webapp2.RequestHandler):
       mod9.sep_mc = int(self.request.get('cred9'))
       mod9.nus_mod = self.request.get('nmod9')
       mod9.nus_mc = int(self.request.get('mc9'))
+      mod9.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod9)
 
     if self.request.get('mod10') != '':
@@ -409,9 +430,11 @@ class SubmittedReview(webapp2.RequestHandler):
       mod10.sep_mc = int(self.request.get('cred10'))
       mod10.nus_mod = self.request.get('nmod10')
       mod10.nus_mc = int(self.request.get('mc10'))
+      mod10.map_id = count
+      count = count + 1
       (query.mod_mappings).append(mod10)
 
-    
+    query.mappings_count = count
     query.put()
     review.put()
 
@@ -483,6 +506,7 @@ class DeleteComment(webapp2.RequestHandler):
 
 class Countries(webapp2.RequestHandler):
     def get(self):
+        # To delete all data
         #ndb.delete_multi(School.query().fetch(keys_only=True))
         #ndb.delete_multi(Review.query().fetch(keys_only=True))
         #ndb.delete_multi(Comments.query().fetch(keys_only=True))
@@ -584,7 +608,8 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
     sch.transportcost=0
     sch.academic_needs=0
     sch.othercost=0
-    sch.num_reviews=0  
+    sch.num_reviews=0 
+    sch.mappings_count = 0 
     sch.put()
     self.redirect("/university?school=" + sch.school_name_short)
 
@@ -598,14 +623,16 @@ class ModuleMappings(webapp2.RequestHandler):
         'text': 'Logout',
         'url': users.create_logout_url('/modulemappings'),
         'school': query,
-        'modules': query.mod_mappings
+        'modules': query.mod_mappings,
+        'admin': users.is_current_user_admin()
         }
     else:
       template_values = {
         'text': 'Login',
         'url':'/login?continue_url=/modulemappings',
         'school': query,
-        'modules': query.mod_mappings
+        'modules': query.mod_mappings,
+        'admin': users.is_current_user_admin()
         }
 
     template = jinja_environment.get_template('modmappings.html')
@@ -798,6 +825,15 @@ class DeleteUni(webapp2.RequestHandler):
     unikey.delete()
     self.redirect("/countries")
     
+class DeleteMapping(webapp2.RequestHandler):
+  def get(self):
+    target = self.request.get('school')
+    school = School.query(School.school_name_short.IN([target])).get()
+    mapping_id = int(self.request.get('id'))
+    school.mod_mappings = filter(lambda mapping: mapping.map_id != mapping_id, school.mod_mappings)
+    school.put()
+    self.redirect('modulemappings?school='+target)
+
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/login', Login),
                                 ('/about', About),
@@ -815,5 +851,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/check_name', CheckName),
                                 ('/editreview', EditReview),
                                 ('/edituni', EditUni),
-                                ('/deleteuni', DeleteUni)],
+                                ('/deleteuni', DeleteUni),
+                                ('/deletemapping', DeleteMapping)],
                               debug=True)

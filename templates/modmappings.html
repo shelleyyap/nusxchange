@@ -56,6 +56,15 @@
             <td> {{ mod.sep_mc }} </td>
             <td> {{ mod.nus_mod }} </td>
             <td> {{ mod.nus_mc }} </td>
+            {% if admin %}
+            <td> 
+              <form action="/deletemapping" method="get">
+                <input type="hidden" name="school" value="{{school.school_name_short}}">
+                <input type="hidden" name="id" value = "{{mod.map_id}}">
+                <input class="btn btn-default" id="del" type="submit" value="Delete Mapping">
+              </form>
+            </td>
+            {% endif %}
           </tr>
         {% endfor %}
 
