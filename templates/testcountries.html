@@ -53,16 +53,23 @@
             {% for school in schools[country] %}
             <table>
               <tr>
+                {% if admin %}
+                  <td>
+                    <a class="btn-cr btn-cross" href="/deleteuni?school={{school.school_name_short}}&uniid={{school.key.urlsafe()}}">x</a>
+                  </td>
+                {% endif%}
                 <td>
                   <form action="/university?school={{school.school_name_short}}" method="get">
                     <button type="submit" name="school" value="{{school.school_name_short}}" class="btn1 btn-default1">{{school.school_name}}</button>
                   </form>
                 </td>
+                {% if admin %}
                 <td>
                   <form action="/edituni" method="get">
                     <button type="submit" name="school" value="{{school.school_name_short}}" class="btn btn-default">Edit University</button>
                   </form>
                 </td>
+                {% endif%}
               </tr>
             </table>
             {% endfor %} 
