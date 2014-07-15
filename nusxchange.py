@@ -15,6 +15,9 @@ from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import images
 from bs4 import BeautifulSoup, Comment
 from urlparse import urljoin
+from google.appengine.api import search
+import logging
+
 
 
 jinja_environment = jinja2.Environment(
@@ -610,6 +613,39 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
     sch.othercost=0
     sch.num_reviews=0 
     sch.mappings_count = 0 
+
+    faculties = ""
+    for fac in sch.recommended_fac:
+      faculties = faculties + fac + " "
+    
+    index=search.Index(name="my_index")
+    
+    my_document = search.Document(
+      doc_id = sch.school_name_short,
+      fields=[
+        search.TextField(name='name', value=sch.school_name),
+        search.AtomField(name='country', value=sch.country),
+        search.AtomField(name='state', value=sch.state),
+        search.TextField(name='exchange_type', value=sch.exchange_type),
+        search.TextField(name='calendar', value=sch.academic_calendar),
+        search.TextField(name='faculty',value=faculties),
+        search.TextField(name='about',value=sch.content),
+        search.NumberField(name='overall_rating', value=0.0),
+        search.NumberField(name='cost_rating',value=0.0),
+        search.NumberField(name='life_rating',value=0.0),
+        search.NumberField(name='academics_rating',value=0.0),
+        search.NumberField(name='total_expenditure',value=0),
+        search.NumberField(name='accomcost',value=0),
+        search.NumberField(name='foodcost',value=0),
+        search.NumberField(name='transportcost',value=0),
+        search.NumberField(name='academic_needs',value=0),
+        search.NumberField(name='othercost',value=0)])
+    
+    try:
+      index.put(my_document)
+    except search.PutError, e:
+      logging.exception("Add failed")
+
     sch.put()
     self.redirect("/university?school=" + sch.school_name_short)
 
@@ -653,16 +689,61 @@ class Search(webapp2.RequestHandler):
       template = jinja_environment.get_template('search.html')
       self.response.out.write(template.render(template_values))
 
-  #def post(self):
-   #   countries = self.request.get("country")
-    #  cost = self.request.get("cost")
-     # course = self.request.get("course")
+class SearchResults(webapp2.RequestHandler):
+  def get(self):
+      if users.get_current_user():
+        text = 'Logout'
+        url = users.create_logout_url('/search')
+      else:
+        text ='Login'
+        url = '/_ah/login_required?continue_url=/search'
+      
+      countries = self.request.get("country")
+      cost = self.request.get("cost")
+      course = self.request.get("course")
 
-      #qry = School.query()
-      #if countries:
-       # qry = School.query(School.country.IN([countries])).fetch()
-        
-      #if cost:
+      def toSearch(lst):
+        result = ""
+        if lst:
+          for (i, obj) in enumerate(lst):
+            if i == len(lst) - 1:
+              result = result + obj
+            else:
+              result = result + obj + " OR"
+        return result
+
+      query = ""
+
+      if countries:
+        query = 'country:' + toSearch(countries) 
+        if course:
+          query = query + " AND " + toSearch(course)
+      else:
+        if course:
+          query = toSearch(course)
+
+      schools = []
+
+      try:
+        index=search.Index(name='my_index')
+        results = index.search("(" + query + ")")
+        for doc in results:
+          schools.append(doc.field('school_name').value)
+      except search.Error:
+        logging.exception('Search failed')
+      
+      template_values = {
+        'text': text,
+        'url': url,
+        'results': schools
+      }
+
+      template = jinja_environment.get_template('searchresults.html')
+      self.response.out.write(template.render(template_values))
+
+
+
+
 """def check_name(request):
   name = request.POST['short_name']
   qry = School.query(school_name_short==name).get()
@@ -852,5 +933,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/editreview', EditReview),
                                 ('/edituni', EditUni),
                                 ('/deleteuni', DeleteUni),
-                                ('/deletemapping', DeleteMapping)],
+                                ('/deletemapping', DeleteMapping),
+                                ('/searchresults', SearchResults)],
                               debug=True)
