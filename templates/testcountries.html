@@ -50,8 +50,8 @@
             <h2><strong>{{ countries[country] }}</strong></h2>
             
 
-            {% for school in schools[country] %}
             <table>
+            {% for school in schools[country] %}
               <tr>
                 {% if admin %}
                   <td>
@@ -71,8 +71,8 @@
                 </td>
                 {% endif%}
               </tr>
-            </table>
             {% endfor %} 
+            </table>
           </div>
       </div>
       <br>
