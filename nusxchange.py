@@ -624,6 +624,7 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
       doc_id = sch.school_name_short,
       fields=[
         search.TextField(name='name', value=sch.school_name),
+        search.TextField(name='short_name', value=sch.school_name_short),
         search.AtomField(name='country', value=sch.country),
         search.AtomField(name='state', value=sch.state),
         search.TextField(name='exchange_type', value=sch.exchange_type),
@@ -698,9 +699,9 @@ class SearchResults(webapp2.RequestHandler):
         text ='Login'
         url = '/_ah/login_required?continue_url=/search'
       
-      countries = self.request.get("country")
-      cost = self.request.get("cost")
-      course = self.request.get("course")
+      countries = self.request.get_all("country")
+      cost = self.request.get_all("cost")
+      course = self.request.get_all("course")
 
       def toSearch(lst):
         result = ""
@@ -726,9 +727,9 @@ class SearchResults(webapp2.RequestHandler):
 
       try:
         index=search.Index(name='my_index')
-        results = index.search("(" + query + ")")
+        results = index.search(query)
         for doc in results:
-          schools.append(doc.field('school_name').value)
+          schools.append(doc.field('short_name').value)
       except search.Error:
         logging.exception('Search failed')
       
