@@ -702,6 +702,7 @@ class SearchResults(webapp2.RequestHandler):
       countries = self.request.get_all("country")
       cost = self.request.get_all("cost")
       course = self.request.get_all("course")
+      keyword = self.request.get('keyword')
 
       def toSearch(lst):
         result = ""
@@ -719,9 +720,19 @@ class SearchResults(webapp2.RequestHandler):
         query = 'country:' + toSearch(countries) 
         if course:
           query = query + " AND " + toSearch(course)
+          if keyword:
+            query = query + " AND " + keyword
+        else:
+          if keyword:
+            query = query + " AND " + keyword
       else:
         if course:
-          query = toSearch(course)
+          query = query + toSearch(course)
+          if keyword:
+            query = query + " AND " + keyword
+        else: 
+          if keyword:
+            query = query + keyword
 
       schools = []
 
