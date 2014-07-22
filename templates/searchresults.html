@@ -43,7 +43,7 @@
           <div class="col-md-12">
             <h3><strong>Search Results:</strong></h3>
             {% for sch in results %} 
-              <p class="editf2"><a href="/university?school={{sch}}">  {{sch}} </a></p>
+              <p class="editf2"><a href="/university?school={{sch.field('short_name').value}}">  {{sch.field('name').value}} </a></p>
             {% endfor %}
           </div>
       </div>
