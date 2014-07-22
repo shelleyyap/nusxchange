@@ -740,7 +740,7 @@ class SearchResults(webapp2.RequestHandler):
         index=search.Index(name='my_index')
         results = index.search(query)
         for doc in results:
-          schools.append(doc.field('short_name').value)
+          schools.append(doc)
       except search.Error:
         logging.exception('Search failed')
       
