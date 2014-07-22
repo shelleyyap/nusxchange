@@ -916,6 +916,13 @@ class DeleteUni(webapp2.RequestHandler):
     uniid = self.request.get('uniid')
     unikey = ndb.Key(urlsafe=uniid)
     unikey.delete()
+    doc_id = school
+
+    index=search.Index(name='my_index2')
+    try:
+      index.delete(doc_id)
+    except search.Error:
+      logging.exception("Error removing doc id %s.", doc_id)
     self.redirect("/countries")
     
 class DeleteMapping(webapp2.RequestHandler):
