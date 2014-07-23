@@ -321,18 +321,47 @@ class SubmittedReview(webapp2.RequestHandler):
     review.academics_rating = int(self.request.get('academics'))
     query.academics_rating = (query.academics_rating * num + review.academics_rating)/(num + 1.0)
     review.accommodation = int(self.request.get('accomcost'))
-    query.accomcost = (query.accomcost * num + review.accommodation)/(num + 1)
+    query.accomcost = int((query.accomcost * num + review.accommodation)/(num + 1))
     review.food = int(self.request.get('foodcost'))
-    query.foodcost = (query.foodcost * num + review.food)/(num + 1)
+    query.foodcost = int((query.foodcost * num + review.food)/(num + 1))
     review.transport = int(self.request.get('transportcost'))
-    query.transportcost = (query.transportcost * num + review.transport)/(num + 1)
+    query.transportcost = int((query.transportcost * num + review.transport)/(num + 1))
     review.academic_needs = int(self.request.get('acadcost'))
-    query.academic_needs = (query.academic_needs * num + review.academic_needs)/(num + 1)
+    query.academic_needs = int((query.academic_needs * num + review.academic_needs)/(num + 1))
     review.others = int(self.request.get('othercost'))
-    query.othercost = (query.othercost * num + review.others)/(num + 1)
-    review.total_expenditure = review.accommodation + review.food + review.transport + review.academic_needs + review.others
-    query.total_expenditure = (query.total_expenditure * num + review.total_expenditure)/(num + 1)
+    query.othercost = int((query.othercost * num + review.others)/(num + 1))
+    review.total_expenditure = int(review.accommodation + review.food + review.transport + review.academic_needs + review.others)
+    query.total_expenditure = int((query.total_expenditure * num + review.total_expenditure)/(num + 1))
     review.content = sanitizeHtml(self.request.get('reviewcontents'))
+    
+    index=search.Index(name="my_index3")
+    
+    my_document = search.Document(
+      doc_id = query.school_name_short,
+      fields=[
+        search.TextField(name='name', value=query.school_name),
+        search.TextField(name='short_name', value=query.school_name_short),
+        search.AtomField(name='country', value=query.country),
+        search.AtomField(name='state', value=query.state),
+        search.TextField(name='exchange_type', value=query.exchange_type),
+        search.TextField(name='calendar', value=query.academic_calendar),
+        search.TextField(name='faculty',value=review.faculty),
+        search.TextField(name='about',value=query.content),
+        search.NumberField(name='overall_rating', value=query.overall_rating),
+        search.NumberField(name='cost_rating',value=query.cost_rating),
+        search.NumberField(name='life_rating',value=query.life_rating),
+        search.NumberField(name='academics_rating',value=query.academics_rating),
+        search.NumberField(name='total_expenditure',value=query.total_expenditure),
+        search.NumberField(name='accomcost',value=query.accomcost),
+        search.NumberField(name='foodcost',value=query.foodcost),
+        search.NumberField(name='transportcost',value=query.transportcost),
+        search.NumberField(name='academic_needs',value=query.academic_needs),
+        search.NumberField(name='othercost',value=query.othercost)])
+    
+    try:
+      index.put(my_document)
+    except search.PutError, e:
+      logging.exception("Add failed")
 
     query.num_reviews = query.num_reviews + 1
     count = query.mappings_count
@@ -618,7 +647,7 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
     for fac in sch.recommended_fac:
       faculties = faculties + fac + " "
     
-    index=search.Index(name="my_index")
+    index=search.Index(name="my_index3")
     
     my_document = search.Document(
       doc_id = sch.school_name_short,
@@ -646,7 +675,6 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
       index.put(my_document)
     except search.PutError, e:
       logging.exception("Add failed")
-
     sch.put()
     self.redirect("/university?school=" + sch.school_name_short)
 
@@ -680,12 +708,12 @@ class Search(webapp2.RequestHandler):
       if users.get_current_user():
         template_values = {
           'text': 'Logout',
-          'url': users.create_logout_url('/countries'),
+          'url': users.create_logout_url('/search'),
         }
       else:
         template_values = {
           'text': 'Login',
-          'url':'/_ah/login_required?continue_url=/countries'
+          'url':'/_ah/login_required?continue_url=/search'
         }
       template = jinja_environment.get_template('search.html')
       self.response.out.write(template.render(template_values))
@@ -700,9 +728,10 @@ class SearchResults(webapp2.RequestHandler):
         url = '/_ah/login_required?continue_url=/search'
       
       countries = self.request.get_all("country")
-      cost = self.request.get_all("cost")
+      expenditure = self.request.get_all("expenditure")
       course = self.request.get_all("course")
       keyword = self.request.get('keyword')
+
 
       def toSearch(lst):
         result = ""
@@ -711,9 +740,8 @@ class SearchResults(webapp2.RequestHandler):
             if i == len(lst) - 1:
               result = result + obj
             else:
-              result = result + obj + " OR"
+              result = result + obj + " OR "
         return result
-
       def toSearchCost(lst):
         query = ""
         if lst:
@@ -906,6 +934,35 @@ class EditReview(webapp2.RequestHandler):
     review.total_expenditure = review.accommodation + review.food + review.transport + review.academic_needs + review.others
     query.total_expenditure = (query.total_expenditure * num - accom - food - transport - academic_needs - others + review.total_expenditure)/(num)
     review.content = self.request.get('reviewcontents')
+    
+    index=search.Index(name="my_index3")
+    
+    my_document = search.Document(
+      doc_id = query.school_name_short,
+      fields=[
+        search.TextField(name='name', value=query.school_name),
+        search.TextField(name='short_name', value=query.school_name_short),
+        search.AtomField(name='country', value=query.country),
+        search.AtomField(name='state', value=query.state),
+        search.TextField(name='exchange_type', value=query.exchange_type),
+        search.TextField(name='calendar', value=query.academic_calendar),
+        search.TextField(name='faculty',value=review.faculty),
+        search.TextField(name='about',value=query.content),
+        search.NumberField(name='overall_rating', value=query.overall_rating),
+        search.NumberField(name='cost_rating',value=query.cost_rating),
+        search.NumberField(name='life_rating',value=query.life_rating),
+        search.NumberField(name='academics_rating',value=query.academics_rating),
+        search.NumberField(name='total_expenditure',value=query.total_expenditure),
+        search.NumberField(name='accomcost',value=query.accomcost),
+        search.NumberField(name='foodcost',value=query.foodcost),
+        search.NumberField(name='transportcost',value=query.transportcost),
+        search.NumberField(name='academic_needs',value=query.academic_needs),
+        search.NumberField(name='othercost',value=query.othercost)])
+    
+    try:
+      index.put(my_document)
+    except search.PutError, e:
+      logging.exception("Add failed")
 
     query.put()
     review.put()
@@ -960,9 +1017,9 @@ class EditUni(webapp2.RequestHandler):
       query.recommended_fac=self.request.get_all('faculty')
       query.mod_offered=self.request.get('modules')
       query.content=sanitizeHtml(self.request.get('abtschool'))  
-
       query.put()
-      index=search.Index(name="my_index2")
+
+      index=search.Index(name="my_index3")
       faculties = ""
       for fac in query.recommended_fac:
         faculties = faculties + fac + " "
@@ -983,6 +1040,7 @@ class EditUni(webapp2.RequestHandler):
         index.put(my_document)
       except search.PutError, e:
         logging.exception("Add failed")
+
       self.redirect("/countries")
     
 class DeleteUni(webapp2.RequestHandler):
@@ -995,7 +1053,7 @@ class DeleteUni(webapp2.RequestHandler):
     unikey.delete()
     doc_id = school
 
-    index=search.Index(name='my_index2')
+    index=search.Index(name='my_index3')
     try:
       index.delete(doc_id)
     except search.Error:
