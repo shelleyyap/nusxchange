@@ -714,6 +714,43 @@ class SearchResults(webapp2.RequestHandler):
               result = result + obj + " OR"
         return result
 
+      def toSearchCost(lst):
+        query = ""
+        if lst:
+          for (i, obj) in enumerate(lst):
+            if i == len(lst) - 1:
+              if obj == "1":
+                query = query + "0 <= total_expenditure < 6000"
+              elif obj == "2":
+                query = query + "6000 < total_expenditure < 7000"
+              elif obj == "3":
+                query = query + "7000 < total_expenditure < 8000"
+              elif obj == "4":
+                query = query + "8000 < total_expenditure < 9000"
+              elif obj == "5":
+                query = query + "9000 < total_expenditure < 10000"
+              elif obj == "6":
+                query = query + "10000 < total_expenditure < 11000"
+              elif obj == "7":
+                query = query + "total_expenditure > 11000"
+            else:
+              if obj == "1":
+                query = query + "0 <= total_expenditure < 6000" + " OR "
+              elif obj == "2":
+                query = query + "6000 < total_expenditure < 7000" + " OR "
+              elif obj == "3":
+                query = query + "7000 < total_expenditure < 8000" + " OR "
+              elif obj == "4":
+                query = query + "8000 < total_expenditure < 9000" + " OR "
+              elif obj == "5":
+                query = query + "9000 < total_expenditure < 10000" + " OR "
+              elif obj == "6":
+                query = query + "10000 < total_expenditure < 11000" + " OR "
+              elif obj == "7":
+                query = query + "total_expenditure > 11000" + " OR "
+        return query
+
+
       query = ""
 
       if countries:
@@ -722,17 +759,37 @@ class SearchResults(webapp2.RequestHandler):
           query = query + " AND " + toSearch(course)
           if keyword:
             query = query + " AND " + keyword
+            if cost:
+              query = query + " AND " + toSearchCost(cost)
+          else: 
+            if cost:
+              query = query + " AND " + toSearchCost(cost)
         else:
           if keyword:
             query = query + " AND " + keyword
+            if cost: 
+              query = query + " AND " + toSearchCost(cost)
+          else:
+            if cost:
+              query = query + " AND " + toSearchCost(cost)
       else:
         if course:
           query = query + toSearch(course)
           if keyword:
             query = query + " AND " + keyword
+            if cost:
+              query = query + " AND " + toSearchCost(cost)
+          else: 
+            if cost:
+              query = query + " AND " + toSearchCost(cost)
         else: 
           if keyword:
             query = query + keyword
+            if cost:
+              query = query + " AND " + toSearchCost(cost)
+          else: 
+            if cost:
+              query = query + toSearchCost(cost)
 
       schools = []
 
