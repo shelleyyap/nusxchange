@@ -1027,14 +1027,24 @@ class EditUni(webapp2.RequestHandler):
       my_document = search.Document(
         doc_id = query.school_name_short,
         fields=[
-          search.TextField(name='name', value=query.school_name),
-          search.TextField(name='short_name', value=query.school_name_short),
-          search.AtomField(name='country', value=query.country),
-          search.AtomField(name='state', value=query.state),
-          search.TextField(name='exchange_type', value=query.exchange_type),
-          search.TextField(name='calendar', value=query.academic_calendar),
-          search.TextField(name='faculty',value=faculties),
-          search.TextField(name='about',value=query.content)])
+        search.TextField(name='name', value=query.school_name),
+        search.TextField(name='short_name', value=query.school_name_short),
+        search.AtomField(name='country', value=query.country),
+        search.AtomField(name='state', value=query.state),
+        search.TextField(name='exchange_type', value=query.exchange_type),
+        search.TextField(name='calendar', value=query.academic_calendar),
+        search.TextField(name='faculty',value=faculties),
+        search.TextField(name='about',value=query.content),
+        search.NumberField(name='overall_rating', value=query.overall_rating),
+        search.NumberField(name='cost_rating',value=query.cost_rating),
+        search.NumberField(name='life_rating',value=query.life_rating),
+        search.NumberField(name='academics_rating',value=query.academics_rating),
+        search.NumberField(name='total_expenditure',value=query.total_expenditure),
+        search.NumberField(name='accomcost',value=query.accomcost),
+        search.NumberField(name='foodcost',value=query.foodcost),
+        search.NumberField(name='transportcost',value=query.transportcost),
+        search.NumberField(name='academic_needs',value=query.academic_needs),
+        search.NumberField(name='othercost',value=query.othercost)])
       
       try:
         index.put(my_document)
