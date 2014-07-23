@@ -906,6 +906,27 @@ class EditUni(webapp2.RequestHandler):
       query.content=sanitizeHtml(self.request.get('abtschool'))  
 
       query.put()
+      index=search.Index(name="my_index2")
+      faculties = ""
+      for fac in query.recommended_fac:
+        faculties = faculties + fac + " "
+    
+      my_document = search.Document(
+        doc_id = query.school_name_short,
+        fields=[
+          search.TextField(name='name', value=query.school_name),
+          search.TextField(name='short_name', value=query.school_name_short),
+          search.AtomField(name='country', value=query.country),
+          search.AtomField(name='state', value=query.state),
+          search.TextField(name='exchange_type', value=query.exchange_type),
+          search.TextField(name='calendar', value=query.academic_calendar),
+          search.TextField(name='faculty',value=faculties),
+          search.TextField(name='about',value=query.content)])
+      
+      try:
+        index.put(my_document)
+      except search.PutError, e:
+        logging.exception("Add failed")
       self.redirect("/countries")
     
 class DeleteUni(webapp2.RequestHandler):
