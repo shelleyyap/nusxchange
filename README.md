@@ -2,8 +2,7 @@
 ### For developer's purposes
 ##### Log of uncompleted features / details
 1. Add University validation cleanup (~~currently using html validation, allows non-image file uploads[fixed]~~; ~~currently also allows duplicate short_name~~[KY will work on it]) 
-2. search function [attempted- cost not working. Otherwise working fine]
-3. get name from openid
+2. search function [attempted- mostly working fine. Need to do reindexing when submitting/editing review]
 4. remove duplicates for module mapping (low priority)
 5. admin version of module mapping page (KY will work on it):~~delete function~~, add module mapping function?
 6. allow user to edit own review (YYY will work on it) (half done, not done with module mappings as it requires preventing adding same module mappings. Jquery part not fixed either)
