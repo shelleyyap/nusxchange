@@ -719,83 +719,82 @@ class SearchResults(webapp2.RequestHandler):
         if lst:
           for (i, obj) in enumerate(lst):
             if i == len(lst) - 1:
-              if obj == "1":
-                query = query + "0 <= total_expenditure < 6000"
-              elif obj == "2":
-                query = query + "6000 < total_expenditure < 7000"
-              elif obj == "3":
-                query = query + "7000 < total_expenditure < 8000"
-              elif obj == "4":
-                query = query + "8000 < total_expenditure < 9000"
-              elif obj == "5":
-                query = query + "9000 < total_expenditure < 10000"
-              elif obj == "6":
-                query = query + "10000 < total_expenditure < 11000"
-              elif obj == "7":
+              if obj == "one":
+                query = query + "total_expenditure >= 0.0 AND total_expenditure <= 6000"
+              elif obj == "two":
+                query = query + "total_expenditure > 6000 AND total_expenditure <= 7000"
+              elif obj == "three":
+                query = query + "total_expenditure > 7000 AND total_expenditure <= 8000"
+              elif obj == "four":
+                query = query + "total_expenditure > 8000 AND total_expenditure <= 9000"
+              elif obj == "five":
+                query = query + "total_expenditure > 9000 AND total_expenditure <= 10000"
+              elif obj == "six":
+                query = query + "total_expenditure > 10000 AND total_expenditure <= 11000"
+              elif obj == "seven":
                 query = query + "total_expenditure > 11000"
             else:
-              if obj == "1":
-                query = query + "0 <= total_expenditure < 6000" + " OR "
-              elif obj == "2":
-                query = query + "6000 < total_expenditure < 7000" + " OR "
-              elif obj == "3":
-                query = query + "7000 < total_expenditure < 8000" + " OR "
-              elif obj == "4":
-                query = query + "8000 < total_expenditure < 9000" + " OR "
-              elif obj == "5":
-                query = query + "9000 < total_expenditure < 10000" + " OR "
-              elif obj == "6":
-                query = query + "10000 < total_expenditure < 11000" + " OR "
-              elif obj == "7":
+              if obj == "one":
+                query = query + "total_expenditure >= 0.0 AND total_expenditure <= 6000" + " OR "
+              elif obj == "two":
+                query = query + "total_expenditure > 6000 AND total_expenditure <= 7000" + " OR "
+              elif obj == "three":
+                query = query + "total_expenditure > 7000 AND total_expenditure <= 8000" + " OR "
+              elif obj == "four":
+                query = query + "total_expenditure > 8000 AND total_expenditure <= 9000" + " OR "
+              elif obj == "five":
+                query = query + "total_expenditure > 9000 AND total_expenditure <= 10000" + " OR "
+              elif obj == "six":
+                query = query + "total_expenditure > 10000 AND total_expenditure <= 11000" + " OR "
+              elif obj == "seven":
                 query = query + "total_expenditure > 11000" + " OR "
+
+        return query
+      def res(query):
+        if countries:
+          query = 'country:' + toSearch(countries) 
+          if course:
+            query = query + " AND " + toSearch(course)
+            if keyword:
+              query = query + " AND " + keyword
+              if expenditure:
+                query = query + " AND " + toSearchCost(expenditure)
+            else: 
+              if expenditure:
+                query = query + " AND " + toSearchCost(expenditure)
+          else:
+            if keyword:
+              query = query + " AND " + keyword
+              if expenditure: 
+                query = query + " AND " + toSearchCost(expenditure)
+            else:
+              if expenditure:
+                query = query + " AND " + toSearchCost(expenditure)
+        else:
+          if course:
+            query = query + toSearch(course)
+            if keyword:
+              query = query + " AND " + keyword
+              if expenditure:
+                query = query + " AND " + toSearchCost(expenditure)
+            else: 
+              if expenditure:
+                query = query + " AND " + toSearchCost(expenditure)
+          else: 
+            if keyword:
+              query = query + keyword
+              if expenditure:
+                query = query + " AND " + toSearchCost(expenditure)
+            else:
+              if expenditure:
+                query = query + toSearchCost(expenditure)
         return query
 
-
-      query = ""
-
-      if countries:
-        query = 'country:' + toSearch(countries) 
-        if course:
-          query = query + " AND " + toSearch(course)
-          if keyword:
-            query = query + " AND " + keyword
-            if cost:
-              query = query + " AND " + toSearchCost(cost)
-          else: 
-            if cost:
-              query = query + " AND " + toSearchCost(cost)
-        else:
-          if keyword:
-            query = query + " AND " + keyword
-            if cost: 
-              query = query + " AND " + toSearchCost(cost)
-          else:
-            if cost:
-              query = query + " AND " + toSearchCost(cost)
-      else:
-        if course:
-          query = query + toSearch(course)
-          if keyword:
-            query = query + " AND " + keyword
-            if cost:
-              query = query + " AND " + toSearchCost(cost)
-          else: 
-            if cost:
-              query = query + " AND " + toSearchCost(cost)
-        else: 
-          if keyword:
-            query = query + keyword
-            if cost:
-              query = query + " AND " + toSearchCost(cost)
-          else: 
-            if cost:
-              query = query + toSearchCost(cost)
-
       schools = []
-
+      query = ""
       try:
-        index=search.Index(name='my_index')
-        results = index.search(query)
+        index=search.Index(name='my_index3')
+        results = index.search(res(query))
         for doc in results:
           schools.append(doc)
       except search.Error:
