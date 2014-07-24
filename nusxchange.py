@@ -1077,7 +1077,7 @@ class DeleteMapping(webapp2.RequestHandler):
     mapping_id = int(self.request.get('id'))
     school.mod_mappings = filter(lambda mapping: mapping.map_id != mapping_id, school.mod_mappings)
     school.put()
-    self.redirect('modulemappings?school='+target)
+    self.redirect('/modulemappings?school='+target)
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/login', Login),
