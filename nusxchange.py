@@ -268,7 +268,7 @@ class ToSubmitReview(webapp2.RequestHandler):
       query = School.query(School.school_name_short.IN([target])).get()
       template_values = {
           'text': 'Logout',
-          'url': users.create_logout_url('/university?school=target'),
+          'url': users.create_logout_url('/university?school=' + target),
           'author': users.get_current_user(),
           'query': target
       }
