@@ -41,10 +41,24 @@
       <!-- Example row of columns -->
       <div class="row">
           <div class="col-md-12">
-            <h3><strong>Search Results:</strong></h3>
-            {% for sch in results %} 
-              <p class="editf2"><a href="/university?school={{sch.field('short_name').value}}">  {{sch.field('name').value}} </a></p>
-            {% endfor %}
+            <h3><strong>Search Results:</strong></h3><br>
+            <table class="tabbord">
+              <tr>
+                <td class="searcha searchhead tabhead"> University</td>
+                <td class="searchb searchtab searchhead tabhead">Total Estimated Expenditure</td>
+                <td class="searchb searchtab searchhead tabhead">Recommended Faculty(ies)</td>
+              </tr>
+              {% for sch in results %} 
+                <tr>
+                  <td class="tabbord">
+                    <p class="editf2"><a href="/university?school={{sch.field('short_name').value}}">  {{sch.field('name').value}} </a></p>
+                  </td>
+                  <td class="searchtab tabbord editf2">S$ {{sch.field('total_expenditure').value}}
+                  </td>
+                  <td class="searchtab tabbord editf2">{{sch.field('faculty').value}}</td>
+                </tr>
+              {% endfor %}
+            </table>
           </div>
       </div>
 
