@@ -29,5 +29,5 @@
 3. Deleting a module mapping: http://stackoverflow.com/questions/17950774/app-engine-datastore-python-delete-element-within-a-structuredproperty
 
 ##### Notes
-1. Delete module mapping does not work immediately, leads to blank page, but is deleted when you check again, similar to AddUniversity
+1. ~~Delete module mapping does not work immediately, leads to blank page, but is deleted when you check again, similar to AddUniversity~~
 2. Changed implementation of module mappings, now each module mapping has a unique id (ie no 2 module mappings within a school have the same id)
