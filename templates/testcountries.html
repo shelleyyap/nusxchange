@@ -50,21 +50,21 @@
             <h2><strong>{{ countries[country] }}</strong></h2>
             
 
-            <table>
+            <table style="margin-bottom:20px">
             {% for school in schools[country] %}
               <tr>
                 {% if admin %}
-                  <td>
+                  <td width="5%" valign="top">
                     <a id="del" class="btn-cr btn-cross" href="/deleteuni?school={{school.school_name_short}}&uniid={{school.key.urlsafe()}}">x</a>
                   </td>
                 {% endif%}
-                <td>
+                <td width="85%" word-wrap: break-word class="editf2" >
                   <form action="/university?school={{school.school_name_short}}" method="get">
-                    <button type="submit" name="school" value="{{school.school_name_short}}" class="btn1 btn-default1">{{school.school_name}}</button>
+                    <a href="{{school.school_name_short}}">{{school.school_name}}</a>
                   </form>
                 </td>
                 {% if admin %}
-                <td>
+                <td width="15%" valign="top">
                   <form action="/edituni" method="get">
                     <button type="submit" name="school" value="{{school.school_name_short}}" class="btn btn-default">Edit University</button>
                   </form>
