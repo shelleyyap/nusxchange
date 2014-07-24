@@ -1,5 +1,5 @@
 .reviewBox {
-    background-color:#19B047;
+    background-color:#C1DAD6;
     padding:5px;
     border-radius: 10px;
     margin:10px;
@@ -13,7 +13,7 @@
 }
 
 .review {
-    background-color: #BCC2BE;
+    background-color:#DCF0F7;
     border-radius: 10px;
     margin:10px;
     padding:5px;
@@ -21,7 +21,7 @@
 }
 
 .reviewLeft{
-    background-color:#19B047;
+    background-color:#C1DAD6;
     margin-left:10px;
     margin-right:10px;
     margin-bottom:10px;
@@ -31,7 +31,7 @@
 }
 
 .reviewRight{
-    background-color:#19B047;
+    background-color:#C1DAD6;
     margin-right:10px;
     margin-left:10px;
     margin-bottom: 10px;
