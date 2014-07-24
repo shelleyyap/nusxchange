@@ -47,6 +47,7 @@ body {
 
 .countriesborder{
   border:2px solid black;
+  min-height: 237px;
   border-radius: 25px;
 }
 
