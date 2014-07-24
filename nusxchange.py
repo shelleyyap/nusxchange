@@ -266,14 +266,23 @@ class ToSubmitReview(webapp2.RequestHandler):
   def get(self):
       target = self.request.get('school')
       query = School.query(School.school_name_short.IN([target])).get()
-      template_values = {
+      if users.get_current_user:
+        template_values = {
           'text': 'Logout',
           'url': users.create_logout_url('/university?school=' + target),
           'author': users.get_current_user(),
-          'query': target
-      }
-      template = jinja_environment.get_template('submitreview.html')
-      self.response.out.write(template.render(template_values))
+          'query': target,
+          'upload_url': blobstore.create_upload_url('/submittedreview')
+        }
+        template = jinja_environment.get_template('submitreview.html')
+        self.response.out.write(template.render(template_values))
+      else:
+        template_values = {
+          'text': 'Logout',
+          'url': '/_ah/login_required?continue_url=/tosubmitreview',
+        }
+        template = jinja_environment.get_template('submiterror.html')
+        self.response.out.write(template.render(template_values))
 
 class SubmittedReview(webapp2.RequestHandler):
   def post(self):
@@ -936,7 +945,7 @@ class EditReview(webapp2.RequestHandler):
     review.total_expenditure = review.accommodation + review.food + review.transport + review.academic_needs + review.others
     query.total_expenditure = (query.total_expenditure * num - accom - food - transport - academic_needs - others + review.total_expenditure)/(num)
     review.content = self.request.get('reviewcontents')
-    
+
     index=search.Index(name="my_index3")
     
     my_document = search.Document(
@@ -1056,13 +1065,28 @@ class EditUni(webapp2.RequestHandler):
       self.redirect("/countries")
     
 class DeleteUni(webapp2.RequestHandler):
+
   def get(self):
     
     school = self.request.get('school')
+    query = School.query(School.school_name_short.IN([school])).get()
+    ancestor_key = ndb.Key("School", school or "*notitle*")
+    comments = Comments.query_book(ancestor_key).fetch()
+    ancestor_key_review = ndb.Key("School", school or "*notitle*")
+    reviews = Review.query_review(ancestor_key_review).fetch()
 
     uniid = self.request.get('uniid')
     unikey = ndb.Key(urlsafe=uniid)
     unikey.delete()
+
+    for comment in comments:
+      comment_id = comment.key.urlsafe()
+      comment_key = ndb.Key(urlsafe=comment_id)
+      comment_key.delete()
+    for review in reviews:
+      review_id = review.key.urlsafe()
+      review_key = ndb.Key(urlsafe=review_id)
+      review_key.delete()
     doc_id = school
 
     index=search.Index(name='my_index3')
