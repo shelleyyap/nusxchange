@@ -11,7 +11,7 @@
 9. Fix reviews: ~~'input should be properly sanitised so as to prevent XSS attacks (see piazza)'~~, WYSIWYG editor (KY will work on it)
 10. Clean up review formatting, e.g. display double majors, date etc.
 11. unregistered user can still add a review but they will encountered an error (try accessing http://www.nusxchange.appspot.com/tosubmitreview?school=MgU without signing in)
-11. Countries page: not in alphabetical order; when there are many universities, text exceeds box, also looks weird on phone screen
+11. Countries page: not in alphabetical order; ~~when there are many universities, text exceeds box~~, also looks weird on phone screen
 
 ##### Possible features to work on
 1. Allow anonymous posting of reviews and comments
