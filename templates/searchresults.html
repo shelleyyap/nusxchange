@@ -27,7 +27,7 @@
     <div class="container">
 
       <div class="masthead">
-        <img src="../images/logo.png"  class="img-responsive"/>
+        <img src="../images/logo.png" class="img-responsive"/>
         <ul class="nav nav-justified">
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
@@ -42,23 +42,27 @@
       <div class="row">
           <div class="col-md-12">
             <h3><strong>Search Results:</strong></h3><br>
+            {% if results %}
             <table class="tabbord">
               <tr>
                 <td class="searcha searchhead tabhead"> University</td>
                 <td class="searchb searchtab searchhead tabhead">Total Estimated Expenditure</td>
                 <td class="searchb searchtab searchhead tabhead">Recommended Faculty(ies)</td>
               </tr>
-              {% for sch in results %} 
-                <tr>
-                  <td class="tabbord">
-                    <p class="editf2"><a href="/university?school={{sch.field('short_name').value}}">  {{sch.field('name').value}} </a></p>
-                  </td>
-                  <td class="searchtab tabbord editf2">S$ {{sch.field('total_expenditure').value}}
-                  </td>
-                  <td class="searchtab tabbord editf2">{{sch.field('faculty').value}}</td>
-                </tr>
-              {% endfor %}
+                {% for sch in results %} 
+                  <tr>
+                    <td class="tabbord">
+                      <p class="editf2"><a href="/university?school={{sch.field('short_name').value}}">  {{sch.field('name').value}} </a></p>
+                    </td>
+                    <td class="searchtab tabbord editf2">S$ {{sch.field('total_expenditure').value}}
+                    </td>
+                    <td class="searchtab tabbord editf2">{{sch.field('faculty').value}}</td>
+                  </tr>
+                {% endfor %}
             </table>
+            {% else %}
+              <p class="editf2">There are currently no results for your search.</p>
+            {% endif%}
           </div>
       </div>
 
