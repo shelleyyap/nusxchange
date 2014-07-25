@@ -28,7 +28,7 @@
     <div class="container">
 
       <div class="masthead">
-        <img src="../images/logo.png"  class="img-responsive"/>
+        <img src="../images/logo.png" class="img-responsive"/>
         <ul class="nav nav-justified">
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
@@ -71,18 +71,48 @@
                 </tr>-->
                 <tr>
                   <td> NUS faculty: </td>
-                  <td> 
-                    {% if review.faculty == "FoS" %}
-                      <input type="text" class="fac" id="fac" name="faculty" value="Faculty of Science" required>
-                    {% else %}
-                      <input type="text" class="fac" id="fac" name="faculty" value="School of Computing" required>
-                    {% endif %}
+                  <td>       
+                    <select name="faculty" class="fac" id="fac" required>
+                      <option value=> Select Faculty </option>
+                      <option value="FoS"> Faculty of Science </option>
+                      <option value="SoC"> School of Computing </option>
+                    </select>
                   </td>
                 </tr>
                 <tr>
                   <td> Major: </td>
                   <td>
-                    <input type="text" class="maj" name="major" id="maj" required value="{{review.major}}">
+                    <select name="major" id="maj" required>
+                      <option value=> Select Major </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Special Programmes: </td>
+                  <td>
+                    <select name="specprog" id="specprog" required>
+                      <option value=> Select Special Programme Type </option>
+                      <option value='NIL'> NIL </option>
+                      <option value='DDP'> Double Degree Programme </option>
+                      <option value='2nd Major'> Double Major Programme </option>
+                      <option value='Minor'> Minor Programmes </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Faculty of Second Degree/Second Major/Minor: </td>
+                  <td>       
+                    <select name="faculty2" id="fac2" required>
+                      <option value=> Select Faculty </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Major/Minor: </td>
+                  <td>
+                    <select name="major2" id="maj2" required>
+                      <option value=> Select Major </option>
+                    </select>
                   </td>
                 </tr>
                 <tr>
@@ -92,7 +122,12 @@
                 <tr>
                   <td> Semester: </td>
                   <td>
-                    <input type="text" name="semester" value="{{review.semester}}">
+                    <select name="semester" required>
+                      <option value=> Select Semester </option>
+                      <option value="1"> Semester 1 </option>
+                      <option value="2"> Semester 2 </option>
+                      <option value="1 and 2"> Semester 1 and 2 </option>
+                    </select>
                   </td>
                 </tr>
                 
@@ -472,8 +507,9 @@
               </table>
             </div>
             <hr>
-            <div class="col-md-6 editf2">
-              <p> <strong>Module Mappings</strong></p>
+            <div class="row">
+            <div class="col-md-12 editf2">
+              <p> <strong>Module Mappings</strong> Note that this will add to the <a href="/modulemappings?school={{query}}">Module Mappings</a> page</p>
               <table style="width=250px">
                 <tr>
                   <td> SEP Module </td>
@@ -543,6 +579,7 @@
                 </tr>
               </table>
             </div>
+          </div>
           </div>
           <hr>
           <div class="row">
