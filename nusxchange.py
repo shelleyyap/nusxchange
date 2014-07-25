@@ -975,6 +975,110 @@ class EditReview(webapp2.RequestHandler):
     except search.PutError, e:
       logging.exception("Add failed")
 
+    count = query.mappings_count
+
+    if self.request.get('mod1') != '':
+      mod1 = Mapping()
+      mod1.sep_mod = self.request.get('mod1')
+      mod1.sep_mc = int(self.request.get('cred1'))
+      mod1.nus_mod = self.request.get('nmod1')
+      mod1.nus_mc = int(self.request.get('mc1'))
+      mod1.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod1)
+
+    if self.request.get('mod2') != '':
+      mod2 = Mapping()
+      mod2.sep_mod = self.request.get('mod2')
+      mod2.sep_mc = int(self.request.get('cred2'))
+      mod2.nus_mod = self.request.get('nmod2')
+      mod2.nus_mc = int(self.request.get('mc2'))
+      mod2.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod2)
+
+    if self.request.get('mod3') != '':
+      mod3 = Mapping()
+      mod3.sep_mod = self.request.get('mod3')
+      mod3.sep_mc = int(self.request.get('cred3'))
+      mod3.nus_mod = self.request.get('nmod3')
+      mod3.nus_mc = int(self.request.get('mc3'))
+      mod3.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod3)
+
+    if self.request.get('mod4') != '':
+      mod4 = Mapping()
+      mod4.sep_mod = self.request.get('mod4')
+      mod4.sep_mc = int(self.request.get('cred4'))
+      mod4.nus_mod = self.request.get('nmod4')
+      mod4.nus_mc = int(self.request.get('mc4'))
+      mod4.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod4)
+
+    if self.request.get('mod5') != '':
+      mod5 = Mapping()
+      mod5.sep_mod = self.request.get('mod5')
+      mod5.sep_mc = int(self.request.get('cred5'))
+      mod5.nus_mod = self.request.get('nmod5')
+      mod5.nus_mc = int(self.request.get('mc5'))
+      mod5.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod5)
+
+    if self.request.get('mod6') != '':
+      mod6 = Mapping()
+      mod6.sep_mod = self.request.get('mod6')
+      mod6.sep_mc = int(self.request.get('cred6'))
+      mod6.nus_mod = self.request.get('nmod6')
+      mod6.nus_mc = int(self.request.get('mc6'))
+      mod6.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod6)
+
+    if self.request.get('mod7') != '':
+      mod7 = Mapping()
+      mod7.sep_mod = self.request.get('mod7')
+      mod7.sep_mc = int(self.request.get('cred7'))
+      mod7.nus_mod = self.request.get('nmod7')
+      mod7.nus_mc = int(self.request.get('mc7'))
+      mod7.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod7)
+
+    if self.request.get('mod8') != '':
+      mod8 = Mapping()
+      mod8.sep_mod = self.request.get('mod8')
+      mod8.sep_mc = int(self.request.get('cred8'))
+      mod8.nus_mod = self.request.get('nmod8')
+      mod8.nus_mc = int(self.request.get('mc8'))
+      mod8.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod8)
+
+    if self.request.get('mod9') != '':
+      mod9 = Mapping()
+      mod9.sep_mod = self.request.get('mod9')
+      mod9.sep_mc = int(self.request.get('cred9'))
+      mod9.nus_mod = self.request.get('nmod9')
+      mod9.nus_mc = int(self.request.get('mc9'))
+      mod9.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod9)
+
+    if self.request.get('mod10') != '':
+      mod10 = Mapping()
+      mod10.sep_mod = self.request.get('mod10')
+      mod10.sep_mc = int(self.request.get('cred10'))
+      mod10.nus_mod = self.request.get('nmod10')
+      mod10.nus_mc = int(self.request.get('mc10'))
+      mod10.map_id = count
+      count = count + 1
+      (query.mod_mappings).append(mod10)
+
+    query.mappings_count = count
+
     query.put()
     review.put()
 
