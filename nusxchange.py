@@ -559,7 +559,7 @@ class Countries(webapp2.RequestHandler):
                 'admin': users.is_current_user_admin(),
                 'anocountries': ['australia', 'canada', 'china', 'germany', 'hongkong'],
                 'countries': {'china': "China", 'australia': "Australia", 'germany': "Germany", 'canada': "Canada",'hongkong': "Hong Kong"},
-                'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "Hong Kong").fetch()}
+                'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "HongKong").fetch()}
             }
         else:
             template_values = {
@@ -568,7 +568,7 @@ class Countries(webapp2.RequestHandler):
             'admin': users.is_current_user_admin(),
             'anocountries': ['australia', 'canada', 'china', 'germany', 'hongkong'],
             'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
-            'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "Hong Kong").fetch()}
+            'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "HongKong").fetch()}
             }
 
         template = jinja_environment.get_template('testcountries.html')
@@ -603,29 +603,6 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
     #self.response.write('<html><body>You wrote:<pre>')
     #self.response.write(cgi.escape(self.request.get('name')))
     #self.response.write('</pre></body></html>')
-    def sanitizeHtml(value, base_url=None):
-      rjs = r'[\s]*(&#x.{1,7})?'.join(list('javascript:'))
-      rvb = r'[\s]*(&#x.{1,7})?'.join(list('vbscript:'))
-      re_scripts = re.compile('(%s)|(%s)' % (rjs, rvb), re.IGNORECASE)
-      validTags = 'p i strong b u a h1 h2 h3 pre br img'.split()
-      validAttrs = 'href src width height'.split()
-      urlAttrs = 'href src'.split() # Attributes which should have a URL
-      soup = BeautifulSoup(value)
-      for comment in soup.findAll(text=lambda text: isinstance(text, Comment)):
-        # Get rid of comments
-        comment.extract()
-      for tag in soup.findAll(True):
-        if tag.name not in validTags:
-          tag.hidden = True
-        attrs = tag.attrs
-        tag.attrs = []
-        for attr, val in attrs:
-          if attr in validAttrs:
-            val = re_scripts.sub('', val) # Remove scripts (vbs & js)
-            if attr in urlAttrs:
-              val = urljoin(base_url, val) # Calculate the absolute url
-            tag.attrs.append((attr, val))
-      return soup.renderContents().decode('utf8')
 
     upload_img = self.get_uploads('img')
     blob_info = upload_img[0]
@@ -640,7 +617,7 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
     sch.recommended_fac=self.request.get_all('faculty')
     sch.mod_offered=self.request.get('modules')
     sch.picture=blob_info.key()
-    sch.content=sanitizeHtml(self.request.get('abtschool'))  
+    sch.content=(self.request.get('abtschool'))  
     sch.overall_rating=0.0
     sch.cost_rating=0.0
     sch.life_rating=0.0
@@ -789,13 +766,13 @@ class SearchResults(webapp2.RequestHandler):
                 query = query + "total_expenditure > 11000" + " OR "
 
         return query
-        
+
       if keyword:
         if keyword.lower() == "faculty of science":
           keyword = "FoS"
         elif keyword.lower() == "school of computing":
           keyword = "SoC"
-          
+
       def res(query):
         if countries:
           query = 'country:' + toSearch(countries) 
@@ -1098,7 +1075,7 @@ class EditUni(webapp2.RequestHandler):
       query = School.query(School.school_name_short.IN([target])).get()
       template_values = {
         'text': 'Logout',
-        'url': users.create_logout_url('/countries'),
+        'url': users.create_logout_url('/university?school=' + target),
         'school': query
       }
       template = jinja_environment.get_template('edituni.html')
@@ -1107,29 +1084,6 @@ class EditUni(webapp2.RequestHandler):
       countries_list={'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"}
       target = self.request.get('school')
       query = School.query(School.school_name_short.IN([target])).get()
-      def sanitizeHtml(value, base_url=None):
-        rjs = r'[\s]*(&#x.{1,7})?'.join(list('javascript:'))
-        rvb = r'[\s]*(&#x.{1,7})?'.join(list('vbscript:'))
-        re_scripts = re.compile('(%s)|(%s)' % (rjs, rvb), re.IGNORECASE)
-        validTags = 'p i strong b u a h1 h2 h3 pre br img'.split()
-        validAttrs = 'href src width height'.split()
-        urlAttrs = 'href src'.split() # Attributes which should have a URL
-        soup = BeautifulSoup(value)
-        for comment in soup.findAll(text=lambda text: isinstance(text, Comment)):
-          # Get rid of comments
-          comment.extract()
-        for tag in soup.findAll(True):
-          if tag.name not in validTags:
-            tag.hidden = True
-          attrs = tag.attrs
-          tag.attrs = []
-          for attr, val in attrs:
-            if attr in validAttrs:
-              val = re_scripts.sub('', val) # Remove scripts (vbs & js)
-              if attr in urlAttrs:
-                val = urljoin(base_url, val) # Calculate the absolute url
-              tag.attrs.append((attr, val))
-        return soup.renderContents().decode('utf8')
 
       query.school_name=self.request.get('name')
       query.country=self.request.get('country')
@@ -1138,7 +1092,7 @@ class EditUni(webapp2.RequestHandler):
       query.academic_calendar=self.request.get('calendar')
       query.recommended_fac=self.request.get_all('faculty')
       query.mod_offered=self.request.get('modules')
-      query.content=sanitizeHtml(self.request.get('abtschool'))  
+      query.content=(self.request.get('abtschool'))  
       query.put()
 
       index=search.Index(name="my_index3")
@@ -1173,7 +1127,7 @@ class EditUni(webapp2.RequestHandler):
       except search.PutError, e:
         logging.exception("Add failed")
 
-      self.redirect("/countries")
+      self.redirect('/university?school=' + target)
     
 class DeleteUni(webapp2.RequestHandler):
 
