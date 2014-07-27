@@ -789,6 +789,13 @@ class SearchResults(webapp2.RequestHandler):
                 query = query + "total_expenditure > 11000" + " OR "
 
         return query
+        
+      if keyword:
+        if keyword.lower() == "faculty of science":
+          keyword = "FoS"
+        elif keyword.lower() == "school of computing":
+          keyword = "SoC"
+          
       def res(query):
         if countries:
           query = 'country:' + toSearch(countries) 
