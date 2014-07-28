@@ -71,8 +71,7 @@
               <tr>
                 {% if admin %}
                   <td width="5%" valign="top">
-                      <input type="button" id="del" class="btn-cr btn-cross" value="x">
-                      <input type="hidden" class="url" value="/deleteuni?school={{school.school_name_short}}&uniid={{school.key.urlsafe()}}">
+                    <a href="/deleteuni?school={{school.school_name_short}}&uniid={{school.key.urlsafe()}}" onClick="return confirm('School to be deleted. Comments and Reviews will be removed, and is irreversible. Continue?');" class="btn-cr btn-cross" >x</a>
                   </td>
                 {% endif%}
                 <td width="85%" word-wrap: break-word class="editf2" >
