@@ -38,7 +38,6 @@
           <li><a href="/contact">Contact Us</a></li>
         </ul>
       </div>
-      <div id="dialog-confirm"></div>
       <br>
       <!-- Example row of columns -->
       <h2> {{ school.school_name }} </h2>
@@ -58,9 +57,8 @@
             <td> {{ mod.nus_mod }} </td>
             <td> {{ mod.nus_mc }} </td>
             {% if admin %}
-            <td> 
-              <input type="button" id="delm" class="btn btn-default" value="Delete Mapping">
-              <input type="hidden" class="urldm" value="/deletemapping?school={{school.school_name_short}}&id={{mod.map_id}}">
+            <td>
+              <a href="/deletemapping?school={{school.school_name_short}}&id={{mod.map_id}}" onClick="return confirm('Content to be deleted. Continue?');" class="btn btn-default" > Delete Mapping</a>
             </td>
             {% endif %}
           </tr>
@@ -80,9 +78,5 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-      <script type="text/javascript" src="../js/deletealertm.js"></script>
   </body>
 </html>
