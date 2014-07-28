@@ -105,7 +105,25 @@
             <h2>
               <strong>{{school.school_name}}</strong>
             </h2>
-            <h3>{{school.state}}, {{school.country}}</h3>
+            <h3>{{school.state}}, 
+              {% if school.country == 'HongKong' %}
+                Hong Kong
+              {% elif school.country == 'NewZealand' %}
+                New Zealand
+              {% elif school.country == 'SouthKorea' %}
+                South Korea
+              {% elif school.country == 'USA' %}
+                United States of America
+              {% elif school.country == 'MiddleEast' %}
+                Middle East
+              {% elif school.country == 'SouthAfrica' %}
+                South Africa
+              {% elif school.country == 'UnitedKingdom' %}
+                United Kingdom
+              {% else %}
+                {{school.country}}
+              {% endif %}
+            </h3>
             <hr>
             <p class="editf2" align="justify">
               {{school.content}}
