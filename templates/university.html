@@ -40,16 +40,41 @@
           </ul>
         </div>
 
-      <div id="dialog-confirm"></div>
 
         <!-- Example row of columns -->
         <div class="row">
+          <div class="col-md-8">
+            <h2>
+              <strong>{{school.school_name}}</strong>
+            </h2>
+            <h3>{{school.state}}, 
+              {% if school.country == 'HongKong' %}
+                Hong Kong
+              {% elif school.country == 'NewZealand' %}
+                New Zealand
+              {% elif school.country == 'SouthKorea' %}
+                South Korea
+              {% elif school.country == 'USA' %}
+                United States of America
+              {% elif school.country == 'MiddleEast' %}
+                Middle East
+              {% elif school.country == 'SouthAfrica' %}
+                South Africa
+              {% elif school.country == 'UnitedKingdom' %}
+                United Kingdom
+              {% else %}
+                {{school.country}}
+              {% endif %}
+              <hr>
+            </h3>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-md-4">
             <div>
-              <hr>
               <p>
                 <strong>Type of Exchange: </strong>{{school.exchange_type}}<br>
-                <strong>Academic Calendar: </strong> {{school.academic_calendar}}<br>
+                <strong>Academic Calendar: <br></strong> {{school.academic_calendar}}<br>
                 <strong>Recommended Faculty: </strong> {% for fac in school.recommended_fac %} 
                 {{fac}} {% endfor %}
               </p>
@@ -101,31 +126,8 @@
 
             </div>
           </div>
-          <div class="col-md-8" style="margin-top:20px">
-            <img style="margin-left:20px" class="imgsize" src="{{pic}}" align="right"/> 
-            <h2>
-              <strong>{{school.school_name}}</strong>
-            </h2>
-            <h3>{{school.state}}, 
-              {% if school.country == 'HongKong' %}
-                Hong Kong
-              {% elif school.country == 'NewZealand' %}
-                New Zealand
-              {% elif school.country == 'SouthKorea' %}
-                South Korea
-              {% elif school.country == 'USA' %}
-                United States of America
-              {% elif school.country == 'MiddleEast' %}
-                Middle East
-              {% elif school.country == 'SouthAfrica' %}
-                South Africa
-              {% elif school.country == 'UnitedKingdom' %}
-                United Kingdom
-              {% else %}
-                {{school.country}}
-              {% endif %}
-            </h3>
-            <hr>
+          <div class="col-md-8">
+            <img style="margin-top:-120px;margin-left:20px" class="imgsize" src="{{pic}}" align="right"/> 
             <p class="editf2" align="justify">
               {{school.content}}
             </p>
