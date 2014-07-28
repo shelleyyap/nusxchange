@@ -557,18 +557,18 @@ class Countries(webapp2.RequestHandler):
                 'text': 'Logout',
                 'url': users.create_logout_url('/countries'),
                 'admin': users.is_current_user_admin(),
-                'anocountries': ['australia', 'canada', 'china', 'germany', 'hongkong'],
-                'countries': {'china': "China", 'australia': "Australia", 'germany': "Germany", 'canada': "Canada",'hongkong': "Hong Kong"},
-                'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "HongKong").fetch()}
+                'anocountries': ['australia', 'canada', 'china', 'germany', 'hongkong', 'newzealand', 'southkorea', 'sweden', 'usa'],
+                'countries': {'china': "China", 'australia': "Australia", 'germany': "Germany", 'canada': "Canada",'hongkong': "Hong Kong", 'newzealand': 'New Zealand', 'southkorea': 'South Korea', 'sweden': 'Sweden', 'usa': 'United States of America'},
+                'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "HongKong").fetch(), 'newzealand': School.query(School.country == "NewZealand").fetch(), 'southkorea': School.query(School.country == "SouthKorea").fetch(), 'sweden': School.query(School.country == "Sweden").fetch(), 'usa': School.query(School.country == "USA").fetch()}
             }
         else:
             template_values = {
             'text': 'Login',
             'url':'/_ah/login_required?continue_url=/countries',
             'admin': users.is_current_user_admin(),
-            'anocountries': ['australia', 'canada', 'china', 'germany', 'hongkong'],
-            'countries': {'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"},
-            'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "HongKong").fetch()}
+                'anocountries': ['australia', 'canada', 'china', 'germany', 'hongkong', 'newzealand', 'southkorea', 'sweden', 'usa'],
+                'countries': {'china': "China", 'australia': "Australia", 'germany': "Germany", 'canada': "Canada",'hongkong': "Hong Kong", 'newzealand': 'New Zealand', 'southkorea': 'South Korea', 'sweden': 'Sweden', 'usa': 'United States of America'},
+                'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "HongKong").fetch(), 'newzealand': School.query(School.country == "NewZealand").fetch(), 'southkorea': School.query(School.country == "SouthKorea").fetch(), 'sweden': School.query(School.country == "Sweden").fetch(), 'usa': School.query(School.country == "USA").fetch()}
             }
 
         template = jinja_environment.get_template('testcountries.html')
@@ -582,7 +582,6 @@ class Countries(webapp2.RequestHandler):
 
 class AddUniversity(webapp2.RequestHandler):
     def get(self):
-      countries_list={'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"}
       if users.get_current_user():
         template_values = {
           'text': 'Logout',
@@ -1070,7 +1069,6 @@ class EditReview(webapp2.RequestHandler):
     
 class EditUni(webapp2.RequestHandler):
   def get(self):
-      countries_list={'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"}
       target = self.request.get('school')
       query = School.query(School.school_name_short.IN([target])).get()
       template_values = {
@@ -1081,7 +1079,6 @@ class EditUni(webapp2.RequestHandler):
       template = jinja_environment.get_template('edituni.html')
       self.response.out.write(template.render(template_values))
   def post(self):
-      countries_list={'australia': "Australia", 'canada': "Canada", 'china': "China", 'germany': "Germany", 'hongkong': "Hong Kong"}
       target = self.request.get('school')
       query = School.query(School.school_name_short.IN([target])).get()
 
