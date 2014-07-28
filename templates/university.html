@@ -96,6 +96,7 @@
                 <form action="/modulemappings?school={{school.school_name_short}}" method="get">
                   <button type="submit" name="school" value="{{school.school_name_short}}" class="btn btn-default btn-success btn-style">Module Mappings</button>
                 </form>
+
               </p>
 
             </div>
@@ -196,12 +197,11 @@
                         <div class="reviewRight">
                           <strong>Review</strong><br>
                           <p> {{review.content}} </p>
-                           <input type="hidden" class="urldr " value="/deletereview?school={{school.school_name_short}}&reviewid={{review.key.urlsafe()}}">
                           {% if admin or review.author == use %}
                             <table>
                               <tr>
                                 <td>
-                                  <input type="button" id="delra" class="btn btn-default" value="Delete Review">
+                                  <a href="/deletereview?school={{school.school_name_short}}&reviewid={{review.key.urlsafe()}}" onClick="return confirm('School to be deleted. Comments and Reviews will be removed, and is irreversible. Continue?');" class="btn btn-default" >Delete Review</a> 
                                 </td>
                                 <td>
                                   <form action="/editreview" method="get">
@@ -245,8 +245,7 @@
                   <li>
                     <div class="commentText">
                     {% if admin or comment.author == use %}
-                      <input type="button" id="delca" class="btn-cr btn-cross" value="x">
-                      <input type="hidden" class="urldca" value="/deletecomment?school={{school.school_name_short}}&commentid={{comment.key.urlsafe()}}">
+                    <a href="/deletecomment?school={{school.school_name_short}}&commentid={{comment.key.urlsafe()}}" onClick="return confirm('Comment to be deleted. Continue?');" class="btn-cr btn-cross" > x</a>
                     {% endif %}
                       {% if comment.author %}
                       <b>{{ comment.author.nickname() }}</b> wrote:
