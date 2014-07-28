@@ -6,6 +6,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
+
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.js"></script>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+      <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+      <script type="text/javascript" src="../js/deletealert.js"></script>
+      <script type="text/javascript" src="../js/reviewscript.js"></script>
+
+
+
+
+
     <title>NUSXchange - Countries</title>
 
     <!-- Bootstrap core CSS -->
@@ -28,7 +43,7 @@
     <div class="container">
 
       <div class="masthead">
-        <img src="../images/logo.png"  class="img-responsive"/>
+        <img src="../images/logo.png" class="img-responsive"/>
         <ul class="nav nav-justified">
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
@@ -40,6 +55,7 @@
       </div>
       <br>
       <!-- Example row of columns -->
+      <div id="dialog-confirm"></div>
 
       {% for country in anocountries %}
       <div class="row">
@@ -55,7 +71,8 @@
               <tr>
                 {% if admin %}
                   <td width="5%" valign="top">
-                    <a id="del" class="btn-cr btn-cross" href="/deleteuni?school={{school.school_name_short}}&uniid={{school.key.urlsafe()}}">x</a>
+                      <input type="button" id="del" class="btn-cr btn-cross" value="x">
+                      <input type="hidden" class="url" value="/deleteuni?school={{school.school_name_short}}&uniid={{school.key.urlsafe()}}">
                   </td>
                 {% endif%}
                 <td width="85%" word-wrap: break-word class="editf2" >
@@ -75,8 +92,6 @@
       </div>
       <br>
       {% endfor %}
-    
-
       <!-- Site footer -->
       <div class="footer">
         <p>&copy; NUS Orbital 2014 - NUSXchange</p>
@@ -88,7 +103,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-      <script src="../js/deletealert.js"></script>
+
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+      <script type="text/javascript" src="../js/deletealert.js"></script>
   </body>
 </html>
