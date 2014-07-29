@@ -7,6 +7,7 @@ import jinja2
 import os
 import datetime
 import re
+import quopri
 
 from google.appengine.ext import ndb
 from google.appengine.api import users
@@ -35,12 +36,20 @@ class MainPage(webapp2.RequestHandler):
         template = jinja_environment.get_template('frontadmin.html')
         self.response.out.write(template.render(template_values))
       elif users.get_current_user():
-        template_values = {
-          'text': 'Logout',
-          'url': users.create_logout_url(self.request.host_url)
-        }
-        template = jinja_environment.get_template('frontuser.html')
-        self.response.out.write(template.render(template_values))
+        if users.get_current_user().email().find('nus') > 0: # NUS account.  
+          template_values = {
+              'text': 'Logout',
+              'url': users.create_logout_url(self.request.host_url),
+          }
+          template = jinja_environment.get_template('frontuser.html')
+          self.response.out.write(template.render(template_values))
+        else: #Not NUS account. Means no permission
+          template_values = {
+            'errormsg': 'gmail',
+            'redirectlink': users.create_logout_url(self.request.host_url)
+          }
+          template = jinja_environment.get_template('loginerror.html')
+          self.response.out.write(template.render(template_values))
       else:
         template_values = {
           'text': 'NUS Login',
@@ -71,34 +80,68 @@ class Login(webapp2.RequestHandler):
 
 class About(webapp2.RequestHandler):
     def get(self):
-      if users.get_current_user():
+      if users.is_current_user_admin():
         template_values = {
           'text': 'Logout',
           'url': users.create_logout_url('/about')
         }
+        template = jinja_environment.get_template('about.html')
+        self.response.out.write(template.render(template_values))
+      elif users.get_current_user():
+        if users.get_current_user().email().find('nus') > 0: # NUS account. 
+          template_values = {
+            'text': 'Logout',
+            'url': users.create_logout_url('/about')
+          }
+          template = jinja_environment.get_template('about.html')
+          self.response.out.write(template.render(template_values))
+        else: #Not NUS account. Means no permission
+          template_values = {
+            'errormsg': 'gmail',
+            'redirectlink': users.create_logout_url('/about')
+          }
+          template = jinja_environment.get_template('loginerror.html')
+          self.response.out.write(template.render(template_values))
       else:
         template_values = {
           'text': 'Login',
           'url':'/_ah/login_required?continue_url=/about'
         }
 
-      template = jinja_environment.get_template('about.html')
-      self.response.out.write(template.render(template_values))
+        template = jinja_environment.get_template('about.html')
+        self.response.out.write(template.render(template_values))
 
 class Contact(webapp2.RequestHandler):
     def get(self):
-      if users.get_current_user():
+      if users.is_current_user_admin():
         template_values = {
           'text': 'Logout',
           'url': users.create_logout_url('/contact')
         }
+        template = jinja_environment.get_template('contact.html')
+        self.response.out.write(template.render(template_values))
+      elif users.get_current_user():
+        if users.get_current_user().email().find('nus') > 0: # NUS account. 
+          template_values = {
+            'text': 'Logout',
+            'url': users.create_logout_url('/contact')
+          }
+          template = jinja_environment.get_template('contact.html')
+          self.response.out.write(template.render(template_values))
+        else: #Not NUS account. Means no permission
+          template_values = {
+            'errormsg': 'gmail',
+            'redirectlink': users.create_logout_url('/contact')
+          }
+          template = jinja_environment.get_template('loginerror.html')
+          self.response.out.write(template.render(template_values))
       else:
         template_values = {
           'text': 'Login',
           'url':'/_ah/login_required?continue_url=contact'
         }
-      template = jinja_environment.get_template('contact.html')
-      self.response.out.write(template.render(template_values))
+        template = jinja_environment.get_template('contact.html')
+        self.response.out.write(template.render(template_values))
 
 '''class Countries(webapp2.RequestHandler):
     def get(self):
@@ -213,38 +256,99 @@ class University(webapp2.RequestHandler):
         reviews = Review.query_review(ancestor_key_review).fetch()
 
         # Displays the page. Used by both get and post
-        if users.get_current_user():
+        if users.is_current_user_admin():
             url = users.create_logout_url('/university?school=' + target)
             url_linktext = 'Logout'
+            img_url = images.get_serving_url(query.picture)
+            template_values = {
+                'comments': comments,
+                'url': url,
+                'url_linktext': url_linktext,
+                'school': query,
+                'pic': img_url,
+                'overall': round(query.overall_rating,1), #temporary value
+                'cost': round(query.cost_rating,1), #temporary value
+                'life': round(query.life_rating,1), #temporary value
+                'academics': round(query.academics_rating,1), #temporary value
+                'total': query.total_expenditure, #temporary value
+                'accommodation': query.accomcost, #temporary value
+                'food': query.foodcost, #temporary value
+                'transport': query.transportcost, #temporary value
+                'academic_needs': query.academic_needs, #temporary value
+                'others': query.othercost, #temporary value
+                'reviews': reviews,
+                'use': users.get_current_user(),
+                'mod_offered': query.mod_offered,
+                'admin': users.is_current_user_admin()
+            }
+
+            template = jinja_environment.get_template('university.html')
+            self.response.out.write(template.render(template_values))
+        elif users.get_current_user(): 
+          if users.get_current_user().email().find('nus') > 0: # NUS account. 
+            url = users.create_logout_url('/university?school=' + target)
+            url_linktext = 'Logout'
+            img_url = images.get_serving_url(query.picture)
+            template_values = {
+                'comments': comments,
+                'url': url,
+                'url_linktext': url_linktext,
+                'school': query,
+                'pic': img_url,
+                'overall': round(query.overall_rating,1), #temporary value
+                'cost': round(query.cost_rating,1), #temporary value
+                'life': round(query.life_rating,1), #temporary value
+                'academics': round(query.academics_rating,1), #temporary value
+                'total': query.total_expenditure, #temporary value
+                'accommodation': query.accomcost, #temporary value
+                'food': query.foodcost, #temporary value
+                'transport': query.transportcost, #temporary value
+                'academic_needs': query.academic_needs, #temporary value
+                'others': query.othercost, #temporary value
+                'reviews': reviews,
+                'use': users.get_current_user(),
+                'mod_offered': query.mod_offered,
+                'admin': users.is_current_user_admin()
+            }
+
+            template = jinja_environment.get_template('university.html')
+            self.response.out.write(template.render(template_values))
+          else: #Not NUS account. Means no permission
+            template_values = {
+              'errormsg': 'gmail',
+              'redirectlink': users.create_logout_url('/university?school=' + target)
+            }
+            template = jinja_environment.get_template('loginerror.html')
+            self.response.out.write(template.render(template_values))
         else:
             url = '/_ah/login_required?continue_url=/university?school=' + target
             url_linktext = 'Login'
 
-        img_url = images.get_serving_url(query.picture)
-        template_values = {
-            'comments': comments,
-            'url': url,
-            'url_linktext': url_linktext,
-            'school': query,
-            'pic': img_url,
-            'overall': round(query.overall_rating,1), #temporary value
-            'cost': round(query.cost_rating,1), #temporary value
-            'life': round(query.life_rating,1), #temporary value
-            'academics': round(query.academics_rating,1), #temporary value
-            'total': query.total_expenditure, #temporary value
-            'accommodation': query.accomcost, #temporary value
-            'food': query.foodcost, #temporary value
-            'transport': query.transportcost, #temporary value
-            'academic_needs': query.academic_needs, #temporary value
-            'others': query.othercost, #temporary value
-            'reviews': reviews,
-            'use': users.get_current_user(),
-            'mod_offered': query.mod_offered,
-            'admin': users.is_current_user_admin()
-        }
+            img_url = images.get_serving_url(query.picture)
+            template_values = {
+                'comments': comments,
+                'url': url,
+                'url_linktext': url_linktext,
+                'school': query,
+                'pic': img_url,
+                'overall': round(query.overall_rating,1), #temporary value
+                'cost': round(query.cost_rating,1), #temporary value
+                'life': round(query.life_rating,1), #temporary value
+                'academics': round(query.academics_rating,1), #temporary value
+                'total': query.total_expenditure, #temporary value
+                'accommodation': query.accomcost, #temporary value
+                'food': query.foodcost, #temporary value
+                'transport': query.transportcost, #temporary value
+                'academic_needs': query.academic_needs, #temporary value
+                'others': query.othercost, #temporary value
+                'reviews': reviews,
+                'use': users.get_current_user(),
+                'mod_offered': query.mod_offered,
+                'admin': users.is_current_user_admin()
+            }
 
-        template = jinja_environment.get_template('university.html')
-        self.response.out.write(template.render(template_values))
+            template = jinja_environment.get_template('university.html')
+            self.response.out.write(template.render(template_values))
     def get(self):
         self.show()
     def post(self):
@@ -266,7 +370,7 @@ class ToSubmitReview(webapp2.RequestHandler):
   def get(self):
       target = self.request.get('school')
       query = School.query(School.school_name_short.IN([target])).get()
-      if users.get_current_user:
+      if users.is_current_user_admin():
         template_values = {
           'text': 'Logout',
           'url': users.create_logout_url('/university?school=' + target),
@@ -276,13 +380,31 @@ class ToSubmitReview(webapp2.RequestHandler):
         }
         template = jinja_environment.get_template('submitreview.html')
         self.response.out.write(template.render(template_values))
+      elif users.get_current_user():
+        if users.get_current_user().email().find('nus') > 0: # NUS account. 
+          template_values = {
+            'text': 'Logout',
+            'url': users.create_logout_url('/university?school=' + target),
+            'author': users.get_current_user(),
+            'query': target,
+            'upload_url': blobstore.create_upload_url('/submittedreview')
+          }
+          template = jinja_environment.get_template('submitreview.html')
+          self.response.out.write(template.render(template_values))
+        else: #Not NUS account. Means no permission
+            template_values = {
+              'errormsg': 'gmail',
+              'redirectlink': users.create_logout_url('/university?school=' + target)
+            }
+            template = jinja_environment.get_template('loginerror.html')
+            self.response.out.write(template.render(template_values))
       else:
-        template_values = {
-          'text': 'Logout',
-          'url': '/_ah/login_required?continue_url=/tosubmitreview',
-        }
-        template = jinja_environment.get_template('submiterror.html')
-        self.response.out.write(template.render(template_values))
+            template_values = {
+              'errormsg': 'gmail',
+              'redirectlink': users.create_logout_url('/university?school=' + target)
+            }
+            template = jinja_environment.get_template('loginerror.html')
+            self.response.out.write(template.render(template_values))
 
 class SubmittedReview(webapp2.RequestHandler):
   def post(self):
@@ -525,6 +647,35 @@ class DeleteReview(webapp2.RequestHandler):
       query.othercost = (query.othercost * num - others)/(num - 1)
       query.total_expenditure = (query.total_expenditure * num - accom - food - transport - academic_needs - others)/(num - 1)
 
+    index=search.Index(name="my_index3")
+    
+    my_document = search.Document(
+      doc_id = query.school_name_short,
+      fields=[
+        search.TextField(name='name', value=query.school_name),
+        search.TextField(name='short_name', value=query.school_name_short),
+        search.AtomField(name='country', value=query.country),
+        search.AtomField(name='state', value=query.state),
+        search.TextField(name='exchange_type', value=query.exchange_type),
+        search.TextField(name='calendar', value=query.academic_calendar),
+        search.TextField(name='faculty',value=review.faculty),
+        search.TextField(name='about',value=query.content),
+        search.NumberField(name='overall_rating', value=query.overall_rating),
+        search.NumberField(name='cost_rating',value=query.cost_rating),
+        search.NumberField(name='life_rating',value=query.life_rating),
+        search.NumberField(name='academics_rating',value=query.academics_rating),
+        search.NumberField(name='total_expenditure',value=query.total_expenditure),
+        search.NumberField(name='accomcost',value=query.accomcost),
+        search.NumberField(name='foodcost',value=query.foodcost),
+        search.NumberField(name='transportcost',value=query.transportcost),
+        search.NumberField(name='academic_needs',value=query.academic_needs),
+        search.NumberField(name='othercost',value=query.othercost)])
+    
+    try:
+      index.put(my_document)
+    except search.PutError, e:
+      logging.exception("Add failed")
+
     query.num_reviews = query.num_reviews - 1
     query.put()
     review_key.delete()
@@ -552,7 +703,7 @@ class Countries(webapp2.RequestHandler):
         #ndb.delete_multi(Review.query().fetch(keys_only=True))
         #ndb.delete_multi(Comments.query().fetch(keys_only=True))
 
-        if users.get_current_user():
+        if users.is_current_user_admin():
             template_values = {
                 'text': 'Logout',
                 'url': users.create_logout_url('/countries'),
@@ -561,6 +712,28 @@ class Countries(webapp2.RequestHandler):
                 'countries': {'china': "China", 'australia': "Australia", 'germany': "Germany", 'canada': "Canada",'hongkong': "Hong Kong", 'newzealand': 'New Zealand', 'southkorea': 'South Korea', 'sweden': 'Sweden', 'usa': 'United States of America'},
                 'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "HongKong").fetch(), 'newzealand': School.query(School.country == "NewZealand").fetch(), 'southkorea': School.query(School.country == "SouthKorea").fetch(), 'sweden': School.query(School.country == "Sweden").fetch(), 'usa': School.query(School.country == "USA").fetch()}
             }
+            template = jinja_environment.get_template('testcountries.html')
+            self.response.out.write(template.render(template_values))
+
+        elif users.get_current_user():
+          if users.get_current_user().email().find('nus') > 0: # NUS account. 
+            template_values = {
+                'text': 'Logout',
+                'url': users.create_logout_url('/countries'),
+                'admin': users.is_current_user_admin(),
+                'anocountries': ['australia', 'canada', 'china', 'germany', 'hongkong', 'newzealand', 'southkorea', 'sweden', 'usa'],
+                'countries': {'china': "China", 'australia': "Australia", 'germany': "Germany", 'canada': "Canada",'hongkong': "Hong Kong", 'newzealand': 'New Zealand', 'southkorea': 'South Korea', 'sweden': 'Sweden', 'usa': 'United States of America'},
+                'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "HongKong").fetch(), 'newzealand': School.query(School.country == "NewZealand").fetch(), 'southkorea': School.query(School.country == "SouthKorea").fetch(), 'sweden': School.query(School.country == "Sweden").fetch(), 'usa': School.query(School.country == "USA").fetch()}
+            }
+            template = jinja_environment.get_template('testcountries.html')
+            self.response.out.write(template.render(template_values))
+          else: #Not NUS account. Means no permission
+            template_values = {
+              'errormsg': 'gmail',
+              'redirectlink': users.create_logout_url('/countries')
+            }
+            template = jinja_environment.get_template('loginerror.html')
+            self.response.out.write(template.render(template_values))
         else:
             template_values = {
             'text': 'Login',
@@ -571,8 +744,8 @@ class Countries(webapp2.RequestHandler):
                 'schools': {'australia':School.query(School.country == "Australia").fetch(), 'canada':School.query(School.country == "Canada").fetch(), 'china':School.query(School.country == "China").fetch(), 'germany':School.query(School.country == "Germany").fetch(), 'hongkong': School.query(School.country == "HongKong").fetch(), 'newzealand': School.query(School.country == "NewZealand").fetch(), 'southkorea': School.query(School.country == "SouthKorea").fetch(), 'sweden': School.query(School.country == "Sweden").fetch(), 'usa': School.query(School.country == "USA").fetch()}
             }
 
-        template = jinja_environment.get_template('testcountries.html')
-        self.response.out.write(template.render(template_values))
+            template = jinja_environment.get_template('testcountries.html')
+            self.response.out.write(template.render(template_values))
 
 #class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
  # def get(self, resource):
@@ -582,20 +755,21 @@ class Countries(webapp2.RequestHandler):
 
 class AddUniversity(webapp2.RequestHandler):
     def get(self):
-      if users.get_current_user():
+      if users.is_current_user_admin():
         template_values = {
           'text': 'Logout',
           'url': users.create_logout_url('/countries'),
           'upload_url': blobstore.create_upload_url('/addeduniversity')
         }
-      else:
-        template_values = {
-          'text': 'Login',
-          'url':'/_ah/login_required?continue_url=/countries',
-          'upload_url': blobstore.create_upload_url('/addeduniversity')
-        }
-      template = jinja_environment.get_template('adduniversity.html')
-      self.response.out.write(template.render(template_values))
+        template = jinja_environment.get_template('adduniversity.html')
+        self.response.out.write(template.render(template_values))
+      else: #Not NUS account. Means no permission
+          template_values = {
+            'errormsg': 'gmail',
+            'redirectlink': users.create_logout_url(self.request.host_url)
+          }
+          template = jinja_environment.get_template('loginerror.html')
+          self.response.out.write(template.render(template_values))
 
 class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
   def post(self):
@@ -630,6 +804,9 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
     sch.num_reviews=0 
     sch.mappings_count = 0 
 
+    sch.content = quopri.decodestring(sch.content)
+    sch.content = " ".join(sch.content.split()) #Remove all whitespaces
+    logging.info("sch.content: %s" % sch.content)
     faculties = ""
     for fac in sch.recommended_fac:
       faculties = faculties + fac + " "
@@ -670,7 +847,7 @@ class ModuleMappings(webapp2.RequestHandler):
     target = self.request.get('school')
     query = School.query(School.school_name_short.IN([target])).get()
      
-    if users.get_current_user():
+    if users.is_current_user_admin():
       template_values = {
         'text': 'Logout',
         'url': users.create_logout_url('/modulemappings?school='+target),
@@ -678,6 +855,26 @@ class ModuleMappings(webapp2.RequestHandler):
         'modules': query.mod_mappings,
         'admin': users.is_current_user_admin()
         }
+      template = jinja_environment.get_template('modmappings.html')
+      self.response.out.write(template.render(template_values))
+    elif users.get_current_user():
+      if users.get_current_user().email().find('nus') > 0: # NUS account. 
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url('/modulemappings?school='+target),
+          'school': query,
+          'modules': query.mod_mappings,
+          'admin': users.is_current_user_admin()
+        }
+        template = jinja_environment.get_template('modmappings.html')
+        self.response.out.write(template.render(template_values))
+      else: #Not NUS account. Means no permission
+          template_values = {
+            'errormsg': 'gmail',
+            'redirectlink': users.create_logout_url('/modulemappings?school='+target)
+          }
+          template = jinja_environment.get_template('loginerror.html')
+          self.response.out.write(template.render(template_values))
     else:
       template_values = {
         'text': 'Login',
@@ -687,29 +884,58 @@ class ModuleMappings(webapp2.RequestHandler):
         'admin': users.is_current_user_admin()
         }
 
-    template = jinja_environment.get_template('modmappings.html')
-    self.response.out.write(template.render(template_values))
+      template = jinja_environment.get_template('modmappings.html')
+      self.response.out.write(template.render(template_values))
 
 class Search(webapp2.RequestHandler):
   def get(self):
-      if users.get_current_user():
+      if users.is_current_user_admin():
         template_values = {
           'text': 'Logout',
           'url': users.create_logout_url('/search'),
         }
+        template = jinja_environment.get_template('search.html')
+        self.response.out.write(template.render(template_values))
+
+      elif users.get_current_user():
+        if users.get_current_user().email().find('nus') > 0: # NUS account. 
+          template_values = {
+            'text': 'Logout',
+            'url': users.create_logout_url('/search'),
+          }
+          template = jinja_environment.get_template('search.html')
+          self.response.out.write(template.render(template_values))
+        else: #Not NUS account. Means no permission
+          template_values = {
+            'errormsg': 'gmail',
+            'redirectlink': users.create_logout_url('/search')
+          }
+          template = jinja_environment.get_template('loginerror.html')
+          self.response.out.write(template.render(template_values))
       else:
         template_values = {
           'text': 'Login',
           'url':'/_ah/login_required?continue_url=/search'
         }
-      template = jinja_environment.get_template('search.html')
-      self.response.out.write(template.render(template_values))
+        template = jinja_environment.get_template('search.html')
+        self.response.out.write(template.render(template_values))
 
 class SearchResults(webapp2.RequestHandler):
   def get(self):
-      if users.get_current_user():
+      if users.is_current_user_admin():
         text = 'Logout'
         url = users.create_logout_url('/search')
+      elif users.get_current_user():
+        if users.get_current_user().email().find('nus') > 0: # NUS account. 
+          text = 'Logout'
+          url = users.create_logout_url('/search')
+        else: #Not NUS account. Means no permission
+          template_values = {
+            'errormsg': 'gmail',
+            'redirectlink': users.create_logout_url('/search')
+          }
+          template = jinja_environment.get_template('loginerror.html')
+          self.response.out.write(template.render(template_values))
       else:
         text ='Login'
         url = '/_ah/login_required?continue_url=/search'
@@ -865,7 +1091,7 @@ class EditReview(webapp2.RequestHandler):
     review_key = ndb.Key(urlsafe=review_id)
     review = review_key.get()
 
-    if users.get_current_user():
+    if users.is_current_user_admin():
       template_values = {
         'text': 'Logout',
         'url': users.create_logout_url('/countries'),
@@ -873,6 +1099,26 @@ class EditReview(webapp2.RequestHandler):
         'reviewid': review_id,
         'review': review
       }
+      template = jinja_environment.get_template('editreview.html')
+      self.response.out.write(template.render(template_values))
+    elif users.get_current_user():
+      if users.get_current_user().email().find('nus') > 0: # NUS account. 
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url('/countries'),
+          'query': review_school,
+          'reviewid': review_id,
+          'review': review
+        }
+        template = jinja_environment.get_template('editreview.html')
+        self.response.out.write(template.render(template_values))
+      else: #Not NUS account. Means no permission
+          template_values = {
+            'errormsg': 'gmail',
+            'redirectlink': users.create_logout_url('/countries')
+          }
+          template = jinja_environment.get_template('loginerror.html')
+          self.response.out.write(template.render(template_values))
     else:
       template_values = {
         'text': 'Login',
@@ -881,8 +1127,8 @@ class EditReview(webapp2.RequestHandler):
         'reviewid': review_id,
         'review':review
       }
-    template = jinja_environment.get_template('editreview.html')
-    self.response.out.write(template.render(template_values))
+      template = jinja_environment.get_template('editreview.html')
+      self.response.out.write(template.render(template_values))
   def post(self):
     
     review_school = self.request.get('school')
@@ -1066,18 +1312,26 @@ class EditReview(webapp2.RequestHandler):
     review.put()
 
     self.redirect("/university?school=" + review_school)
-    
+
 class EditUni(webapp2.RequestHandler):
   def get(self):
       target = self.request.get('school')
       query = School.query(School.school_name_short.IN([target])).get()
-      template_values = {
-        'text': 'Logout',
-        'url': users.create_logout_url('/university?school=' + target),
-        'school': query
-      }
-      template = jinja_environment.get_template('edituni.html')
-      self.response.out.write(template.render(template_values))
+      if users.is_current_user_admin():
+        template_values = {
+          'text': 'Logout',
+          'url': users.create_logout_url('/university?school=' + target),
+          'school': query
+        }
+        template = jinja_environment.get_template('edituni.html')
+        self.response.out.write(template.render(template_values))
+      else: 
+          template_values = {
+            'errormsg': 'gmail',
+            'redirectlink': users.create_logout_url('/university?school=' + target)
+          }
+          template = jinja_environment.get_template('loginerror.html')
+          self.response.out.write(template.render(template_values))
   def post(self):
       target = self.request.get('school')
       query = School.query(School.school_name_short.IN([target])).get()
