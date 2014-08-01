@@ -27,6 +27,7 @@
 1. Including third-party python libraries in GAE (BeautifulSoup): http://stackoverflow.com/questions/14850853/how-to-include-third-party-python-libraries-in-google-app-engine
 2. Sanitising user input: http://stackoverflow.com/questions/16861/sanitising-user-input-using-python
 3. Deleting a module mapping: http://stackoverflow.com/questions/17950774/app-engine-datastore-python-delete-element-within-a-structuredproperty
+4. Allowing only alphabets and spaces for form input validation: http://stackoverflow.com/questions/2794162/jquery-validation-plugin-accept-only-alphabetical-characters
 
 ##### Notes
 1. ~~Delete module mapping does not work immediately, leads to blank page, but is deleted when you check again, similar to AddUniversity~~
