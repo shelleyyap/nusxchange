@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    CKEDITOR.replace('abtschool');
 	$("#univform").validate({
         rules: {
         	name: {

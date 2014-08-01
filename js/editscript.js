@@ -10,6 +10,7 @@ $(document).ready(function(){
          /* $("#maj").replaceWith("<select name="major" required>
                          <option value=0> Select Major </option><option value="Physics"> Physics </option>
                       </select>"); */
+    CKEDITOR.replace('reviewcontents');
     $("select#fac").change(function() {
             /*if $("select#fac option:selected").text() == "Faculty of Science") {
               $("select#maj").append("<option value=0> Physics </option>");

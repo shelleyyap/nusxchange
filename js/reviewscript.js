@@ -3,7 +3,9 @@ $(document).ready(function(){
           $("select").append("<option value=0> Physics </option>");*/
          /* $("#maj").replaceWith("<select name="major" required>
                          <option value=0> Select Major </option><option value="Physics"> Physics </option>
-                      </select>"); */
+                       </select>"); */
+    CKEDITOR.replace('reviewcontents');
+    
     $("select#fac").change(function() {
             /*if $("select#fac option:selected").text() == "Faculty of Science") {
               $("select#maj").append("<option value=0> Physics </option>");
@@ -148,7 +150,7 @@ $(document).ready(function(){
         var total = accom + food + trans + acad + others;
         $("span#totalcost").html(total);
     })
-
+    
     $("#reviewform").validate({
         rules: {
             cred1: {

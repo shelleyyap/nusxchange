@@ -776,6 +776,29 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
     #self.response.write('<html><body>You wrote:<pre>')
     #self.response.write(cgi.escape(self.request.get('name')))
     #self.response.write('</pre></body></html>')
+    def sanitizeHtml(value, base_url=None):
+      rjs = r'[\s]*(&#x.{1,7})?'.join(list('javascript:'))
+      rvb = r'[\s]*(&#x.{1,7})?'.join(list('vbscript:'))
+      re_scripts = re.compile('(%s)|(%s)' % (rjs, rvb), re.IGNORECASE)
+      validTags = 'p i strong b u a h1 h2 h3 pre br img'.split()
+      validAttrs = 'href src width height'.split()
+      urlAttrs = 'href src'.split() # Attributes which should have a URL
+      soup = BeautifulSoup(value)
+      for comment in soup.findAll(text=lambda text: isinstance(text, Comment)):
+        # Get rid of comments
+        comment.extract()
+      for tag in soup.findAll(True):
+        if tag.name not in validTags:
+          tag.hidden = True
+        attrs = tag.attrs
+        tag.attrs = []
+        for attr, val in attrs:
+          if attr in validAttrs:
+            val = re_scripts.sub('', val) # Remove scripts (vbs & js)
+            if attr in urlAttrs:
+              val = urljoin(base_url, val) # Calculate the absolute url
+            tag.attrs.append((attr, val))
+      return soup.renderContents().decode('utf8')
 
     upload_img = self.get_uploads('img')
     blob_info = upload_img[0]
@@ -790,7 +813,7 @@ class AddedUniversity(blobstore_handlers.BlobstoreUploadHandler):
     sch.recommended_fac=self.request.get_all('faculty')
     sch.mod_offered=self.request.get('modules')
     sch.picture=blob_info.key()
-    sch.content=(self.request.get('abtschool'))  
+    sch.content=sanitizeHtml(self.request.get('abtschool'))  
     sch.overall_rating=0.0
     sch.cost_rating=0.0
     sch.life_rating=0.0
