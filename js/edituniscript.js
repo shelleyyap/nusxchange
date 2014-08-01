@@ -1,15 +1,26 @@
 $(document).ready(function() {
     CKEDITOR.replace('abtschool');
+    
+    jQuery.validator.addMethod("lettersandspace", function(value, element) {
+        return this.optional(element) || /^[a-z," "]+$/i.test(value);
+    }, "Letters and spaces only please"); 
+    
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+        return this.optional(element) || /^[a-z]+$/i.test(value);
+    }, "Letters only please. No spaces, symbols and digits allowed.");
+
 	$("#univform").validate({
         rules: {
         	name: {
-        		required: true
+        		required: true,
+                lettersandspace: true
         	},
         	country: {
         		required: true
         	},
         	state: {
-        		required: true
+        		required: true,
+                lettersandspace: true
         	},
         	calendar: {
         		required: true
