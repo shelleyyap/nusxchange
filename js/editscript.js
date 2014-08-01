@@ -158,6 +158,32 @@ $(document).ready(function(){
 
     $("#reviewform").validate({
         rules: {
+            year: {
+                required: true,
+                integer: true,
+                min: 2000,
+                max: 2100
+            },
+            accomcost: {
+                integer:true,
+                min:0
+            },
+            foodcost: {
+                integer: true,
+                min: 0
+            },
+            transportcost: {
+                integer: true,
+                min: 0
+            },
+            acadcost: {
+                integer: true,
+                min: 0
+            },
+            othercost: {
+                integer: true,
+                min: 0
+            },
             cred1: {
                 required: {
                     depends: function(element) {
@@ -367,6 +393,33 @@ $(document).ready(function(){
                         return $("#mod10").val()!="";
                     }
                 }
+            }
+        },
+        messages: {
+            year: {
+                integer: "Pls enter a valid year.",
+                min: "Pls enter a valid year.",
+                max: "Pls enter a valid year."
+            },
+            accomcost: {
+                integer: "Pls enter an integer value.",
+                min: "Pls enter an integer greater than or equal to 0."
+            },
+            transportcost: {
+                integer: "Pls enter an integer value.",
+                min: "Pls enter an integer greater than or equal to 0."
+            },
+            acadcost: {
+                integer: "Pls enter an integer value.",
+                min: "Pls enter an integer greater than or equal to 0."
+            },
+            foodcost: {
+                integer: "Pls enter an integer value.",
+                min: "Pls enter an integer greater than or equal to 0."
+            },
+            othercost: {
+                integer: "Pls enter an integer value.",
+                min: "Pls enter an integer greater than or equal to 0."
             }
         }
     });
