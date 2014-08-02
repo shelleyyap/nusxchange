@@ -41,7 +41,7 @@ NUSXchange is a web application that aims to provide NUS students intending to g
 This was done as part of NUS’ Orbital Programme, the School of Computing's self-driven programming summer experience designed to give first-year students the opportunity to self-learn and build something useful. It is designed as a 4 modular credit (MC) module that is taken pass/fail (CS/CU) over the summer.
 
 Links
-Our webapp: http://nusxchange.appspot.com/
+Our webapp: http://nusxchange.appspot.com/  
 Our video:  https://www.dropbox.com/s/0hvpia9bvtn9i7q/eval3.wmv
 
 ###1. Ideation:
@@ -54,10 +54,10 @@ Prototype: https://docs.google.com/presentation/d/12JED2nKL44JNsl2qB2qh21z-JYBrD
 ###2. Features
 
 NUSXchange has 5 main features: 
-1.	University page
-2.	Reviews and comments
-3.	Module mappings
-4.	Search function
+1.	University page  
+2.	Reviews and comments  
+3.	Module mappings  
+4.	Search function  
 5.	Login
 
 University page:
@@ -101,7 +101,7 @@ iii. Present expenditure information in the form of a pie chart
 iv. Allow replies for comments
 
 
-3. Acknowledgements:
+###5. Acknowledgements:
 
 Tools used in NUSXchange:
 Google App Engine (Python), NDB Datastore, Blobstore, Beautiful Soup, jQuery Validator, jQuery, Bootstrap, HTML, CSS, ckeditor, jinja 
