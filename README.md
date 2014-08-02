@@ -47,13 +47,13 @@ Our video:  https://www.dropbox.com/s/0hvpia9bvtn9i7q/eval3.wmv
 ###1. Ideation:
 With over 180 partner universities from over 40 countries, it is not an easy task to choose the university to exchange with. Programmes, cost, language, culture, weather, module mappings are just a few among the many factors students have to consider. The experiences provided by the seniors and their reviews of their time overseas would be valuable to students deciding to go on an exchange. Our project thus aims to address these concerns by providing them with the relevant information on the web.
 
-Elevator pitch: https://www.dropbox.com/s/xs4u8bwi68ykpfp/Elevator%20Pitch%20by%20P.O.P.mp4
+Elevator pitch: https://www.dropbox.com/s/xs4u8bwi68ykpfp/Elevator%20Pitch%20by%20P.O.P.mp4  
 Prototype: https://docs.google.com/presentation/d/12JED2nKL44JNsl2qB2qh21z-JYBrD4uvzNrWc73A__M/pub?start=false&loop=false&delayms=60000
 
 
 ###2. Features
 
-NUSXchange has 5 main features: 
+NUSXchange has 5 main features:   
 1.	University page  
 2.	Reviews and comments  
 3.	Module mappings  
@@ -82,23 +82,23 @@ Form inputs (adding universities, submitting reviews):
 * CKEditor was used as a WYSIWYG editor for information about the university and review contents, to make it easier for users to format their input. 
 * Form validation was implemented using jQuery validator: 
 	* All field are required except module mappings and exchange type.
-	* University page:
-		* School name, state: accepts only alphabets and spaces
-		* Short name (unique identifier of school): must be unique (i.e. does not exist in current database) and accepts only alphabets (no spaces allowed as it is used as part of the url for school page) [cannot be edited]
-		* Image of university: accepts only image files
-	* Submit review:
-		* Choice of major depends on faculty selected
-		* Year: accepts only integers from 2000 to 2050
-		* Expenditure: accepts only non-negative integers, total expenditure is automatically calculated when all values are filled in
-		* Module mappings: credits accept only non-negative integers. SEP Module credits, NUS Module and NUS Module MCs are required only if SEP Module is filled in
+	* University page:  
+		School name, state: accepts only alphabets and spaces  
+		Short name (unique identifier of school): must be unique (i.e. does not exist in current database) and accepts only alphabets (no spaces allowed as it is used as part of the url for school page) [cannot be edited]  
+		Image of university: accepts only image files  
+	* Submit review:  
+		Choice of major depends on faculty selected  
+		Year: accepts only integers from 2000 to 2050  
+		Expenditure: accepts only non-negative integers, total expenditure is automatically calculated when all values are filled in  
+		Module mappings: credits accept only non-negative integers. SEP Module credits, NUS Module and NUS Module MCs are required only if SEP Module is filled in  
 
 Alert dialogue to confirm delete of universities in case of accidental pressing of delete button. 
 
 ###4. Potential features:
-i. Upvote/downvote of reviews
-ii. Allow anonymous posting of reviews, possibly with lower ranking for anonymous reviews to provide incentive to submit as a logged in user
-iii. Present expenditure information in the form of a pie chart
-iv. Allow replies for comments
+i. Upvote/downvote of reviews  
+ii. Allow anonymous posting of reviews, possibly with lower ranking for anonymous reviews to provide incentive to submit as a logged in user  
+iii. Present expenditure information in the form of a pie chart  
+iv. Allow replies for comments  
 
 
 ###5. Acknowledgements:
@@ -119,4 +119,5 @@ We would like to thank Du, our advisor, as well as
 * (BeautifulSoup) http://stackoverflow.com/questions/14850853/how-to-include-third-party-python-libraries-in-google-app-engine
 * (Sanitising)http://stackoverflow.com/questions/16861/sanitising-user-input-using-python
 * (Deleting module mapping) http://stackoverflow.com/questions/17950774/app-engine-datastore-python-delete-element-within-a-structuredproperty
-* (Allowing only alphabets and spaces for form input validation): http://stackoverflow.com/questions/2794162/jquery-validation-plugin-accept-only-alphabetical-characters
+* (Allowing only alphabets and spaces for form input validation) http://stackoverflow.com/questions/2794162/jquery-validation-plugin-accept-only-alphabetical-characters
+* (Formatting README.md) https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md
