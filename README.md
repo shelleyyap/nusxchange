@@ -83,22 +83,22 @@ Form inputs (adding universities, submitting reviews):
 * Form validation was implemented using jQuery validator: 
 	* All field are required except module mappings and exchange type.
 	* University page:
-	School name, state: accepts only alphabets and spaces
-	Short name (unique identifier of school): must be unique (i.e. does not exist in current database) and accepts only alphabets (no spaces allowed as it is used as part of the url for school page) [cannot be edited]
-	Image of university: accepts only image files
+		* School name, state: accepts only alphabets and spaces
+		* Short name (unique identifier of school): must be unique (i.e. does not exist in current database) and accepts only alphabets (no spaces allowed as it is used as part of the url for school page) [cannot be edited]
+		* Image of university: accepts only image files
 	* Submit review:
-	Choice of major depends on faculty selected
-	Year: accepts only integers from 2000 to 2050
-	Expenditure: accepts only non-negative integers, total expenditure is automatically calculated when all values are filled in
-	Module mappings: credits accept only non-negative integers. SEP Module credits, NUS Module and NUS Module MCs are required only if SEP Module is filled in
+		* Choice of major depends on faculty selected
+		* Year: accepts only integers from 2000 to 2050
+		* Expenditure: accepts only non-negative integers, total expenditure is automatically calculated when all values are filled in
+		* Module mappings: credits accept only non-negative integers. SEP Module credits, NUS Module and NUS Module MCs are required only if SEP Module is filled in
 
 Alert dialogue to confirm delete of universities in case of accidental pressing of delete button. 
 
 ###4. Potential features:
-i) Upvote/downvote of reviews
-ii) Allow anonymous posting of reviews, possibly with lower ranking for anonymous reviews to provide incentive to submit as a logged in user
-iii) Present expenditure information in the form of a pie chart
-iv) Allow replies for comments
+i. Upvote/downvote of reviews
+ii. Allow anonymous posting of reviews, possibly with lower ranking for anonymous reviews to provide incentive to submit as a logged in user
+iii. Present expenditure information in the form of a pie chart
+iv. Allow replies for comments
 
 
 3. Acknowledgements:
@@ -106,54 +106,17 @@ iv) Allow replies for comments
 Tools used in NUSXchange:
 Google App Engine (Python), NDB Datastore, Blobstore, Beautiful Soup, jQuery Validator, jQuery, Bootstrap, HTML, CSS, ckeditor, jinja 
 
-Learning resources:
+
 We would like to thank Du, our advisor, as well as 
 
 
-
-
-References
-Tool to be used to create the web application: Google App Engine
-References(Currently)
-•	Pictures
-Thumbs up: http://openclipart.org/detail/173822/thumbs-up-by-qubodup-173822
-Thumbs down: http://openclipart.org/detail/173823/thumbs-down-by-qubodup-173823
-Countries image: http://www.ipa-usa.org/resource/resmgr/active_officer_exchange/world_flag.png
-NUS Exchange: http://www.nus.edu/iro/images/studentexchange/outgoing.jpg
-Tuebingen: http://upload.wikimedia.org/wikipedia/commons/4/42/TuebingenUniNeueAula.jpg
-ANU: http://upload.wikimedia.org/wikipedia/commons/f/f9/ANU_College_of_Law.jpg
-VUW: http://upload.wikimedia.org/wikipedia/commons/a/a0/VUW-Kelburn.jpg
-Korea U: http://upload.wikimedia.org/wikipedia/commons/7/74/Korea_University.jpg
-Contact: http://www.tnicom.com/images/contact_icon[1].png
-Search: http://iromin.files.wordpress.com/2014/01/search-marketing.jpg
-Login: http://www.jointcommission.org/assets/1/6/button-login.jpg
-Canada: http://www.acoa-apeca.gc.ca/eng/investment/InvestmentHome/PublishingImages/Canada_flag.jpg
-Germany: http://www.mars.com/global/assets/images/center-content/german-flag.jpg
-Australia: http://wiki.guildwars2.com/images/b/b9/Flag_of_Australia.svg
-China: http://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People's_Republic_of_China.svg/1500px-Flag_of_the_People's_Republic_of_China.svg.png
-Hong Kong: http://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/900px-Flag_of_Hong_Kong.svg.png
-•	School Websites
-NUS SEP: http://www.nus.edu/iro/sep/out/index.html
-http://publish.ust.hk/prog_crs/ugcourse/index.html
-http://www.ust.hk/eng/about/index.htm
-http://www.handbook.unsw.edu.au/vbook2014/brCoursesByAtoZ.jsp?StudyLevel=Undergraduate&descr=A
-http://www.unsw.edu.au/about-us
-http://www.unc.edu/ugradbulletin/depts/compsci.html
-http://studyabroad.unc.edu/incoming/ch_info.cfm
-http://www.comp.nus.edu.sg/undergraduates/beyond_sep.html
-http://ev.buaa.edu.cn/about_buaa/buaa_today/70338.htm
-http://www.su.se/english/about
-http://sisu.it.su.se/search/courses/en?area_id=5
-•	Learning resources
-http://www.codecademy.com/dashboard
-Code in the Cloud Programming Google App Engine by Mark C. Chu-Carroll
-https://developers.google.com/appengine/docs/python/
-•	Others
-Bootstrap: http://getbootstrap.com/
-Comment box style: http://codepen.io/magnus16/pen/buGiB
-Openid: https://openid.nus.edu.sg/
-NUS 2014 Mission Controls
-(BeautifulSoup) http://stackoverflow.com/questions/14850853/how-to-include-third-party-python-libraries-in-google-app-engine
-(Sanitising)http://stackoverflow.com/questions/16861/sanitising-user-input-using-python
-(Deleting module mapping) http://stackoverflow.com/questions/17950774/app-engine-datastore-python-delete-element-within-a-structuredproperty
-
+* http://www.codecademy.com/dashboard
+* https://developers.google.com/appengine/docs/python/
+* Bootstrap: http://getbootstrap.com/
+* Comment box style: http://codepen.io/magnus16/pen/buGiB
+* Openid: https://openid.nus.edu.sg/
+* NUS 2014 Mission Controls
+* (BeautifulSoup) http://stackoverflow.com/questions/14850853/how-to-include-third-party-python-libraries-in-google-app-engine
+* (Sanitising)http://stackoverflow.com/questions/16861/sanitising-user-input-using-python
+* (Deleting module mapping) http://stackoverflow.com/questions/17950774/app-engine-datastore-python-delete-element-within-a-structuredproperty
+* (Allowing only alphabets and spaces for form input validation): http://stackoverflow.com/questions/2794162/jquery-validation-plugin-accept-only-alphabetical-characters
