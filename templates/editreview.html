@@ -71,20 +71,214 @@
                 </tr>-->
                 <tr>
                   <td> NUS faculty: </td>
-                  <td>       
+                  <td>
+                    {% if review.faculty == "FoS" %}       
+                    <select name="faculty" class="fac" id="fac" required>
+                      <option value=> Select Faculty </option>
+                      <option selected="selected" value="FoS"> Faculty of Science </option>
+                      <option value="SoC"> School of Computing </option>
+                    </select>
+                    {% else %}
                     <select name="faculty" class="fac" id="fac" required>
                       <option value=> Select Faculty </option>
                       <option value="FoS"> Faculty of Science </option>
-                      <option value="SoC"> School of Computing </option>
+                      <option selected="selected" value="SoC"> School of Computing </option>
                     </select>
+                    {% endif %}
                   </td>
                 </tr>
                 <tr>
                   <td> Major: </td>
                   <td>
+                    {% if review.major=='Applied Mathematics' %}
                     <select name="major" id="maj" required>
-                      <option value=> Select Major </option>
+                      <option value='Applied Mathematics' selected> Applied Mathematics </option>
+                      <option value='Chemistry'> Chemistry </option>
+                      <option value='Computational Biology'> Computational Biology </option>
+                      <option value='Food Science and Technology'> Food Science and Technology</option>
+                      <option value='Life Sciences'> Life Sciences </option>
+                      <option value='Mathematics'> Mathematics </option>
+                      <option value='Pharmacy'> Pharmacy </option>
+                      <option value='Physics'> Physics </option>
+                      <option value='Quantitative Finance'> Quantitative Finance</option>
+                      <option value='Statistics'> Statistics </option>
                     </select>
+                    {% elif review.major=='Chemistry' %}
+                    <select name="major" id="maj" required>
+                      <option value='Applied Mathematics'> Applied Mathematics </option>
+                      <option value='Chemistry' selected> Chemistry </option>
+                      <option value='Computational Biology'> Computational Biology </option>
+                      <option value='Food Science and Technology'> Food Science and Technology</option>
+                      <option value='Life Sciences'> Life Sciences </option>
+                      <option value='Mathematics'> Mathematics </option>
+                      <option value='Pharmacy'> Pharmacy </option>
+                      <option value='Physics'> Physics </option>
+                      <option value='Quantitative Finance'> Quantitative Finance</option>
+                      <option value='Statistics'> Statistics </option>
+                    </select>
+                    {% elif review.major=='Computational Biology' %}
+                    <select name="major" id="maj" required>
+                      <option value='Applied Mathematics'> Applied Mathematics </option>
+                      <option value='Chemistry'> Chemistry </option>
+                      <option value='Computational Biology' selected> Computational Biology </option>
+                      <option value='Food Science and Technology'> Food Science and Technology</option>
+                      <option value='Life Sciences'> Life Sciences </option>
+                      <option value='Mathematics'> Mathematics </option>
+                      <option value='Pharmacy'> Pharmacy </option>
+                      <option value='Physics'> Physics </option>
+                      <option value='Quantitative Finance'> Quantitative Finance</option>
+                      <option value='Statistics'> Statistics </option>
+                    </select>
+                    {% elif review.major=='Food Science and Technology' %}
+                    <select name="major" id="maj" required>
+                      <option value='Applied Mathematics'> Applied Mathematics </option>
+                      <option value='Chemistry'> Chemistry </option>
+                      <option value='Computational Biology'> Computational Biology </option>
+                      <option value='Food Science and Technology' selected> Food Science and Technology</option>
+                      <option value='Life Sciences'> Life Sciences </option>
+                      <option value='Mathematics'> Mathematics </option>
+                      <option value='Pharmacy'> Pharmacy </option>
+                      <option value='Physics'> Physics </option>
+                      <option value='Quantitative Finance'> Quantitative Finance</option>
+                      <option value='Statistics'> Statistics </option>
+                    </select>
+                    {% elif review.major=='Life Sciences' %}
+                    <select name="major" id="maj" required>
+                      <option value='Applied Mathematics'> Applied Mathematics </option>
+                      <option value='Chemistry'> Chemistry </option>
+                      <option value='Computational Biology'> Computational Biology </option>
+                      <option value='Food Science and Technology'> Food Science and Technology</option>
+                      <option value='Life Sciences' selected> Life Sciences </option>
+                      <option value='Mathematics'> Mathematics </option>
+                      <option value='Pharmacy'> Pharmacy </option>
+                      <option value='Physics'> Physics </option>
+                      <option value='Quantitative Finance'> Quantitative Finance</option>
+                      <option value='Statistics'> Statistics </option>
+                    </select>
+                    {% elif review.major=='Mathematics' %}
+                    <select name="major" id="maj" required>
+                      <option value='Applied Mathematics'> Applied Mathematics </option>
+                      <option value='Chemistry'> Chemistry </option>
+                      <option value='Computational Biology'> Computational Biology </option>
+                      <option value='Food Science and Technology'> Food Science and Technology</option>
+                      <option value='Life Sciences'> Life Sciences </option>
+                      <option value='Mathematics' selected> Mathematics </option>
+                      <option value='Pharmacy'> Pharmacy </option>
+                      <option value='Physics'> Physics </option>
+                      <option value='Quantitative Finance'> Quantitative Finance</option>
+                      <option value='Statistics'> Statistics </option>
+                    </select>
+                    {% elif review.major=='Pharmacy' %}
+                    <select name="major" id="maj" required>
+                      <option value='Applied Mathematics'> Applied Mathematics </option>
+                      <option value='Chemistry'> Chemistry </option>
+                      <option value='Computational Biology'> Computational Biology </option>
+                      <option value='Food Science and Technology'> Food Science and Technology</option>
+                      <option value='Life Sciences'> Life Sciences </option>
+                      <option value='Mathematics'> Mathematics </option>
+                      <option value='Pharmacy' selected> Pharmacy </option>
+                      <option value='Physics'> Physics </option>
+                      <option value='Quantitative Finance'> Quantitative Finance</option>
+                      <option value='Statistics'> Statistics </option>
+                    </select>
+                    {% elif review.major=='Physics' %}
+                    <select name="major" id="maj" required>
+                      <option value='Applied Mathematics'> Applied Mathematics </option>
+                      <option value='Chemistry'> Chemistry </option>
+                      <option value='Computational Biology'> Computational Biology </option>
+                      <option value='Food Science and Technology'> Food Science and Technology</option>
+                      <option value='Life Sciences'> Life Sciences </option>
+                      <option value='Mathematics'> Mathematics </option>
+                      <option value='Pharmacy'> Pharmacy </option>
+                      <option value='Physics' selected> Physics </option>
+                      <option value='Quantitative Finance'> Quantitative Finance</option>
+                      <option value='Statistics'> Statistics </option>
+                    </select>
+                    {% elif review.major=='Quantitative Finance' %}
+                    <select name="major" id="maj" required>
+                      <option value='Applied Mathematics'> Applied Mathematics </option>
+                      <option value='Chemistry'> Chemistry </option>
+                      <option value='Computational Biology'> Computational Biology </option>
+                      <option value='Food Science and Technology'> Food Science and Technology</option>
+                      <option value='Life Sciences'> Life Sciences </option>
+                      <option value='Mathematics'> Mathematics </option>
+                      <option value='Pharmacy'> Pharmacy </option>
+                      <option value='Physics'> Physics </option>
+                      <option value='Quantitative Finance' selected> Quantitative Finance</option>
+                      <option value='Statistics'> Statistics </option>
+                    </select>
+                    {% elif review.major=='Statistics' %}
+                    <select name="major" id="maj" required>
+                      <option value='Applied Mathematics'> Applied Mathematics </option>
+                      <option value='Chemistry'> Chemistry </option>
+                      <option value='Computational Biology'> Computational Biology </option>
+                      <option value='Food Science and Technology'> Food Science and Technology</option>
+                      <option value='Life Sciences'> Life Sciences </option>
+                      <option value='Mathematics'> Mathematics </option>
+                      <option value='Pharmacy'> Pharmacy </option>
+                      <option value='Physics'> Physics </option>
+                      <option value='Quantitative Finance'> Quantitative Finance</option>
+                      <option value='Statistics' selected> Statistics </option>
+                    </select>
+                    {% elif review.major=='Business Analytics' %}
+                    <select name="major" id="maj" required>
+                      <option value='Business Analytics' selected> Business Analytics </option>
+                      <option value='Computational Biology'> Computational Biology</option>
+                      <option value='Computer Engineering'> Computer Engineering</option>
+                      <option value='Computer Science'> Computer Science </option>
+                      <option value='Electronic Commerce'> Electronic Commerce </option>
+                      <option value='Information Systems'> Information Systems </option>
+                    </select>
+                    {% elif review.major=='Computational Biology' %}
+                    <select name="major" id="maj" required>
+                      <option value='Business Analytics'> Business Analytics </option>
+                      <option value='Computational Biology' selected> Computational Biology</option>
+                      <option value='Computer Engineering'> Computer Engineering</option>
+                      <option value='Computer Science'> Computer Science </option>
+                      <option value='Electronic Commerce'> Electronic Commerce </option>
+                      <option value='Information Systems'> Information Systems </option>
+                    </select>
+                    {% elif review.major=='Computer Engineering' %}
+                    <select name="major" id="maj" required>
+                      <option value='Business Analytics'> Business Analytics </option>
+                      <option value='Computational Biology'> Computational Biology</option>
+                      <option value='Computer Engineering' selected> Computer Engineering</option>
+                      <option value='Computer Science'> Computer Science </option>
+                      <option value='Electronic Commerce'> Electronic Commerce </option>
+                      <option value='Information Systems'> Information Systems </option>
+                    </select>
+                    {% elif review.major=='Computer Science' %}
+                    <select name="major" id="maj" required>
+                      <option value='Business Analytics'> Business Analytics </option>
+                      <option value='Computational Biology'> Computational Biology</option>
+                      <option value='Computer Engineering'> Computer Engineering</option>
+                      <option value='Computer Science' selected> Computer Science </option>
+                      <option value='Electronic Commerce'> Electronic Commerce </option>
+                      <option value='Information Systems'> Information Systems </option>
+                    </select>
+                    {% elif review.major=='Electronic Commerce' %}
+                    <select name="major" id="maj" required>
+                      <option value='Business Analytics'> Business Analytics </option>
+                      <option value='Computational Biology'> Computational Biology</option>
+                      <option value='Computer Engineering'> Computer Engineering</option>
+                      <option value='Computer Science'> Computer Science </option>
+                      <option value='Electronic Commerce' selected> Electronic Commerce </option>
+                      <option value='Information Systems'> Information Systems </option>
+                    </select>
+                    {% elif review.major=='Information Systems' %}
+                    <select name="major" id="maj" required>
+                      <option value='Business Analytics'> Business Analytics </option>
+                      <option value='Computational Biology'> Computational Biology</option>
+                      <option value='Computer Engineering'> Computer Engineering</option>
+                      <option value='Computer Science'> Computer Science </option>
+                      <option value='Electronic Commerce'> Electronic Commerce </option>
+                      <option value='Information Systems' selected> Information Systems </option>
+                    </select>
+                    {% else %}
+                    <select name="major" id="maj" required>
+                      <option value=''> Select Major </option>
+                    </select>
+                    {% endif %}
                   </td>
                 </tr>
                 <tr>
@@ -122,12 +316,35 @@
                 <tr>
                   <td> Semester: </td>
                   <td>
+                    {% if review.semester == "1" %}
+                    <select name="semester" required>
+                      <option value=> Select Semester </option>
+                      <option value="1" selected> Semester 1 </option>
+                      <option value="2"> Semester 2 </option>
+                      <option value="1 and 2"> Semester 1 and 2 </option>
+                    </select>
+                    {% elif review.semester == "2" %}
+                    <select name="semester" required>
+                      <option value=> Select Semester </option>
+                      <option value="1"> Semester 1 </option>
+                      <option value="2" selected> Semester 2 </option>
+                      <option value="1 and 2"> Semester 1 and 2 </option>
+                    </select>
+                    {% elif review.semester == "1 and 2" %}
+                    <select name="semester" required>
+                      <option value=> Select Semester </option>
+                      <option value="1"> Semester 1 </option>
+                      <option value="2"> Semester 2 </option>
+                      <option value="1 and 2" selected> Semester 1 and 2 </option>
+                    </select>
+                    {% else %}
                     <select name="semester" required>
                       <option value=> Select Semester </option>
                       <option value="1"> Semester 1 </option>
                       <option value="2"> Semester 2 </option>
                       <option value="1 and 2"> Semester 1 and 2 </option>
                     </select>
+                    {% endif %}
                   </td>
                 </tr>
                 
