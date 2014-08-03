@@ -48,7 +48,7 @@ Our video:  https://www.dropbox.com/s/0hvpia9bvtn9i7q/eval3.wmv
 With over 180 partner universities from over 40 countries, it is not an easy task to choose the university to exchange with. Programmes, cost, language, culture, weather, module mappings are just a few among the many factors students have to consider. The experiences provided by the seniors and their reviews of their time overseas would be valuable to students deciding to go on an exchange. Our project thus aims to address these concerns by providing them with the relevant information on the web.
 
 Elevator pitch: https://www.dropbox.com/s/xs4u8bwi68ykpfp/Elevator%20Pitch%20by%20P.O.P.mp4  
-Prototype: https://docs.google.com/presentation/d/12JED2nKL44JNsl2qB2qh21z-JYBrD4uvzNrWc73A__M/pub?start=false&loop=false&delayms=60000
+Powerpoint prototype: https://docs.google.com/presentation/d/12JED2nKL44JNsl2qB2qh21z-JYBrD4uvzNrWc73A__M/pub?start=false&loop=false&delayms=60000
 
 
 ###2. Features
@@ -92,22 +92,53 @@ Form inputs (adding universities, submitting reviews):
 		Expenditure: accepts only non-negative integers, total expenditure is automatically calculated when all values are filled in  
 		Module mappings: credits accept only non-negative integers. SEP Module credits, NUS Module and NUS Module MCs are required only if SEP Module is filled in  
 
-Alert dialogue to confirm delete of universities in case of accidental pressing of delete button. 
+Alert dialogue to confirm delete of universities, reviews and comments in case of accidental pressing of delete button. 
 
-###4. Potential features:
-i. Upvote/downvote of reviews  
-ii. Allow anonymous posting of reviews, possibly with lower ranking for anonymous reviews to provide incentive to submit as a logged in user  
-iii. Present expenditure information in the form of a pie chart  
-iv. Allow replies for comments  
+Comments: limited to maximum of 500 characters
 
+###4. Work-in-progress
+1. Display names instead of email addresses for users who post reviews and/or comments  
+2. Support for special programmes (double degree, double major, minor etc.)  
+3. More accessible submit review buttons, an issue if there are many reviews as users will have to scroll down a lot to look for the button  
+4. Remove duplicates for module mappings  
+5. Allow editing of module mappings for administrators  
 
-###5. Acknowledgements:
+###5. Testing carried out
+
+###6. Potential features:
+1. Upvote/downvote of reviews  
+2. Allow anonymous posting of reviews, possibly with lower ranking for anonymous reviews to provide incentive to submit as a logged in user  
+3. Present expenditure information in the form of a pie chart  
+4. Allow replies for comments  
+5. Allow users to favorite schools so that they may refer back to their list of choices anytime    
+6. Compare universities feature
+7. Search that displays results based on choice of majors, rather than reflecting the schools, so that students can see all reviews of previous students who are in the same course  
+8. Allow users to rank search results based on cost, ratings etc.
+9. Summary page of universities' ratings, like a leaderboard
+
+###7. Orbital Project Requirements achieved
+Vostok (Easy/Beginner)  
+* Attended the Liftoff workshop
+* Logged time spent (exceeded 130 hours)
+* Will participate in end of summer showcase Splashdown
+* Completed a basic web application using Google App Engine/Python framework, with creation, retrieval and deletion of universities, reviews and comments
+* Completed peer-grading exercises
+
+Gemini (Intermediate)
+* Added an administrative front end to manage universities, reviews and comments database
+* Implemented NUS OpenID login
+* Input validation and exception handling for form inputs (adding universities and submitting reviews)
+
+Apollo (Difficult/Advanced)  
+* Used version control (Git)
+
+###8. Acknowledgements:
 
 Tools used in NUSXchange:
 Google App Engine (Python), NDB Datastore, Blobstore, Beautiful Soup, jQuery Validator, jQuery, Bootstrap, HTML, CSS, ckeditor, jinja 
 
 
-We would like to thank Du, our advisor, as well as 
+We would like to thank our advisor Du Zhiyuan, as well as teams Beeblebum (Ng Hui Xian Lynnette, Nguyen Duc Thien), AuthenticSingapore (Tan Chun Hui, Bay Chuan Wei) and Catcher in the rye (Xu Bohan, Zhu Yi lin) for their valuable feedback and comments.
 
 
 * http://www.codecademy.com/dashboard
