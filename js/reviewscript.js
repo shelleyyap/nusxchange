@@ -161,7 +161,7 @@ $(document).ready(function(){
                 required: true,
                 integer: true,
                 min: 2000,
-                max: 2100
+                max: 2050
             },
             accomcost: {
                 integer:true,
