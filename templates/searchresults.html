@@ -54,7 +54,7 @@
                     <td class="tabbord">
                       <p class="editf2"><a href="/university?school={{sch.field('short_name').value}}">  {{sch.field('name').value}} </a></p>
                     </td>
-                    <td class="searchtab tabbord editf2">S$ {{sch.field('total_expenditure').value}}
+                    <td class="searchtab tabbord editf2">S$ {{'%0.2f' % sch.field('total_expenditure').value|float}}
                     </td>
                     <td class="searchtab tabbord editf2">{{sch.field('faculty').value}}</td>
                   </tr>
