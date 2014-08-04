@@ -41,773 +41,788 @@
       <br>
 
       <!-- Example row of columns -->
-      <form action="/editreview" method="post" id="reviewform">
-          <input type="hidden" name="reviewid" class="form-control" value="{{reviewid}}">
-          <div class="row">
-            <div class="col-md-12 editf2" style="margin-top:20px">
-              <table style="width=250px">
-                <tr>
-                  <td> Name: </td>
-                  <td> {{ review.author }} </td>
-                </tr>
+      <form class="form-horizontal" role="form" action="/editreview" method="post" id="reviewform">
+        <input type="hidden" name="reviewid" class="form-control" value="{{reviewid}}">
+        <hr>
+        <label> General Information </label>
+        <hr>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Name</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">{{ review.author }}</p>
+          </div>
+        </div>
 
+        <div class="form-group">
+          <label for="faculty" class="col-sm-2 control-label">NUS faculty</label>
+          <div class="col-sm-10">
+            {% if review.faculty == "FoS" %}       
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option selected="selected" value="FoS"> Faculty of Science </option>
+              <option value="SoC"> School of Computing </option>
+            </select>
+            {% elif review.faculty=="SoC" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FoS"> Faculty of Science </option>
+              <option selected="selected" value="SoC"> School of Computing </option>
+            </select>
+            {% else %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FoS"> Faculty of Science </option>
+              <option value="SoC"> School of Computing </option>
+            </select>
+            {% endif %}
+          </div>
+        </div>
 
-                <!-- <tr>
-                  <td> NUS faculty: </td>
-                  <td> 
-                      {% if fac == "FoS" %}
-                      <select name="faculty" class="fac" id="fac" required>
-                        <option value=> Select Faculty </option>
-                        <option selected="selected" value="FoS"> Faculty of Science </option>
-                        <option value="SoC"> School of Computing </option>
-                      </select>
-                      {% else %}
-                      <select name="faculty" class="fac" id="fac" required>
-                        <option value="FoS"> Faculty of Science </option>
-                        <option selected="selected" value="SoC"> School of Computing </option>
-                      </select>
-                      {% endif %}
-                  </td>
-                </tr>-->
-                <tr>
-                  <td> NUS faculty: </td>
-                  <td>
-                    {% if review.faculty == "FoS" %}       
-                    <select name="faculty" class="fac" id="fac" required>
-                      <option value=> Select Faculty </option>
-                      <option selected="selected" value="FoS"> Faculty of Science </option>
-                      <option value="SoC"> School of Computing </option>
-                    </select>
-                    {% else %}
-                    <select name="faculty" class="fac" id="fac" required>
-                      <option value=> Select Faculty </option>
-                      <option value="FoS"> Faculty of Science </option>
-                      <option selected="selected" value="SoC"> School of Computing </option>
-                    </select>
-                    {% endif %}
-                  </td>
-                </tr>
-                <tr>
-                  <td> Major: </td>
-                  <td>
-                    {% if review.major=='Applied Mathematics' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics' selected> Applied Mathematics </option>
-                      <option value='Chemistry'> Chemistry </option>
-                      <option value='Computational Biology'> Computational Biology </option>
-                      <option value='Food Science and Technology'> Food Science and Technology</option>
-                      <option value='Life Sciences'> Life Sciences </option>
-                      <option value='Mathematics'> Mathematics </option>
-                      <option value='Pharmacy'> Pharmacy </option>
-                      <option value='Physics'> Physics </option>
-                      <option value='Quantitative Finance'> Quantitative Finance</option>
-                      <option value='Statistics'> Statistics </option>
-                    </select>
-                    {% elif review.major=='Chemistry' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics'> Applied Mathematics </option>
-                      <option value='Chemistry' selected> Chemistry </option>
-                      <option value='Computational Biology'> Computational Biology </option>
-                      <option value='Food Science and Technology'> Food Science and Technology</option>
-                      <option value='Life Sciences'> Life Sciences </option>
-                      <option value='Mathematics'> Mathematics </option>
-                      <option value='Pharmacy'> Pharmacy </option>
-                      <option value='Physics'> Physics </option>
-                      <option value='Quantitative Finance'> Quantitative Finance</option>
-                      <option value='Statistics'> Statistics </option>
-                    </select>
-                    {% elif review.major=='Computational Biology' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics'> Applied Mathematics </option>
-                      <option value='Chemistry'> Chemistry </option>
-                      <option value='Computational Biology' selected> Computational Biology </option>
-                      <option value='Food Science and Technology'> Food Science and Technology</option>
-                      <option value='Life Sciences'> Life Sciences </option>
-                      <option value='Mathematics'> Mathematics </option>
-                      <option value='Pharmacy'> Pharmacy </option>
-                      <option value='Physics'> Physics </option>
-                      <option value='Quantitative Finance'> Quantitative Finance</option>
-                      <option value='Statistics'> Statistics </option>
-                    </select>
-                    {% elif review.major=='Food Science and Technology' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics'> Applied Mathematics </option>
-                      <option value='Chemistry'> Chemistry </option>
-                      <option value='Computational Biology'> Computational Biology </option>
-                      <option value='Food Science and Technology' selected> Food Science and Technology</option>
-                      <option value='Life Sciences'> Life Sciences </option>
-                      <option value='Mathematics'> Mathematics </option>
-                      <option value='Pharmacy'> Pharmacy </option>
-                      <option value='Physics'> Physics </option>
-                      <option value='Quantitative Finance'> Quantitative Finance</option>
-                      <option value='Statistics'> Statistics </option>
-                    </select>
-                    {% elif review.major=='Life Sciences' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics'> Applied Mathematics </option>
-                      <option value='Chemistry'> Chemistry </option>
-                      <option value='Computational Biology'> Computational Biology </option>
-                      <option value='Food Science and Technology'> Food Science and Technology</option>
-                      <option value='Life Sciences' selected> Life Sciences </option>
-                      <option value='Mathematics'> Mathematics </option>
-                      <option value='Pharmacy'> Pharmacy </option>
-                      <option value='Physics'> Physics </option>
-                      <option value='Quantitative Finance'> Quantitative Finance</option>
-                      <option value='Statistics'> Statistics </option>
-                    </select>
-                    {% elif review.major=='Mathematics' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics'> Applied Mathematics </option>
-                      <option value='Chemistry'> Chemistry </option>
-                      <option value='Computational Biology'> Computational Biology </option>
-                      <option value='Food Science and Technology'> Food Science and Technology</option>
-                      <option value='Life Sciences'> Life Sciences </option>
-                      <option value='Mathematics' selected> Mathematics </option>
-                      <option value='Pharmacy'> Pharmacy </option>
-                      <option value='Physics'> Physics </option>
-                      <option value='Quantitative Finance'> Quantitative Finance</option>
-                      <option value='Statistics'> Statistics </option>
-                    </select>
-                    {% elif review.major=='Pharmacy' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics'> Applied Mathematics </option>
-                      <option value='Chemistry'> Chemistry </option>
-                      <option value='Computational Biology'> Computational Biology </option>
-                      <option value='Food Science and Technology'> Food Science and Technology</option>
-                      <option value='Life Sciences'> Life Sciences </option>
-                      <option value='Mathematics'> Mathematics </option>
-                      <option value='Pharmacy' selected> Pharmacy </option>
-                      <option value='Physics'> Physics </option>
-                      <option value='Quantitative Finance'> Quantitative Finance</option>
-                      <option value='Statistics'> Statistics </option>
-                    </select>
-                    {% elif review.major=='Physics' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics'> Applied Mathematics </option>
-                      <option value='Chemistry'> Chemistry </option>
-                      <option value='Computational Biology'> Computational Biology </option>
-                      <option value='Food Science and Technology'> Food Science and Technology</option>
-                      <option value='Life Sciences'> Life Sciences </option>
-                      <option value='Mathematics'> Mathematics </option>
-                      <option value='Pharmacy'> Pharmacy </option>
-                      <option value='Physics' selected> Physics </option>
-                      <option value='Quantitative Finance'> Quantitative Finance</option>
-                      <option value='Statistics'> Statistics </option>
-                    </select>
-                    {% elif review.major=='Quantitative Finance' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics'> Applied Mathematics </option>
-                      <option value='Chemistry'> Chemistry </option>
-                      <option value='Computational Biology'> Computational Biology </option>
-                      <option value='Food Science and Technology'> Food Science and Technology</option>
-                      <option value='Life Sciences'> Life Sciences </option>
-                      <option value='Mathematics'> Mathematics </option>
-                      <option value='Pharmacy'> Pharmacy </option>
-                      <option value='Physics'> Physics </option>
-                      <option value='Quantitative Finance' selected> Quantitative Finance</option>
-                      <option value='Statistics'> Statistics </option>
-                    </select>
-                    {% elif review.major=='Statistics' %}
-                    <select name="major" id="maj" required>
-                      <option value='Applied Mathematics'> Applied Mathematics </option>
-                      <option value='Chemistry'> Chemistry </option>
-                      <option value='Computational Biology'> Computational Biology </option>
-                      <option value='Food Science and Technology'> Food Science and Technology</option>
-                      <option value='Life Sciences'> Life Sciences </option>
-                      <option value='Mathematics'> Mathematics </option>
-                      <option value='Pharmacy'> Pharmacy </option>
-                      <option value='Physics'> Physics </option>
-                      <option value='Quantitative Finance'> Quantitative Finance</option>
-                      <option value='Statistics' selected> Statistics </option>
-                    </select>
-                    {% elif review.major=='Business Analytics' %}
-                    <select name="major" id="maj" required>
-                      <option value='Business Analytics' selected> Business Analytics </option>
-                      <option value='Computational Biology'> Computational Biology</option>
-                      <option value='Computer Engineering'> Computer Engineering</option>
-                      <option value='Computer Science'> Computer Science </option>
-                      <option value='Electronic Commerce'> Electronic Commerce </option>
-                      <option value='Information Systems'> Information Systems </option>
-                    </select>
-                    {% elif review.major=='Computational Biology' %}
-                    <select name="major" id="maj" required>
-                      <option value='Business Analytics'> Business Analytics </option>
-                      <option value='Computational Biology' selected> Computational Biology</option>
-                      <option value='Computer Engineering'> Computer Engineering</option>
-                      <option value='Computer Science'> Computer Science </option>
-                      <option value='Electronic Commerce'> Electronic Commerce </option>
-                      <option value='Information Systems'> Information Systems </option>
-                    </select>
-                    {% elif review.major=='Computer Engineering' %}
-                    <select name="major" id="maj" required>
-                      <option value='Business Analytics'> Business Analytics </option>
-                      <option value='Computational Biology'> Computational Biology</option>
-                      <option value='Computer Engineering' selected> Computer Engineering</option>
-                      <option value='Computer Science'> Computer Science </option>
-                      <option value='Electronic Commerce'> Electronic Commerce </option>
-                      <option value='Information Systems'> Information Systems </option>
-                    </select>
-                    {% elif review.major=='Computer Science' %}
-                    <select name="major" id="maj" required>
-                      <option value='Business Analytics'> Business Analytics </option>
-                      <option value='Computational Biology'> Computational Biology</option>
-                      <option value='Computer Engineering'> Computer Engineering</option>
-                      <option value='Computer Science' selected> Computer Science </option>
-                      <option value='Electronic Commerce'> Electronic Commerce </option>
-                      <option value='Information Systems'> Information Systems </option>
-                    </select>
-                    {% elif review.major=='Electronic Commerce' %}
-                    <select name="major" id="maj" required>
-                      <option value='Business Analytics'> Business Analytics </option>
-                      <option value='Computational Biology'> Computational Biology</option>
-                      <option value='Computer Engineering'> Computer Engineering</option>
-                      <option value='Computer Science'> Computer Science </option>
-                      <option value='Electronic Commerce' selected> Electronic Commerce </option>
-                      <option value='Information Systems'> Information Systems </option>
-                    </select>
-                    {% elif review.major=='Information Systems' %}
-                    <select name="major" id="maj" required>
-                      <option value='Business Analytics'> Business Analytics </option>
-                      <option value='Computational Biology'> Computational Biology</option>
-                      <option value='Computer Engineering'> Computer Engineering</option>
-                      <option value='Computer Science'> Computer Science </option>
-                      <option value='Electronic Commerce'> Electronic Commerce </option>
-                      <option value='Information Systems' selected> Information Systems </option>
-                    </select>
-                    {% else %}
-                    <select name="major" id="maj" required>
-                      <option value=''> Select Major </option>
-                    </select>
-                    {% endif %}
-                  </td>
-                </tr>
-                <tr>
-                  <td> Special Programmes: </td>
-                  <td>
-                    <select name="specprog" id="specprog" required>
-                      <option value=> Select Special Programme Type </option>
-                      <option value='NIL'> NIL </option>
-                      <option value='DDP'> Double Degree Programme </option>
-                      <option value='2nd Major'> Double Major Programme </option>
-                      <option value='Minor'> Minor Programmes </option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td> Faculty of Second Degree/Second Major/Minor: </td>
-                  <td>       
-                    <select name="faculty2" id="fac2" required>
-                      <option value=> Select Faculty </option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td> Major/Minor: </td>
-                  <td>
-                    <select name="major2" id="maj2" required>
-                      <option value=> Select Major </option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td> Year: </td>
-                  <td> <input id="styled" type="number" name="year" min="2000" max="2050" value="{{review.year}}" required/></td>
-                </tr>
-                <tr>
-                  <td> Semester: </td>
-                  <td>
-                    {% if review.semester == "1" %}
-                    <select name="semester" required>
-                      <option value=> Select Semester </option>
-                      <option value="1" selected> Semester 1 </option>
-                      <option value="2"> Semester 2 </option>
-                      <option value="1 and 2"> Semester 1 and 2 </option>
-                    </select>
-                    {% elif review.semester == "2" %}
-                    <select name="semester" required>
-                      <option value=> Select Semester </option>
-                      <option value="1"> Semester 1 </option>
-                      <option value="2" selected> Semester 2 </option>
-                      <option value="1 and 2"> Semester 1 and 2 </option>
-                    </select>
-                    {% elif review.semester == "1 and 2" %}
-                    <select name="semester" required>
-                      <option value=> Select Semester </option>
-                      <option value="1"> Semester 1 </option>
-                      <option value="2"> Semester 2 </option>
-                      <option value="1 and 2" selected> Semester 1 and 2 </option>
-                    </select>
-                    {% else %}
-                    <select name="semester" required>
-                      <option value=> Select Semester </option>
-                      <option value="1"> Semester 1 </option>
-                      <option value="2"> Semester 2 </option>
-                      <option value="1 and 2"> Semester 1 and 2 </option>
-                    </select>
-                    {% endif %}
-                  </td>
-                </tr>
-                
-              </table>
+        <div class="form-group">
+          <label for="major" class="col-sm-2 control-label">Major</label>
+          <div class="col-sm-10">
+            {% if review.major=='Applied Mathematics' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics' selected> Applied Mathematics </option>
+              <option value='Chemistry'> Chemistry </option>
+              <option value='Computational Biology'> Computational Biology </option>
+              <option value='Food Science and Technology'> Food Science and Technology</option>
+              <option value='Life Sciences'> Life Sciences </option>
+              <option value='Mathematics'> Mathematics </option>
+              <option value='Pharmacy'> Pharmacy </option>
+              <option value='Physics'> Physics </option>
+              <option value='Quantitative Finance'> Quantitative Finance</option>
+              <option value='Statistics'> Statistics </option>
+            </select>
+            {% elif review.major=='Chemistry' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics'> Applied Mathematics </option>
+              <option value='Chemistry' selected> Chemistry </option>
+              <option value='Computational Biology'> Computational Biology </option>
+              <option value='Food Science and Technology'> Food Science and Technology</option>
+              <option value='Life Sciences'> Life Sciences </option>
+              <option value='Mathematics'> Mathematics </option>
+              <option value='Pharmacy'> Pharmacy </option>
+              <option value='Physics'> Physics </option>
+              <option value='Quantitative Finance'> Quantitative F /option>
+                <option value='Statistics'> Statistics </option>
+              </select>
+              {% elif review.major=='Computational Biology' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Applied Mathematics'> Applied Mathematics </option>
+                <option value='Chemistry'> Chemistry </option>
+                <option value='Computational Biology' selected> Computational Biology </option>
+                <option value='Food Science and Technology'> Food Science and Technology</option>
+                <option value='Life Sciences'> Life Sciences </option>
+                <option value='Mathematics'> Mathematics </option>
+                <option value='Pharmacy'> Pharmacy </option>
+                <option value='Physics'> Physics </option>
+                <option value='Quantitative Finance'> Quantitative Finance</option>
+                <option value='Statistics'> Statistics </option>
+              </select>
+              {% elif review.major=='Food Science and Technology' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Applied Mathematics'> Applied Mathematics </option>
+                <option value='Chemistry'> Chemistry </option>
+                <option value='Computational Biology'> Computational Biology </option>
+                <option value='Food Science and Technology' selected> Food Science and Technology</option>
+                <option value='Life Sciences'> Life Sciences </option>
+                <option value='Mathematics'> Mathematics </option>
+                <option value='Pharmacy'> Pharmacy </option>
+                <option value='Physics'> Physics </option>
+                <option value='Quantitative Finance'> Quantitative Finance</option>
+                <option value='Statistics'> Statistics </option>
+              </select>
+              {% elif review.major=='Life Sciences' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Applied Mathematics'> Applied Mathematics </option>
+                <option value='Chemistry'> Chemistry </option>
+                <option value='Computational Biology'> Computational Biology </option>
+                <option value='Food Science and Technology'> Food Science and Technology</option>
+                <option value='Life Sciences' selected> Life Sciences </option>
+                <option value='Mathematics'> Mathematics </option>
+                <option value='Pharmacy'> Pharmacy </option>
+                <option value='Physics'> Physics </option>
+                <option value='Quantitative Finance'> Quantitative Finance</option>
+                <option value='Statistics'> Statistics </option>
+              </select>
+              {% elif review.major=='Mathematics' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Applied Mathematics'> Applied Mathematics </option>
+                <option value='Chemistry'> Chemistry </option>
+                <option value='Computational Biology'> Computational Biology </option>
+                <option value='Food Science and Technology'> Food Science and Technology</option>
+                <option value='Life Sciences'> Life Sciences </option>
+                <option value='Mathematics' selected> Mathematics </option>
+                <option value='Pharmacy'> Pharmacy </option>
+                <option value='Physics'> Physics </option>
+                <option value='Quantitative Finance'> Quantitative Finance</option>
+                <option value='Statistics'> Statistics </option>
+              </select>
+              {% elif review.major=='Pharmacy' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Applied Mathematics'> Applied Mathematics </option>
+                <option value='Chemistry'> Chemistry </option>
+                <option value='Computational Biology'> Computational Biology </option>
+                <option value='Food Science and Technology'> Food Science and Technology</option>
+                <option value='Life Sciences'> Life Sciences </option>
+                <option value='Mathematics'> Mathematics </option>
+                <option value='Pharmacy' selected> Pharmacy </option>
+                <option value='Physics'> Physics </option>
+                <option value='Quantitative Finance'> Quantitative Finance</option>
+                <option value='Statistics'> Statistics </option>
+              </select>
+              {% elif review.major=='Physics' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Applied Mathematics'> Applied Mathematics </option>
+                <option value='Chemistry'> Chemistry </option>
+                <option value='Computational Biology'> Computational Biology </option>
+                <option value='Food Science and Technology'> Food Science and Technology</option>
+                <option value='Life Sciences'> Life Sciences </option>
+                <option value='Mathematics'> Mathematics </option>
+                <option value='Pharmacy'> Pharmacy </option>
+                <option value='Physics' selected> Physics </option>
+                <option value='Quantitative Finance'> Quantitative Finance</option>
+                <option value='Statistics'> Statistics </option>
+              </select>
+              {% elif review.major=='Quantitative Finance' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Applied Mathematics'> Applied Mathematics </option>
+                <option value='Chemistry'> Chemistry </option>
+                <option value='Computational Biology'> Computational Biology </option>
+                <option value='Food Science and Technology'> Food Science and Technology</option>
+                <option value='Life Sciences'> Life Sciences </option>
+                <option value='Mathematics'> Mathematics </option>
+                <option value='Pharmacy'> Pharmacy </option>
+                <option value='Physics'> Physics </option>
+                <option value='Quantitative Finance' selected> Quantitative Finance</option>
+                <option value='Statistics'> Statistics </option>
+              </select>
+              {% elif review.major=='Statistics' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Applied Mathematics'> Applied Mathematics </option>
+                <option value='Chemistry'> Chemistry </option>
+                <option value='Computational Biology'> Computational Biology </option>
+                <option value='Food Science and Technology'> Food Science and Technology</option>
+                <option value='Life Sciences'> Life Sciences </option>
+                <option value='Mathematics'> Mathematics </option>
+                <option value='Pharmacy'> Pharmacy </option>
+                <option value='Physics'> Physics </option>
+                <option value='Quantitative Finance'> Quantitative Finance</option>
+                <option value='Statistics' selected> Statistics </option>
+              </select>
+              {% elif review.major=='Business Analytics' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Business Analytics' selected> Business Analytics </option>
+                <option value='Computational Biology'> Computational Biology</option>
+                <option value='Computer Engineering'> Computer Engineering</option>
+                <option value='Computer Science'> Computer Science </option>
+                <option value='Electronic Commerce'> Electronic Commerce </option>
+                <option value='Information Systems'> Information Systems </option>
+              </select>
+              {% elif review.major=='Computational Biology' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Business Analytics'> Business Analytics </option>
+                <option value='Computational Biology' selected> Computational Biology</option>
+                <option value='Computer Engineering'> Computer Engineering</option>
+                <option value='Computer Science'> Computer Science </option>
+                <option value='Electronic Commerce'> Electronic Commerce </option>
+                <option value='Information Systems'> Information Systems </option>
+              </select>
+              {% elif review.major=='Computer Engineering' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Business Analytics'> Business Analytics </option>
+                <option value='Computational Biology'> Computational Biology</option>
+                <option value='Computer Engineering' selected> Computer Engineering</option>
+                <option value='Computer Science'> Computer Science </option>
+                <option value='Electronic Commerce'> Electronic Commerce </option>
+                <option value='Information Systems'> Information Systems </option>
+              </select>
+              {% elif review.major=='Computer Science' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Business Analytics'> Business Analytics </option>
+                <option value='Computational Biology'> Computational Biology</option>
+                <option value='Computer Engineering'> Computer Engineering</option>
+                <option value='Computer Science' selected> Computer Science </option>
+                <option value='Electronic Commerce'> Electronic Commerce </option>
+                <option value='Information Systems'> Information Systems </option>
+              </select>
+              {% elif review.major=='Electronic Commerce' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Business Analytics'> Business Analytics </option>
+                <option value='Computational Biology'> Computational Biology</option>
+                <option value='Computer Engineering'> Computer Engineering</option>
+                <option value='Computer Science'> Computer Science </option>
+                <option value='Electronic Commerce' selected> Electronic Commerce </option>
+                <option value='Information Systems'> Information Systems </option>
+              </select>
+              {% elif review.major=='Information Systems' %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value='Business Analytics'> Business Analytics </option>
+                <option value='Computational Biology'> Computational Biology</option>
+                <option value='Computer Engineering'> Computer Engineering</option>
+                <option value='Computer Science'> Computer Science </option>
+                <option value='Electronic Commerce'> Electronic Commerce </option>
+                <option value='Information Systems' selected> Information Systems </option>
+              </select>
+              {% else %}
+              <select class="form-control" name="major" id="maj" required>
+                <option value=''> Select Major </option>
+              </select>
+              {% endif %}
             </div>
           </div>
+
+          <div class="form-group">
+            <label for="specprog" class="col-sm-2 control-label">Special Programmes</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="specprog" id="specprog" required>
+                <option value=> Select Special Programme Type </option>
+                <option value='NIL'> NIL </option>
+                <option value='DDP'> Double Degree Programme </option>
+                <option value='2nd Major'> Double Major Programme </option>
+                <option value='Minor'> Minor Programmes </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="faculty2" class="col-sm-2 control-label">Faculty of Second Degree/Second Major/Minor:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="faculty2" id="fac2" required>
+                <option value=> Select Faculty </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="major2" class="col-sm-2 control-label">Major/Minor</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="major2" id="maj2" required>
+                <option value=> Select Major </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="year" class="col-sm-2 control-label">Year</label>
+            <div class="col-sm-10">
+              <input id="styled" type="number" name="year" min="2000" max="2050" value="{{ review.year }}" required/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="semester" class="col-sm-2 control-label">Semester</label>
+            <div class="col-sm-10">
+              {% if review.semester == "1" %}
+              <select class="form-control" name="semester" required>
+                <option value=> Select Semester </option>
+                <option value="1" selected> Semester 1 </option>
+                <option value="2"> Semester 2 </option>
+                <option value="1 and 2"> Semester 1 and 2 </option>
+              </select>
+              {% elif review.semester == "2" %}
+              <select class="form-control" name="semester" required>
+                <option value=> Select Semester </option>
+                <option value="1"> Semester 1 </option>
+                <option value="2" selected> Semester 2 </option>
+                <option value="1 and 2"> Semester 1 and 2 </option>
+              </select>
+              {% elif review.semester == "1 and 2" %}
+              <select class="form-control" name="semester" required>
+                <option value=> Select Semester </option>
+                <option value="1"> Semester 1 </option>
+                <option value="2"> Semester 2 </option>
+                <option value="1 and 2" selected> Semester 1 and 2 </option>
+              </select>
+              {% else %}
+              <select class="form-control" name="semester" required>
+                <option value=> Select Semester </option>
+                <option value="1"> Semester 1 </option>
+                <option value="2"> Semester 2 </option>
+                <option value="1 and 2"> Semester 1 and 2 </option>
+              </select>
+              {% endif %}
+            </div>
+          </div>
+          
           <hr>
-          <div class="row">
-            <div class="col-md-6 editf2">
-              <p> <strong>Ratings</strong></p>
-              <table style="width:300px">
-                <tr>
-                  <td> Overall: </td>
-                  {% if review.overall_rating == 1 %}
-                  <td>
-                    <input type="radio" checked name="overall" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="5"> 5
-                  </td>
-                  {% elif review.overall_rating == 2 %}
-                  <td>
-                    <input type="radio" name="overall" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" checked name="overall" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="5"> 5
-                  </td>
-                  {% elif review.overall_rating == 3 %}
-                  <td>
-                    <input type="radio" name="overall" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" checked  name="overall" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="5"> 5
-                  </td>
-                  {% elif review.overall_rating == 4 %}
-                  <td>
-                    <input type="radio" name="overall" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" checked name="overall" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="5"> 5
-                  </td>
-                  {% elif review.overall_rating == 5 %}
-                  <td>
-                    <input type="radio" name="overall" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" checked name="overall" required value="5"> 5
-                  </td>
-                  {% endif %}
-                </tr>
-                <tr>
-                  <td> Cost: </td>
-                  {% if review.cost_rating == 1 %}
-                  <td>
-                    <input type="radio" checked name="cost" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="5"> 5
-                  </td>
-                  {% elif review.cost_rating == 2 %}
-                  <td>
-                    <input type="radio" name="cost" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" checked name="cost" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="5"> 5
-                  </td>
-                  {% elif review.cost_rating == 3 %}
-                  <td>
-                    <input type="radio" name="cost" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" checked name="cost" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="5"> 5
-                  </td>
-                  {% elif review.cost_rating == 4 %}
-                  <td>
-                    <input type="radio" name="cost" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" checked name="cost" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="5"> 5
-                  </td>
-                  {% elif review.cost_rating == 5 %}
-                  <td>
-                    <input type="radio" name="cost" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" checked name="cost" required value="5"> 5
-                  </td>
-                  {% endif %}
-                </tr>
-                <tr>
-                  <td> Student Life: </td>
-                  {% if review.life_rating == 1 %}
-                  <td>
-                    <input type="radio" checked name="life" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="5"> 5
-                  </td>
-                  {% elif review.life_rating == 2 %}
-                  <td>
-                    <input type="radio" name="life" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" checked name="life" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="5"> 5
-                  </td>
-                  {% elif review.life_rating == 3 %}
-                  <td>
-                    <input type="radio" name="life" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" checked name="life" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="5"> 5
-                  </td>
-                  {% elif review.life_rating == 4 %}
-                  <td>
-                    <input type="radio" name="life" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" checked name="life" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="5"> 5
-                  </td>
-                  {% elif review.life_rating == 5 %}
-                  <td>
-                    <input type="radio" name="life" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" checked name="life" required value="5"> 5
-                  </td>
-                  {% endif %}
-                </tr>
-                <tr>
-                  <td> Academics: </td>
-                  {% if review.academics_rating == 1 %}
-                  <td>
-                    <input type="radio" checked name="academics" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="5"> 5
-                  </td>
-                  {% elif review.academics_rating == 2 %}
-                  <td>
-                    <input type="radio" name="academics" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" checked name="academics" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="5"> 5
-                  </td>
-                  {% elif review.academics_rating == 3 %}
-                  <td>
-                    <input type="radio" name="academics" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" checked name="academics" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="5"> 5
-                  </td>
-                  {% elif review.academics_rating == 4 %}
-                  <td>
-                    <input type="radio" name="academics" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" checked name="academics" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="5"> 5
-                  </td>
-                  {% elif review.academics_rating == 5 %}
-                  <td>
-                    <input type="radio" name="academics" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" checked name="academics" required value="5"> 5
-                  </td>
-                  {% endif %}
-                </tr>
-              </table>
-            </div>
-            <div class="col-md-6 editf2">
-              <p> <strong>Estimated Expenditure</strong></p>
-              <table style="width=250px">
-                <tr>
-                  <td> Total: </td>
-                  <td> S$ <span id="totalcost"></span><!--<input type="number" name="totalcost" min="0" id="totalcost" required/> !--></td>
-                </tr>
-                <tr>
-                  <td> Accommodation: </td>
-                  <td> S$ <input type="number" name="accomcost" min="0" id="accomcost" value="{{review.accommodation}}" required/> </td>
-                </tr>
-                <tr>
-                  <td> Food: </td>
-                  <td> S$ <input type="number" name="foodcost" min="0" id="foodcost" value="{{review.food}}" required/> </td>
-                </tr>
-                <tr>
-                  <td> Transport: </td>
-                  <td> S$ <input type="number" name="transportcost" min="0" id="transportcost" value="{{review.transport}}" required/> </td>
-                </tr>
-                <tr>
-                  <td> Academic needs: </td>
-                  <td> S$ <input type="number" name="acadcost" min="0" id="acadcost" value="{{review.academic_needs}}" required/> </td>
-                </tr>
-                <tr>
-                  <td> Others: </td>
-                  <td> S$ <input type="number" name="othercost" min="0" id="othercost" value="{{review.others}}" required/> </td>
-                </tr>
-              </table>
-            </div>
-            <hr>
-            <div class="row">
-            <div class="col-md-12 editf2">
-              <p> <strong>Module Mappings</strong> Note that this will add to the <a href="/modulemappings?school={{query}}">Module Mappings</a> page</p>
-              <table style="width=250px">
-                <tr>
-                  <td> SEP Module </td>
-                  <td> SEP Module credits </td>
-                  <td> NUS Module </td>
-                  <td> NUS Module MCs </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod1" id="mod1"> </td>
-                  <td> <input type="number" min="0" name="cred1"> </td>
-                  <td> <input type="text" name="nmod1"> </td>
-                  <td> <input type="number" min="0" name="mc1"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod2" id="mod2"> </td>
-                  <td> <input type="number" min="0" name="cred2"> </td>
-                  <td> <input type="text" name="nmod2"> </td>
-                  <td> <input type="number" min="0" name="mc2"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod3" id="mod3"> </td>
-                  <td> <input type="number" min="0" name="cred3"> </td>
-                  <td> <input type="text" name="nmod3"> </td>
-                  <td> <input type="number" min="0" name="mc3"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod4" id="mod4"> </td>
-                  <td> <input type="number" min="0" name="cred4"> </td>
-                  <td> <input type="text" name="nmod4"> </td>
-                  <td> <input type="number" min="0" name="mc4"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod5" id="mod5"> </td>
-                  <td> <input type="number" min="0" name="cred5"> </td>
-                  <td> <input type="text" name="nmod5"> </td>
-                  <td> <input type="number" min="0" name="mc5"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod6" id="mod6"> </td>
-                  <td> <input type="number" min="0" name="cred6"> </td>
-                  <td> <input type="text" name="nmod6"> </td>
-                  <td> <input type="number" min="0" name="mc6"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod7" id="mod7"> </td>
-                  <td> <input type="number" min="0" name="cred7"> </td>
-                  <td> <input type="text" name="nmod7"> </td>
-                  <td> <input type="number" min="0" name="mc7"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod8" id="mod8"> </td>
-                  <td> <input type="number" min="0" name="cred8"> </td>
-                  <td> <input type="text" name="nmod8"> </td>
-                  <td> <input type="number" min="0" name="mc8"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod9" id="mod9"> </td>
-                  <td> <input type="number" min="0" name="cred9"> </td>
-                  <td> <input type="text" name="nmod9"> </td>
-                  <td> <input type="number" min="0" name="mc9"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod10" id="mod10"> </td>
-                  <td> <input type="number" min="0" name="cred10"> </td>
-                  <td> <input type="text" name="nmod10"> </td>
-                  <td> <input type="number" min="0" name="mc10"> </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          </div>
+          
+          <label> Ratings </label>
+          
           <hr>
-          <div class="row">
-            <div class="col-md-12 editf2">
-              <p><strong>Enter your review here:</strong></p>
-              <div><textarea id="reviewcontents" placeholder="Click to enter" name="reviewcontents" rows="10" required>{{review.content}}</textarea></div>
+          
+          <div class="form-group">
+            <label for="overall" class="col-sm-2 control-label">Overall</label>
+            <div class="col-sm-10">
+              {% if review.overall_rating == 1 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="1" checked> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="overall" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="5"> 5
+              </label>
+              {% elif review.overall_rating == 2 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="2" checked> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="overall" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="5"> 5
+              </label>
+              {% elif review.overall_rating == 3 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="overall" required value="3" checked> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="5"> 5
+              </label>
+              {% elif review.overall_rating == 4 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="overall" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="4" checked> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="5"> 5
+              </label>
+              {% elif review.overall_rating == 5 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="overall" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="5" checked> 5
+              </label>
+              {% endif %}
             </div>
           </div>
+          <div class="form-group">
+            <label for="cost" class="col-sm-2 control-label">Cost</label>
+            <div class="col-sm-10">
+              {% if review.cost_rating == 1 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="1" checked> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="cost" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="5"> 5
+              </label>                  
+              {% elif review.cost_rating == 2 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="2" checked> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="cost" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="5"> 5
+              </label>
+              {% elif review.cost_rating == 3 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="cost" required value="3" checked> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="5"> 5
+              </label>
+              {% elif review.cost_rating == 4 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="cost" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="4" checked> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="5"> 5
+              </label>
+              {% elif review.cost_rating == 5 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="cost" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="5" checked> 5
+              </label>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="life" class="col-sm-2 control-label">Student Life</label>
+            <div class="col-sm-10">
+              {% if review.life_rating == 1 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="1" checked> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="life" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="5"> 5
+              </label>
+              {% elif review.life_rating == 2 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="2" checked> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="life" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="5"> 5
+              </label>
+              {% elif review.life_rating == 3 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="life" required value="3" checked> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="5"> 5
+              </label>
+              {% elif review.life_rating == 4 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="life" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="4" checked> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="5"> 5
+              </label>
+              {% elif review.life_rating == 5 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="life" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="5" checked> 5
+              </label>
+              {% endif %}  
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="academics" class="col-sm-2 control-label">Academics</label>
+            <div class="col-sm-10">
+              {% if review.academics_rating == 1 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="1" checked> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="academics" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="5"> 5
+              </label>
+              {% elif review.academics_rating == 2 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="2" checked> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="academics" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="5"> 5
+              </label>
+              <input type="radio" name="academics" required value="5"> 5
+              {% elif review.academics_rating == 3 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="academics" required value="3" checked> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="5"> 5
+              </label>
+              {% elif review.academics_rating == 4 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="academics" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="4" checked> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="5"> 5
+              </label>
+              {% elif review.academics_rating == 5 %}
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="academics" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="5" checked> 5
+              </label>
+              {% endif %}
+            </div>
+          </div>
+          <hr>      
+          <label> Estimated Expenditure </label>
+          <hr>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Total</label>
+            <div class="col-sm-10">
+              <p class="form control-static"> S$ <span id="totalcost">{{review.total_expenditure}}</span>
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Accommodation </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="accomcost" min="0" id="accomcost" value="{{review.accommodation}}" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Food </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="foodcost" min="0" id="foodcost" value="{{review.food}}" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Transport </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="transportcost" min="0" id="transportcost" value="{{review.transport}}" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Academic needs </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="acadcost" min="0" id="acadcost" value="{{review.academic_needs}}" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Others </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="othercost" min="0" id="othercost"value="{{review.others}}" required/>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="col-sm-12">
+          <label> Module Mappings </label><p> Note that this will add to the <a href="/modulemappings?school={{query}}">Module Mappings</a> page</p>
+          <table class="table table-striped">
+            <tr>
+              <td> SEP Module Code</td>
+              <td> SEP Module credits </td>
+              <td> NUS Module Code</td>
+              <td> NUS Module MCs </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod1" id="mod1"> </td>
+              <td> <input type="number" min="0" name="cred1"> </td>
+              <td> <input type="text" name="nmod1"> </td>
+              <td> <input type="number" min="0" name="mc1"> </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod2" id="mod2"> </td>
+              <td> <input type="number" min="0" name="cred2"> </td>
+              <td> <input type="text" name="nmod2"> </td>
+              <td> <input type="number" min="0" name="mc2"> </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod3" id="mod3"> </td>
+              <td> <input type="number" min="0" name="cred3"> </td>
+              <td> <input type="text" name="nmod3"> </td>
+              <td> <input type="number" min="0" name="mc3"> </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod4" id="mod4"> </td>
+              <td> <input type="number" min="0" name="cred4"> </td>
+              <td> <input type="text" name="nmod4"> </td>
+              <td> <input type="number" min="0" name="mc4"> </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod5" id="mod5"> </td>
+              <td> <input type="number" min="0" name="cred5"> </td>
+              <td> <input type="text" name="nmod5"> </td>
+              <td> <input type="number" min="0" name="mc5"> </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod6" id="mod6"> </td>
+              <td> <input type="number" min="0" name="cred6"> </td>
+              <td> <input type="text" name="nmod6"> </td>
+              <td> <input type="number" min="0" name="mc6"> </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod7" id="mod7"> </td>
+              <td> <input type="number" min="0" name="cred7"> </td>
+              <td> <input type="text" name="nmod7"> </td>
+              <td> <input type="number" min="0" name="mc7"> </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod8" id="mod8"> </td>
+              <td> <input type="number" min="0" name="cred8"> </td>
+              <td> <input type="text" name="nmod8"> </td>
+              <td> <input type="number" min="0" name="mc8"> </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod9" id="mod9"> </td>
+              <td> <input type="number" min="0" name="cred9"> </td>
+              <td> <input type="text" name="nmod9"> </td>
+              <td> <input type="number" min="0" name="mc9"> </td>
+            </tr>
+            <tr>
+              <td> <input type="text" name="mod10" id="mod10"> </td>
+              <td> <input type="number" min="0" name="cred10"> </td>
+              <td> <input type="text" name="nmod10"> </td>
+              <td> <input type="number" min="0" name="mc10"> </td>
+            </tr>
+          </table>
+        </div>
+        <hr>    
+        <div>
+          <div class="col-sm-12">
+            <label>Enter your review here:</label>
+          </div>
+          <div class="col-sm-12">
+            <textarea class="form-control" id="reviewcontents" placeholder="Click to enter" name="reviewcontents" rows="10" required>{{review.content}}</textarea>
+          </div>
+        </div>
+        <div class="col-sm-12">
           <button type="submit" class="btn btn-default" name='school' value="{{query}}">Submit Review</button>
-        </form>
-
+        </div>
+      </form>        
       <!-- Site footer -->
       <div class="footer">
         <p>&copy; NUS Orbital 2014 - NUSXchange</p>

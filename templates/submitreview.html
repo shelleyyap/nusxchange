@@ -41,269 +41,288 @@
       <br>
 
       <!-- Example row of columns -->
-      <form action="/submittedreview" method="post" id="reviewform">
+      <form class="form-horizontal" role="form" action="/submittedreview" method="post" id="reviewform">
           <input type="hidden" name="reviews_name" class="form-control" value="{{query}}">
-          <div class="row">
-            <div class="col-md-12 editf2" style="margin-top:20px">
-              <table style="width=250px">
-                <tr>
-                  <td> Name: </td>
-                  <td> {{ author }} </td>
-                </tr>
-                <tr>
-                  <td> NUS faculty: </td>
-                  <td>       
-                    <select name="faculty" class="fac" id="fac" required>
-                      <option value=> Select Faculty </option>
-                      <option value="FoS"> Faculty of Science </option>
-                      <option value="SoC"> School of Computing </option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td> Major: </td>
-                  <td>
-                    <select name="major" id="maj" required>
-                      <option value=> Select Major </option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td> Special Programmes: </td>
-                  <td>
-                    <select name="specprog" id="specprog" required>
-                      <option value=> Select Special Programme Type </option>
-                      <option value='NIL'> NIL </option>
-                      <option value='DDP'> Double Degree Programme </option>
-                      <option value='2nd Major'> Double Major Programme </option>
-                      <option value='Minor'> Minor Programmes </option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td> Faculty of Second Degree/Second Major/Minor: </td>
-                  <td>       
-                    <select name="faculty2" id="fac2" required>
-                      <option value=> Select Faculty </option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td> Major/Minor: </td>
-                  <td>
-                    <select name="major2" id="maj2" required>
-                      <option value=> Select Major </option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td> Year: </td>
-                  <td> <input id="styled" type="number" name="year" min="2000" max="2050"required/></td>
-                </tr>
-                <tr>
-                  <td> Semester: </td>
-                  <td>
-                    <select name="semester" required>
-                      <option value=> Select Semester </option>
-                      <option value="1"> Semester 1 </option>
-                      <option value="2"> Semester 2 </option>
-                      <option value="1 and 2"> Semester 1 and 2 </option>
-                    </select>
-                  </td>
-                </tr>
-                
-              </table>
+          <hr>
+          <label> General Information </label>
+          <hr>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ author }}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="faculty" class="col-sm-2 control-label">NUS faculty</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="faculty" class="fac" id="fac" required>
+                <option value=> Select Faculty </option>
+                <option value="FoS"> Faculty of Science </option>
+                <option value="SoC"> School of Computing </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="major" class="col-sm-2 control-label">Major</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="major" id="maj" required>
+                <option value=> Select Major </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="specprog" class="col-sm-2 control-label">Special Programmes</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="specprog" id="specprog" required>
+                <option value=> Select Special Programme Type </option>
+                <option value='NIL'> NIL </option>
+                <option value='DDP'> Double Degree Programme </option>
+                <option value='2nd Major'> Double Major Programme </option>
+                <option value='Minor'> Minor Programmes </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="faculty2" class="col-sm-2 control-label">Faculty of Second Degree/Second Major/Minor:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="faculty2" id="fac2" required>
+                <option value=> Select Faculty </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="major2" class="col-sm-2 control-label">Major/Minor</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="major2" id="maj2" required>
+                <option value=> Select Major </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="year" class="col-sm-2 control-label">Year</label>
+            <div class="col-sm-10">
+              <input id="styled" type="number" name="year" min="2000" max="2050"required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="semester" class="col-sm-2 control-label">Semester</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="semester" required>
+                <option value=> Select Semester </option>
+                <option value="1"> Semester 1 </option>
+                <option value="2"> Semester 2 </option>
+                <option value="1 and 2"> Semester 1 and 2 </option>
+              </select>
             </div>
           </div>
           <hr>
-          <div class="row">
-            <div class="col-md-6 editf2">
-              <p> <strong>Ratings</strong></p>
-              <table style="width:300px">
-                <tr>
-                  <td> Overall: </td>
-                  <td>
-                    <input type="radio" name="overall" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="overall" required value="5"> 5
-                  </td>
-                </tr>
-                <tr>
-                  <td> Cost: </td>
-                  <td>
-                    <input type="radio" name="cost" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="cost" required value="5"> 5
-                  </td>
-                </tr>
-                <tr>
-                  <td> Student Life: </td>
-                  <td>
-                    <input type="radio" name="life" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="life" required value="5"> 5
-                  </td>
-                </tr>
-                <tr>
-                  <td> Academics: </td>
-                  <td>
-                    <input type="radio" name="academics" required value="1"> 1
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="2"> 2
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="3"> 3
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="4"> 4
-                  </td>
-                  <td>
-                    <input type="radio" name="academics" required value="5"> 5
-                  </td>
-                </tr>
-              </table>
+          <label> Ratings </label>
+          <hr>
+          <div class="form-group">
+            <label for="overall" class="col-sm-2 control-label">Overall</label>
+            <div class="col-sm-10">
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="overall" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="overall" required value="5"> 5
+              </label>
             </div>
-            <div class="col-md-6 editf2">
-              <p> <strong>Estimated Expenditure</strong></p>
-              <table style="width=250px">
-                <tr>
-                  <td> Total: </td>
-                  <td> S$ <span id="totalcost"></span><!--<input type="number" name="totalcost" min="0" id="totalcost" required/> !--></td>
-                </tr>
-                <tr>
-                  <td> Accommodation: </td>
-                  <td> S$ <input type="number" name="accomcost" min="0" id="accomcost"required/> </td>
-                </tr>
-                <tr>
-                  <td> Food: </td>
-                  <td> S$ <input type="number" name="foodcost" min="0" id="foodcost" required/> </td>
-                </tr>
-                <tr>
-                  <td> Transport: </td>
-                  <td> S$ <input type="number" name="transportcost" min="0" id="transportcost"required/> </td>
-                </tr>
-                <tr>
-                  <td> Academic needs: </td>
-                  <td> S$ <input type="number" name="acadcost" min="0" id="acadcost" required/> </td>
-                </tr>
-                <tr>
-                  <td> Others: </td>
-                  <td> S$ <input type="number" name="othercost" min="0" id="othercost" required/> </td>
-                </tr>
-              </table>
+          </div>
+          <div class="form-group">
+            <label for="cost" class="col-sm-2 control-label">Cost</label>
+            <div class="col-sm-10">
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="cost" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="cost" required value="5"> 5
+              </label>
             </div>
-            <hr>
-            <div class="col-md-6 editf2">
-              <p> <strong>Module Mappings</strong></p>
-              <table style="width=250px">
-                <tr>
-                  <td> SEP Module </td>
-                  <td> SEP Module credits </td>
-                  <td> NUS Module </td>
-                  <td> NUS Module MCs </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod1" id="mod1"> </td>
-                  <td> <input type="number" min="0" name="cred1"> </td>
-                  <td> <input type="text" name="nmod1"> </td>
-                  <td> <input type="number" min="0" name="mc1"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod2" id="mod2"> </td>
-                  <td> <input type="number" min="0" name="cred2"> </td>
-                  <td> <input type="text" name="nmod2"> </td>
-                  <td> <input type="number" min="0" name="mc2"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod3" id="mod3"> </td>
-                  <td> <input type="number" min="0" name="cred3"> </td>
-                  <td> <input type="text" name="nmod3"> </td>
-                  <td> <input type="number" min="0" name="mc3"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod4" id="mod4"> </td>
-                  <td> <input type="number" min="0" name="cred4"> </td>
-                  <td> <input type="text" name="nmod4"> </td>
-                  <td> <input type="number" min="0" name="mc4"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod5" id="mod5"> </td>
-                  <td> <input type="number" min="0" name="cred5"> </td>
-                  <td> <input type="text" name="nmod5"> </td>
-                  <td> <input type="number" min="0" name="mc5"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod6" id="mod6"> </td>
-                  <td> <input type="number" min="0" name="cred6"> </td>
-                  <td> <input type="text" name="nmod6"> </td>
-                  <td> <input type="number" min="0" name="mc6"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod7" id="mod7"> </td>
-                  <td> <input type="number" min="0" name="cred7"> </td>
-                  <td> <input type="text" name="nmod7"> </td>
-                  <td> <input type="number" min="0" name="mc7"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod8" id="mod8"> </td>
-                  <td> <input type="number" min="0" name="cred8"> </td>
-                  <td> <input type="text" name="nmod8"> </td>
-                  <td> <input type="number" min="0" name="mc8"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod9" id="mod9"> </td>
-                  <td> <input type="number" min="0" name="cred9"> </td>
-                  <td> <input type="text" name="nmod9"> </td>
-                  <td> <input type="number" min="0" name="mc9"> </td>
-                </tr>
-                <tr>
-                  <td> <input type="text" name="mod10" id="mod10"> </td>
-                  <td> <input type="number" min="0" name="cred10"> </td>
-                  <td> <input type="text" name="nmod10"> </td>
-                  <td> <input type="number" min="0" name="mc10"> </td>
-                </tr>
-              </table>
+          </div>
+          <div class="form-group">
+            <label for="life" class="col-sm-2 control-label">Student Life</label>
+            <div class="col-sm-10">
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="life" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="life" required value="5"> 5
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="academics" class="col-sm-2 control-label">Academics</label>
+            <div class="col-sm-10">
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="1"> 1
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="2"> 2
+              </label>
+              <label class="checkbox-inline">  
+                <input type="radio" name="academics" required value="3"> 3
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="4"> 4
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="academics" required value="5"> 5
+              </label>
             </div>
           </div>
           <hr>
-          <div class="row">
-            <div class="col-md-12 editf2">
-              <p><strong>Enter your review here:</strong></p>
-              <div><textarea id="reviewcontents" placeholder="Click to enter" name="reviewcontents" rows="10" required></textarea></div>
+          <label> Estimated Expenditure </label>
+          <hr>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Total</label>
+            <div class="col-sm-10">
+              <p class="form control-static"> S$ <span id="totalcost"></span>
+              </p>
             </div>
           </div>
-          <button type="submit" class="btn btn-default" name='school' value="{{query}}">Submit Review</button>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Accommodation </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="accomcost" min="0" id="accomcost"required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Food </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="foodcost" min="0" id="foodcost"required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Transport </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="transportcost" min="0" id="transportcost" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Academic needs </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="acadcost" min="0" id="acadcost"required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"> Others </label>
+            <div class="col-sm-10">
+              S$ <input type="number" name="othercost" min="0" id="othercost"required/>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="col-sm-12">
+          <label> Module Mappings </label>
+            <table class="table table-striped">
+              <tr>
+                <td> SEP Module Code</td>
+                <td> SEP Module credits </td>
+                <td> NUS Module Code</td>
+                <td> NUS Module MCs </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod1" id="mod1"> </td>
+                <td> <input type="number" min="0" name="cred1"> </td>
+                <td> <input type="text" name="nmod1"> </td>
+                <td> <input type="number" min="0" name="mc1"> </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod2" id="mod2"> </td>
+                <td> <input type="number" min="0" name="cred2"> </td>
+                <td> <input type="text" name="nmod2"> </td>
+                <td> <input type="number" min="0" name="mc2"> </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod3" id="mod3"> </td>
+                <td> <input type="number" min="0" name="cred3"> </td>
+                <td> <input type="text" name="nmod3"> </td>
+                <td> <input type="number" min="0" name="mc3"> </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod4" id="mod4"> </td>
+                <td> <input type="number" min="0" name="cred4"> </td>
+                <td> <input type="text" name="nmod4"> </td>
+                <td> <input type="number" min="0" name="mc4"> </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod5" id="mod5"> </td>
+                <td> <input type="number" min="0" name="cred5"> </td>
+                <td> <input type="text" name="nmod5"> </td>
+                <td> <input type="number" min="0" name="mc5"> </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod6" id="mod6"> </td>
+                <td> <input type="number" min="0" name="cred6"> </td>
+                <td> <input type="text" name="nmod6"> </td>
+                <td> <input type="number" min="0" name="mc6"> </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod7" id="mod7"> </td>
+                <td> <input type="number" min="0" name="cred7"> </td>
+                <td> <input type="text" name="nmod7"> </td>
+                <td> <input type="number" min="0" name="mc7"> </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod8" id="mod8"> </td>
+                <td> <input type="number" min="0" name="cred8"> </td>
+                <td> <input type="text" name="nmod8"> </td>
+                <td> <input type="number" min="0" name="mc8"> </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod9" id="mod9"> </td>
+                <td> <input type="number" min="0" name="cred9"> </td>
+                <td> <input type="text" name="nmod9"> </td>
+                <td> <input type="number" min="0" name="mc9"> </td>
+              </tr>
+              <tr>
+                <td> <input type="text" name="mod10" id="mod10"> </td>
+                <td> <input type="number" min="0" name="cred10"> </td>
+                <td> <input type="text" name="nmod10"> </td>
+                <td> <input type="number" min="0" name="mc10"> </td>
+              </tr>
+            </table>
+          </div>
+          <hr>
+          <div>
+            <div class="col-sm-12">
+              <label>Enter your review here:</label>
+            </div>
+            <div class="col-sm-12">
+              <textarea class="form-control" id="reviewcontents" placeholder="Click to enter" name="reviewcontents" rows="10" required></textarea>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-default" name='school' value="{{query}}">Submit Review</button>
+          </div>
         </form>
 
       <!-- Site footer -->
