@@ -420,6 +420,19 @@ $(document).ready(function(){
                 integer: "Pls enter an integer value.",
                 min: "Pls enter an integer greater than or equal to 0."
             }
+        },
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        }, 
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorPlacement: function(error, element) {
+            if (element.attr("name")=="faculty") {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
         }
     });
 });
