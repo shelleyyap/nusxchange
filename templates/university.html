@@ -151,7 +151,15 @@
                   <div class="col-md-12">
                     <div class="reviewBox">
                       <h4> {{review.author}} </h4> 
-                      <h5 style="margin-top:20px">Major in {{review.major}}</h5>
+                      <h5 style="margin-top:20px">Major in {{review.major}}
+                        {% if review.spec_prog != 'NIL' %} 
+                          {% if review.spec_fac == 'USP' %}
+                            , USP
+                          {% else %} 
+                            , {{ review.spec_prog }} {{ review.spec_maj }} 
+                          {% endif %}
+                        {% endif %} 
+                      </h5>
                       <h5> Exchange in {{review.year}}, Semester {{review.semester}} </h5>
                     </div>
                     <div class="row">

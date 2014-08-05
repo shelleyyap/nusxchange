@@ -217,6 +217,9 @@ class Review(ndb.Model):
   faculty = ndb.StringProperty()
   semester = ndb.StringProperty()
   major = ndb.StringProperty()
+  spec_prog = ndb.StringProperty()
+  spec_fac = ndb.StringProperty()
+  spec_maj = ndb.StringProperty()
 
   overall_rating = ndb.IntegerProperty()
   cost_rating = ndb.IntegerProperty()
@@ -439,6 +442,9 @@ class SubmittedReview(webapp2.RequestHandler):
     review.author = users.get_current_user()
     review.major = self.request.get('major')
     review.faculty = self.request.get('faculty') 
+    review.spec_prog = self.request.get('specprog')
+    review.spec_fac = self.request.get('faculty2')
+    review.spec_maj = self.request.get('major2')
     review.year = self.request.get('year')
     review.semester = self.request.get('semester')
 
@@ -1186,6 +1192,9 @@ class EditReview(webapp2.RequestHandler):
     review = review_key.get()
     review.major = self.request.get('major')
     review.faculty = self.request.get('faculty') 
+    review.spec_prog = self.request.get('specprog')
+    review.spec_fac = self.request.get('faculty2')
+    review.spec_maj = self.request.get('major2')
     review.year = self.request.get('year')
     review.semester = self.request.get('semester')
 

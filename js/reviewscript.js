@@ -49,6 +49,13 @@ $(document).ready(function(){
 			$("select#maj2 option").remove();
 			$("select#maj2").append("<option value='NIL'> NIL </option>");
 			$("select#maj2").val("NIL");
+        } else if ($("select#specprog option:selected").val() == "USP") {
+            $("select#fac2 option").remove();
+            $("select#fac2").append("<option value='USP'> USP </option>");
+            $("select#fac2").val("USP");
+            $("select#maj2 option").remove();
+            $("select#maj2").append("<option value='USP'> USP </option>");
+            $("select#maj2").val("USP");
 		} else if ($("select#specprog option:selected").val() !== "") {
 			$("select#maj2 option").remove();
 			$("select#maj2").append("<option value=> Select Major/Minor </option>");
