@@ -59,20 +59,170 @@
             {% if review.faculty == "FoS" %}       
             <select class="form-control" name="faculty" class="fac" id="fac" required>
               <option value=> Select Faculty </option>
-              <option selected="selected" value="FoS"> Faculty of Science </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
               <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS" selected> Faculty of Science </option>
             </select>
             {% elif review.faculty=="SoC" %}
             <select class="form-control" name="faculty" class="fac" id="fac" required>
               <option value=> Select Faculty </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
+              <option value="SoC" selected> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
               <option value="FoS"> Faculty of Science </option>
-              <option selected="selected" value="SoC"> School of Computing </option>
+            </select>
+            {% elif review.faculty=="FASS" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FASS" selected> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
+              <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
+            </select>
+            {% elif review.faculty=="Biz" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz" selected> Business School </option>
+              <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
+            </select>
+            {% elif review.faculty=="FoD" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
+              <option value="SoC"> School of Computing </option>
+              <option value="FoD" selected> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
+            </select>
+            {% elif review.faculty=="SDE" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
+              <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE" selected> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
+            </select>
+            {% elif review.faculty=="FoE" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
+              <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE" selected> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
+            </select>
+            {% elif review.faculty=="Law" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
+              <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law" selected> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
+            </select>
+            {% elif review.faculty=="Law" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
+              <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law" selected> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
+            </select>
+            {% elif review.faculty=="Med" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
+              <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med" selected> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
+            </select>
+            {% elif review.faculty=="YSTCM" %}
+            <select class="form-control" name="faculty" class="fac" id="fac" required>
+              <option value=> Select Faculty </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
+              <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM" selected> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
             </select>
             {% else %}
             <select class="form-control" name="faculty" class="fac" id="fac" required>
               <option value=> Select Faculty </option>
-              <option value="FoS"> Faculty of Science </option>
+              <option value="FASS"> Faculty of Arts and Social Sciences </option>
+              <option value="Biz"> Business School </option>
               <option value="SoC"> School of Computing </option>
+              <option value="FoD"> Faculty of Dentistry </option>
+              <option value="SDE"> School of Design and Environment</option>
+              <option value="FoE"> Faculty of Engineering </option>
+              <option value="Law"> Faculty of Law </option>
+              <option value="Med"> Yong Loo Lin School of Medicine </option>
+              <option value="YSTCM"> Yong Siew Toh Conservatory of Music </option>
+              <option value="FoS"> Faculty of Science </option>
             </select>
             {% endif %}
           </div>
@@ -104,172 +254,779 @@
               <option value='Mathematics'> Mathematics </option>
               <option value='Pharmacy'> Pharmacy </option>
               <option value='Physics'> Physics </option>
-              <option value='Quantitative Finance'> Quantitative F /option>
-                <option value='Statistics'> Statistics </option>
-              </select>
-              {% elif review.major=='Computational Biology' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Applied Mathematics'> Applied Mathematics </option>
-                <option value='Chemistry'> Chemistry </option>
-                <option value='Computational Biology' selected> Computational Biology </option>
-                <option value='Food Science and Technology'> Food Science and Technology</option>
-                <option value='Life Sciences'> Life Sciences </option>
-                <option value='Mathematics'> Mathematics </option>
-                <option value='Pharmacy'> Pharmacy </option>
-                <option value='Physics'> Physics </option>
-                <option value='Quantitative Finance'> Quantitative Finance</option>
-                <option value='Statistics'> Statistics </option>
-              </select>
-              {% elif review.major=='Food Science and Technology' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Applied Mathematics'> Applied Mathematics </option>
-                <option value='Chemistry'> Chemistry </option>
-                <option value='Computational Biology'> Computational Biology </option>
-                <option value='Food Science and Technology' selected> Food Science and Technology</option>
-                <option value='Life Sciences'> Life Sciences </option>
-                <option value='Mathematics'> Mathematics </option>
-                <option value='Pharmacy'> Pharmacy </option>
-                <option value='Physics'> Physics </option>
-                <option value='Quantitative Finance'> Quantitative Finance</option>
-                <option value='Statistics'> Statistics </option>
-              </select>
-              {% elif review.major=='Life Sciences' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Applied Mathematics'> Applied Mathematics </option>
-                <option value='Chemistry'> Chemistry </option>
-                <option value='Computational Biology'> Computational Biology </option>
-                <option value='Food Science and Technology'> Food Science and Technology</option>
-                <option value='Life Sciences' selected> Life Sciences </option>
-                <option value='Mathematics'> Mathematics </option>
-                <option value='Pharmacy'> Pharmacy </option>
-                <option value='Physics'> Physics </option>
-                <option value='Quantitative Finance'> Quantitative Finance</option>
-                <option value='Statistics'> Statistics </option>
-              </select>
-              {% elif review.major=='Mathematics' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Applied Mathematics'> Applied Mathematics </option>
-                <option value='Chemistry'> Chemistry </option>
-                <option value='Computational Biology'> Computational Biology </option>
-                <option value='Food Science and Technology'> Food Science and Technology</option>
-                <option value='Life Sciences'> Life Sciences </option>
-                <option value='Mathematics' selected> Mathematics </option>
-                <option value='Pharmacy'> Pharmacy </option>
-                <option value='Physics'> Physics </option>
-                <option value='Quantitative Finance'> Quantitative Finance</option>
-                <option value='Statistics'> Statistics </option>
-              </select>
-              {% elif review.major=='Pharmacy' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Applied Mathematics'> Applied Mathematics </option>
-                <option value='Chemistry'> Chemistry </option>
-                <option value='Computational Biology'> Computational Biology </option>
-                <option value='Food Science and Technology'> Food Science and Technology</option>
-                <option value='Life Sciences'> Life Sciences </option>
-                <option value='Mathematics'> Mathematics </option>
-                <option value='Pharmacy' selected> Pharmacy </option>
-                <option value='Physics'> Physics </option>
-                <option value='Quantitative Finance'> Quantitative Finance</option>
-                <option value='Statistics'> Statistics </option>
-              </select>
-              {% elif review.major=='Physics' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Applied Mathematics'> Applied Mathematics </option>
-                <option value='Chemistry'> Chemistry </option>
-                <option value='Computational Biology'> Computational Biology </option>
-                <option value='Food Science and Technology'> Food Science and Technology</option>
-                <option value='Life Sciences'> Life Sciences </option>
-                <option value='Mathematics'> Mathematics </option>
-                <option value='Pharmacy'> Pharmacy </option>
-                <option value='Physics' selected> Physics </option>
-                <option value='Quantitative Finance'> Quantitative Finance</option>
-                <option value='Statistics'> Statistics </option>
-              </select>
-              {% elif review.major=='Quantitative Finance' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Applied Mathematics'> Applied Mathematics </option>
-                <option value='Chemistry'> Chemistry </option>
-                <option value='Computational Biology'> Computational Biology </option>
-                <option value='Food Science and Technology'> Food Science and Technology</option>
-                <option value='Life Sciences'> Life Sciences </option>
-                <option value='Mathematics'> Mathematics </option>
-                <option value='Pharmacy'> Pharmacy </option>
-                <option value='Physics'> Physics </option>
-                <option value='Quantitative Finance' selected> Quantitative Finance</option>
-                <option value='Statistics'> Statistics </option>
-              </select>
-              {% elif review.major=='Statistics' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Applied Mathematics'> Applied Mathematics </option>
-                <option value='Chemistry'> Chemistry </option>
-                <option value='Computational Biology'> Computational Biology </option>
-                <option value='Food Science and Technology'> Food Science and Technology</option>
-                <option value='Life Sciences'> Life Sciences </option>
-                <option value='Mathematics'> Mathematics </option>
-                <option value='Pharmacy'> Pharmacy </option>
-                <option value='Physics'> Physics </option>
-                <option value='Quantitative Finance'> Quantitative Finance</option>
-                <option value='Statistics' selected> Statistics </option>
-              </select>
-              {% elif review.major=='Business Analytics' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Business Analytics' selected> Business Analytics </option>
-                <option value='Computational Biology'> Computational Biology</option>
-                <option value='Computer Engineering'> Computer Engineering</option>
-                <option value='Computer Science'> Computer Science </option>
-                <option value='Electronic Commerce'> Electronic Commerce </option>
-                <option value='Information Systems'> Information Systems </option>
-              </select>
-              {% elif review.major=='Computational Biology' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Business Analytics'> Business Analytics </option>
-                <option value='Computational Biology' selected> Computational Biology</option>
-                <option value='Computer Engineering'> Computer Engineering</option>
-                <option value='Computer Science'> Computer Science </option>
-                <option value='Electronic Commerce'> Electronic Commerce </option>
-                <option value='Information Systems'> Information Systems </option>
-              </select>
-              {% elif review.major=='Computer Engineering' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Business Analytics'> Business Analytics </option>
-                <option value='Computational Biology'> Computational Biology</option>
-                <option value='Computer Engineering' selected> Computer Engineering</option>
-                <option value='Computer Science'> Computer Science </option>
-                <option value='Electronic Commerce'> Electronic Commerce </option>
-                <option value='Information Systems'> Information Systems </option>
-              </select>
-              {% elif review.major=='Computer Science' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Business Analytics'> Business Analytics </option>
-                <option value='Computational Biology'> Computational Biology</option>
-                <option value='Computer Engineering'> Computer Engineering</option>
-                <option value='Computer Science' selected> Computer Science </option>
-                <option value='Electronic Commerce'> Electronic Commerce </option>
-                <option value='Information Systems'> Information Systems </option>
-              </select>
-              {% elif review.major=='Electronic Commerce' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Business Analytics'> Business Analytics </option>
-                <option value='Computational Biology'> Computational Biology</option>
-                <option value='Computer Engineering'> Computer Engineering</option>
-                <option value='Computer Science'> Computer Science </option>
-                <option value='Electronic Commerce' selected> Electronic Commerce </option>
-                <option value='Information Systems'> Information Systems </option>
-              </select>
-              {% elif review.major=='Information Systems' %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value='Business Analytics'> Business Analytics </option>
-                <option value='Computational Biology'> Computational Biology</option>
-                <option value='Computer Engineering'> Computer Engineering</option>
-                <option value='Computer Science'> Computer Science </option>
-                <option value='Electronic Commerce'> Electronic Commerce </option>
-                <option value='Information Systems' selected> Information Systems </option>
-              </select>
-              {% else %}
-              <select class="form-control" name="major" id="maj" required>
-                <option value=''> Select Major </option>
-              </select>
-              {% endif %}
+              <option value='Quantitative Finance'> Quantitative Finance </option>
+              <option value='Statistics'> Statistics </option>
+            </select>
+            {% elif review.major=='Computational Biology' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics'> Applied Mathematics </option>
+              <option value='Chemistry'> Chemistry </option>
+              <option value='Computational Biology' selected> Computational Biology </option>
+              <option value='Food Science and Technology'> Food Science and Technology</option>
+              <option value='Life Sciences'> Life Sciences </option>
+              <option value='Mathematics'> Mathematics </option>
+              <option value='Pharmacy'> Pharmacy </option>
+              <option value='Physics'> Physics </option>
+              <option value='Quantitative Finance'> Quantitative Finance</option>
+              <option value='Statistics'> Statistics </option>
+            </select>
+            {% elif review.major=='Food Science and Technology' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics'> Applied Mathematics </option>
+              <option value='Chemistry'> Chemistry </option>
+              <option value='Computational Biology'> Computational Biology </option>
+              <option value='Food Science and Technology' selected> Food Science and Technology</option>
+              <option value='Life Sciences'> Life Sciences </option>
+              <option value='Mathematics'> Mathematics </option>
+              <option value='Pharmacy'> Pharmacy </option>
+              <option value='Physics'> Physics </option>
+              <option value='Quantitative Finance'> Quantitative Finance</option>
+              <option value='Statistics'> Statistics </option>
+            </select>
+            {% elif review.major=='Life Sciences' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics'> Applied Mathematics </option>
+              <option value='Chemistry'> Chemistry </option>
+              <option value='Computational Biology'> Computational Biology </option>
+              <option value='Food Science and Technology'> Food Science and Technology</option>
+              <option value='Life Sciences' selected> Life Sciences </option>
+              <option value='Mathematics'> Mathematics </option>
+              <option value='Pharmacy'> Pharmacy </option>
+              <option value='Physics'> Physics </option>
+              <option value='Quantitative Finance'> Quantitative Finance</option>
+              <option value='Statistics'> Statistics </option>
+            </select>
+            {% elif review.major=='Mathematics' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics'> Applied Mathematics </option>
+              <option value='Chemistry'> Chemistry </option>
+              <option value='Computational Biology'> Computational Biology </option>
+              <option value='Food Science and Technology'> Food Science and Technology</option>
+              <option value='Life Sciences'> Life Sciences </option>
+              <option value='Mathematics' selected> Mathematics </option>
+              <option value='Pharmacy'> Pharmacy </option>
+              <option value='Physics'> Physics </option>
+              <option value='Quantitative Finance'> Quantitative Finance</option>
+              <option value='Statistics'> Statistics </option>
+            </select>
+            {% elif review.major=='Pharmacy' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics'> Applied Mathematics </option>
+              <option value='Chemistry'> Chemistry </option>
+              <option value='Computational Biology'> Computational Biology </option>
+              <option value='Food Science and Technology'> Food Science and Technology</option>
+              <option value='Life Sciences'> Life Sciences </option>
+              <option value='Mathematics'> Mathematics </option>
+              <option value='Pharmacy' selected> Pharmacy </option>
+              <option value='Physics'> Physics </option>
+              <option value='Quantitative Finance'> Quantitative Finance</option>
+              <option value='Statistics'> Statistics </option>
+            </select>
+            {% elif review.major=='Physics' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics'> Applied Mathematics </option>
+              <option value='Chemistry'> Chemistry </option>
+              <option value='Computational Biology'> Computational Biology </option>
+              <option value='Food Science and Technology'> Food Science and Technology</option>
+              <option value='Life Sciences'> Life Sciences </option>
+              <option value='Mathematics'> Mathematics </option>
+              <option value='Pharmacy'> Pharmacy </option>
+              <option value='Physics' selected> Physics </option>
+              <option value='Quantitative Finance'> Quantitative Finance</option>
+              <option value='Statistics'> Statistics </option>
+            </select>
+            {% elif review.major=='Quantitative Finance' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics'> Applied Mathematics </option>
+              <option value='Chemistry'> Chemistry </option>
+              <option value='Computational Biology'> Computational Biology </option>
+              <option value='Food Science and Technology'> Food Science and Technology</option>
+              <option value='Life Sciences'> Life Sciences </option>
+              <option value='Mathematics'> Mathematics </option>
+              <option value='Pharmacy'> Pharmacy </option>
+              <option value='Physics'> Physics </option>
+              <option value='Quantitative Finance' selected> Quantitative Finance</option>
+              <option value='Statistics'> Statistics </option>
+            </select>
+            {% elif review.major=='Statistics' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Applied Mathematics'> Applied Mathematics </option>
+              <option value='Chemistry'> Chemistry </option>
+              <option value='Computational Biology'> Computational Biology </option>
+              <option value='Food Science and Technology'> Food Science and Technology</option>
+              <option value='Life Sciences'> Life Sciences </option>
+              <option value='Mathematics'> Mathematics </option>
+              <option value='Pharmacy'> Pharmacy </option>
+              <option value='Physics'> Physics </option>
+              <option value='Quantitative Finance'> Quantitative Finance</option>
+              <option value='Statistics' selected> Statistics </option>
+            </select>
+            {% elif review.major=='Business Analytics' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Business Analytics' selected> Business Analytics </option>
+              <option value='Computational Biology'> Computational Biology</option>
+              <option value='Computer Engineering'> Computer Engineering</option>
+              <option value='Computer Science'> Computer Science </option>
+              <option value='Electronic Commerce'> Electronic Commerce </option>
+              <option value='Information Systems'> Information Systems </option>
+            </select>
+            {% elif review.major=='Computational Biology' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Business Analytics'> Business Analytics </option>
+              <option value='Computational Biology' selected> Computational Biology</option>
+              <option value='Computer Engineering'> Computer Engineering</option>
+              <option value='Computer Science'> Computer Science </option>
+              <option value='Electronic Commerce'> Electronic Commerce </option>
+              <option value='Information Systems'> Information Systems </option>
+            </select>
+            {% elif review.major=='Computer Engineering' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Business Analytics'> Business Analytics </option>
+              <option value='Computational Biology'> Computational Biology</option>
+              <option value='Computer Engineering' selected> Computer Engineering</option>
+              <option value='Computer Science'> Computer Science </option>
+              <option value='Electronic Commerce'> Electronic Commerce </option>
+              <option value='Information Systems'> Information Systems </option>
+            </select>
+            {% elif review.major=='Computer Science' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Business Analytics'> Business Analytics </option>
+              <option value='Computational Biology'> Computational Biology</option>
+              <option value='Computer Engineering'> Computer Engineering</option>
+              <option value='Computer Science' selected> Computer Science </option>
+              <option value='Electronic Commerce'> Electronic Commerce </option>
+              <option value='Information Systems'> Information Systems </option>
+            </select>
+            {% elif review.major=='Electronic Commerce' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Business Analytics'> Business Analytics </option>
+              <option value='Computational Biology'> Computational Biology</option>
+              <option value='Computer Engineering'> Computer Engineering</option>
+              <option value='Computer Science'> Computer Science </option>
+              <option value='Electronic Commerce' selected> Electronic Commerce </option>
+              <option value='Information Systems'> Information Systems </option>
+            </select>
+            {% elif review.major=='Information Systems' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Business Analytics'> Business Analytics </option>
+              <option value='Computational Biology'> Computational Biology</option>
+              <option value='Computer Engineering'> Computer Engineering</option>
+              <option value='Computer Science'> Computer Science </option>
+              <option value='Electronic Commerce'> Electronic Commerce </option>
+              <option value='Information Systems' selected> Information Systems </option>
+            </select>
+            {% elif review.major=='Chinese Language' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language' selected> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Chinese Studies' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies' selected> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Communications and New Media' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media' selected> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Economics' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics' selected> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='English Language' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language' selected> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='English Literature' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature' selected> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='European Studies' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies' selected> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Geography' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography' selected> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='History' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History' selected> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Japanese Studies' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies' selected> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Malay Studies' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies' selected> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Philosophy' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy' selected> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Political Science' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science' selected> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Psychology' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology' selected> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Social Work' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work' selected> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Sociology' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology' selected> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='South Asian Studies' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies' selected> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Southeast Asian Studies' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies' selected> Southeast Asian Studies </option>;
+              <option value='Theatre Studies'> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Theatre Studies' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>;
+              <option value='Chinese Language'> Chinese Language </option>;
+              <option value='Chinese Studies'> Chinese Studies </option>;
+              <option value='Communications and New Media'> Communications and New Media </option>;
+              <option value='Economics'> Economics </option>;
+              <option value='English Language'> English Language </option>;
+              <option value='English Literature'> English Literature </option>;
+              <option value='European Studies'> European Studies </option>;
+              <option value='Geography'> Geography </option>;
+              <option value='History'> History </option>;
+              <option value='Japanese Studies'> Japanese Studies </option>;
+              <option value='Malay Studies'> Malay Studies </option>;
+              <option value='Philosophy'> Philosophy </option>;
+              <option value='Political Science'> Political Science </option>;
+              <option value='Psychology'> Psychology </option>;
+              <option value='Social Work'> Social Work </option>;
+              <option value='Sociology'> Sociology </option>;
+              <option value='South Asian Studies'> South Asian Studies </option>;
+              <option value='Southeast Asian Studies'> Southeast Asian Studies </option>;
+              <option value='Theatre Studies' selected> Theatre Studies </option>;
+            </select>
+            {% elif review.major=='Business Administration' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Business Administration' selected> Business Administration </option>            
+              <option value='Business Administration (Accountancy)'> Business Administration (Accountancy) </option>
+            </select>
+            {% elif review.major=='Business Administration (Accountancy)' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Business Administration'> Business Administration </option>            
+              <option value='Business Administration (Accountancy)' selected> Business Administration (Accountancy) </option>
+            </select>
+            {% elif review.major=='Dentistry' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Dentistry' selected> Dentistry </option>
+            </select>
+            {% elif review.major=='Architecture' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Architecture' selected> Architecture </option>
+              <option value='Industrial Design'> Industrial Design </option>
+              <option value='Project and Facilities Management'> Project and Facilities Management </option>
+              <option value='Real Estate'> Real Estate </option>
+            </select>
+            {% elif review.major=='Industrial Design' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Architecture'> Architecture </option>
+              <option value='Industrial Design' selected> Industrial Design </option>
+              <option value='Project and Facilities Management'> Project and Facilities Management </option>
+              <option value='Real Estate'> Real Estate </option>
+            </select>
+            {% elif review.major=='Project and Facilities Management' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Architecture'> Architecture </option>
+              <option value='Industrial Design'> Industrial Design </option>
+              <option value='Project and Facilities Management' selected> Project and Facilities Management </option>
+              <option value='Real Estate'> Real Estate </option>
+            </select>
+            {% elif review.major=='Real Estate' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Architecture'> Architecture </option>
+              <option value='Industrial Design'> Industrial Design </option>
+              <option value='Project and Facilities Management'> Project and Facilities Management </option>
+              <option value='Real Estate' selected> Real Estate </option>
+            </select>
+            {% elif review.major=='Biomedical Engineering' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Biomedical Engineering' selected> Biomedical Engineering </option>
+              <option value='Chemical & Biomolecular Engineering'> Chemical & Biomolecular Engineering </option>
+              <option value='Civil & Environmental Engineering'> Civil & Environmental Engineering </option>
+              <option value='Electrical & Computer Engineering'> Electrical & Computer Engineering </option>
+              <option value='Engineering & Technology Management'> Engineering & Technology Management </option>
+              <option value='Industrial & Systems Engineering'> Industrial & Systems Engineering </option>
+              <option value='Materials Science & Engineering'> Materials Science & Engineering </option>
+              <option value='Mechanical Engineering'> Mechanical Engineering </option>
+            </select>
+            {% elif review.major=='Chemical & Biomolecular Engineering' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Biomedical Engineering'> Biomedical Engineering </option>
+              <option value='Chemical & Biomolecular Engineering' selected> Chemical & Biomolecular Engineering </option>
+              <option value='Civil & Environmental Engineering'> Civil & Environmental Engineering </option>
+              <option value='Electrical & Computer Engineering'> Electrical & Computer Engineering </option>
+              <option value='Engineering & Technology Management'> Engineering & Technology Management </option>
+              <option value='Industrial & Systems Engineering'> Industrial & Systems Engineering </option>
+              <option value='Materials Science & Engineering'> Materials Science & Engineering </option>
+              <option value='Mechanical Engineering'> Mechanical Engineering </option>
+            </select>
+            {% elif review.major=='Civil & Environmental Engineering' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Biomedical Engineering'> Biomedical Engineering </option>
+              <option value='Chemical & Biomolecular Engineering'> Chemical & Biomolecular Engineering </option>
+              <option value='Civil & Environmental Engineering' selected> Civil & Environmental Engineering </option>
+              <option value='Electrical & Computer Engineering'> Electrical & Computer Engineering </option>
+              <option value='Engineering & Technology Management'> Engineering & Technology Management </option>
+              <option value='Industrial & Systems Engineering'> Industrial & Systems Engineering </option>
+              <option value='Materials Science & Engineering'> Materials Science & Engineering </option>
+              <option value='Mechanical Engineering'> Mechanical Engineering </option>
+            </select>
+            {% elif review.major=='Electrical & Computer Engineering' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Biomedical Engineering'> Biomedical Engineering </option>
+              <option value='Chemical & Biomolecular Engineering'> Chemical & Biomolecular Engineering </option>
+              <option value='Civil & Environmental Engineering'> Civil & Environmental Engineering </option>
+              <option value='Electrical & Computer Engineering' selected> Electrical & Computer Engineering </option>
+              <option value='Engineering & Technology Management'> Engineering & Technology Management </option>
+              <option value='Industrial & Systems Engineering'> Industrial & Systems Engineering </option>
+              <option value='Materials Science & Engineering'> Materials Science & Engineering </option>
+              <option value='Mechanical Engineering'> Mechanical Engineering </option>
+            </select>
+            {% elif review.major=='Engineering & Technology Management' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Biomedical Engineering'> Biomedical Engineering </option>
+              <option value='Chemical & Biomolecular Engineering'> Chemical & Biomolecular Engineering </option>
+              <option value='Civil & Environmental Engineering'> Civil & Environmental Engineering </option>
+              <option value='Electrical & Computer Engineering'> Electrical & Computer Engineering </option>
+              <option value='Engineering & Technology Management' selected> Engineering & Technology Management </option>
+              <option value='Industrial & Systems Engineering'> Industrial & Systems Engineering </option>
+              <option value='Materials Science & Engineering'> Materials Science & Engineering </option>
+              <option value='Mechanical Engineering'> Mechanical Engineering </option>
+            </select>
+            {% elif review.major=='Industrial & Systems Engineering' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Biomedical Engineering'> Biomedical Engineering </option>
+              <option value='Chemical & Biomolecular Engineering'> Chemical & Biomolecular Engineering </option>
+              <option value='Civil & Environmental Engineering'> Civil & Environmental Engineering </option>
+              <option value='Electrical & Computer Engineering'> Electrical & Computer Engineering </option>
+              <option value='Engineering & Technology Management'> Engineering & Technology Management </option>
+              <option value='Industrial & Systems Engineering' selected> Industrial & Systems Engineering </option>
+              <option value='Materials Science & Engineering'> Materials Science & Engineering </option>
+              <option value='Mechanical Engineering'> Mechanical Engineering </option>
+            </select>
+            {% elif review.major=='Materials Science & Engineering' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Biomedical Engineering'> Biomedical Engineering </option>
+              <option value='Chemical & Biomolecular Engineering'> Chemical & Biomolecular Engineering </option>
+              <option value='Civil & Environmental Engineering'> Civil & Environmental Engineering </option>
+              <option value='Electrical & Computer Engineering'> Electrical & Computer Engineering </option>
+              <option value='Engineering & Technology Management'> Engineering & Technology Management </option>
+              <option value='Industrial & Systems Engineering'> Industrial & Systems Engineering </option>
+              <option value='Materials Science & Engineering' selected> Materials Science & Engineering </option>
+              <option value='Mechanical Engineering'> Mechanical Engineering </option>
+            </select>
+            {% elif review.major=='Mechanical Engineering' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Biomedical Engineering'> Biomedical Engineering </option>
+              <option value='Chemical & Biomolecular Engineering'> Chemical & Biomolecular Engineering </option>
+              <option value='Civil & Environmental Engineering'> Civil & Environmental Engineering </option>
+              <option value='Electrical & Computer Engineering'> Electrical & Computer Engineering </option>
+              <option value='Engineering & Technology Management'> Engineering & Technology Management </option>
+              <option value='Industrial & Systems Engineering'> Industrial & Systems Engineering </option>
+              <option value='Materials Science & Engineering'> Materials Science & Engineering </option>
+              <option value='Mechanical Engineering' selected> Mechanical Engineering </option>
+            </select>
+            {% elif review.major=='Law' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value='Law' selected> Law </option>
+            </select>
+            {% elif review.major=='Medicine' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Medicine' selected> Medicine </option>
+              <option value='Nursing'> Nursing </option>
+            </select>
+            {% elif review.major=='Nursing' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Medicine'> Medicine </option>
+              <option value='Nursing' selected> Nursing </option>
+            </select>
+            {% elif review.major=='Performance' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Performance' selected> Performance </option>
+              <option value='Composition'> Composition </option>
+            </select>
+            {% elif review.major=='Composition' %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=> Select Major </option>
+              <option value='Performance'> Performance </option>
+              <option value='Composition' selected> Composition </option>
+            </select>
+            {% else %}
+            <select class="form-control" name="major" id="maj" required>
+              <option value=''> Select Major </option>
+            </select>
+            {% endif %}
             </div>
           </div>
 
