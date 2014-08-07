@@ -1,5 +1,19 @@
 $(document).ready(function() {
     CKEDITOR.replace('abtschool');
+
+    $('#select_all').click(function(event) {
+        if(this.checked) {
+      // Iterate each checkbox
+            $(':checkbox').each(function() {
+                this.checked = true;
+            });
+        } else {
+            $(':checkbox').each(function() {
+                this.checked = false;
+            });
+        }
+    });
+
     jQuery.validator.addMethod("lettersandspace", function(value, element) {
         return this.optional(element) || /^[a-z," "]+$/i.test(value);
     }, "Letters and spaces only please"); 
