@@ -22,6 +22,10 @@ $(document).ready(function() {
         return this.optional(element) || /^[a-z]+$/i.test(value);
     }, "Letters only please. No spaces, symbols and digits allowed.");
 
+    jQuery.validator.addMethod("lettersnumspace", function(value, element) {
+        return this.optional(element) || /^[a-z0-9\:\;," "]+$/i.test(value);
+    }, "Letters, numbers, colons, semicolons and spaces only please.");
+
 	$("#univform").validate({
         rules: {
         	name: {
@@ -36,8 +40,12 @@ $(document).ready(function() {
                 lettersandspace: true
         	},
         	calendar: {
-        		required: true
+        		required: true,
+                lettersnumspace: true
         	},
+            exchange_type: {
+                lettersnumspace: true
+            },
             modules: {
                 required: true,
                 url: true
